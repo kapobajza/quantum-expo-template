@@ -35,7 +35,7 @@ This template contains a lot of prebuilt stuff, including:
 
 ## Git rules and hooks
 
-We recommend using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages. You should also consider it, since the commit messages are validated by the [commitlint](https://commitlint.js.org/) tool.
+Using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages is recommended. You should also consider it, since the commit messages can be validated by the [commitlint](https://commitlint.js.org/) tool.
 
 To enable commitlint to run on every commit, you can run
 
@@ -57,7 +57,7 @@ And to enable it for everyone else on the team, you can add the following to you
 
 Before running the app, there are some recommendations which you could follow to ensure a smooth development experience:
 
-- Use a pinned Node version. `v23.11.0` is the one I would recommend. Using [Node Version Manager](https://github.com/nvm-sh/nvm) is highly recommended. If you'd like to do so, then install `nvm`. After that add a `.nvmrc` file to the root directory with the Node version you would like to use. Recommend other team members to install `nvm` also and run `nvm use` to switch to the correct Node version. **NOTE**: `nvmrc` is also being used in the CI, so if you don't add a `.nvmrc` file, update the [code_checks.yml](.github/workflows/code_checks.yaml) file to update the Node version. Otherwise, the CI will fail.
+- Use a pinned Node version. `v23.11.0` is the one I would recommend. Using [Node Version Manager](https://github.com/nvm-sh/nvm) is highly recommended. If you'd like to do so, then install `nvm`. After that add a `.nvmrc` file to the root directory with the Node version you would like to use. Recommend other team members to install `nvm` also and run `nvm use` to switch to the correct Node version. **NOTE**: `nvmrc` is also being used in the CI, so if you don't add a `.nvmrc` file, update the [code_checks.yml](.github/workflows/code_checks.yaml) file to and set your desired Node version. Otherwise, the CI will fail.
 - pnpm v10.12.4 - you can run `corepack enable` and it will be installed automatically.
 - For some reason the `.prettierrc.js` file is missing after the app is installed. So you will have to add it manually. Add a `.prettierrc.js` file to the root of the repo, with the following content:
 
