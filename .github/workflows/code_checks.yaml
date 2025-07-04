@@ -1,0 +1,82 @@
+name: Code checks (lint, tests, tsc, etc.)
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  install_dependencies:
+    name: Install dependencies so they can be cached
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Setup node env
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        uses: ./.github/actions/dependencies_install
+
+  lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+    needs: install_dependencies
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Setup node env
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Get dependencies from cache
+        uses: ./.github/actions/dependencies_install
+
+      - name: Run ESLint
+        run: pnpm run lint
+
+  tsc:
+    name: Run TSC
+    runs-on: ubuntu-latest
+    needs: install_dependencies
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Setup node env
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Get dependencies from cache
+        uses: ./.github/actions/dependencies_install
+
+      - name: Run TSC
+        run: |
+          npx expo customize tsconfig.json
+          pnpm run typecheck
+
+  test:
+    name: Run tests
+    needs: install_dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Setup node env
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Get dependencies from cache
+        uses: ./.github/actions/dependencies_install
+
+      - name: Run tests
+        run: pnpm run test
