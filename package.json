@@ -17,8 +17,7 @@
     "migrate": "drizzle-kit generate",
     "generate_translation_types": "nodemon --watch src/locale/resources --watch translation-schema.json --ext json scripts/generate_translation_types.js",
     "generate_svg_icons": "nodemon --watch assets/icons --watch svgr.config.js --ext svg --exec \"npx @svgr/cli assets/icons\"",
-    "commit": "commit",
-    "postinstall": "npx lefthook install"
+    "commit": "commit"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "7.3.10",
