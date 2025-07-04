@@ -94,4 +94,3 @@ The theme object has several tokens (besides the colors) that can be helpful in 
 - `fontSize`: Font size tokens for text
 - `fontWeight`: Font weight tokens for text
 
-We might also add a `breakpoints` token in the future. This might be helpful in achieveing a responsive design if we ever have to add an iPad/tablet version of the app.

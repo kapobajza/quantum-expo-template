@@ -47,6 +47,9 @@ importers:
       expo-dev-client:
         specifier: 5.2.4
         version: 5.2.4(expo@53.0.17(@babel/core@7.25.2)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))
+      expo-font:
+        specifier: 13.3.2
+        version: 13.3.2(expo@53.0.17(@babel/core@7.25.2)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react@19.0.0)
       expo-linking:
         specifier: 7.1.7
         version: 7.1.7(expo@53.0.17(@babel/core@7.25.2)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)

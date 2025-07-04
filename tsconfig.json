@@ -17,6 +17,7 @@
     "scripts/*.js",
     "metro.config.js",
     "babel.config.js",
-    "svgr.config.js"
+    "svgr.config.js",
+    "plugins/*.js"
   ]
 }
