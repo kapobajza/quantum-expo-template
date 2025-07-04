@@ -1,26 +1,14 @@
 {
-  "name": "{{expo-app-name}}",
-  "slug": "{{expo-app-slug}}",
   "version": "1.0.0",
-  "orientation": "portrait",
   "icon": "./assets/images/icon.png",
-  "scheme": "{{expo-app-name}}",
   "userInterfaceStyle": "automatic",
   "newArchEnabled": true,
-  "ios": {
-    "supportsTablet": true,
-    "bundleIdentifier": "com.{{expo-app-name}}",
-    "config": {
-      "usesNonExemptEncryption": false
-    }
-  },
   "android": {
     "adaptiveIcon": {
       "foregroundImage": "./assets/images/adaptive-icon.png",
       "backgroundColor": "#ffffff"
     },
-    "edgeToEdgeEnabled": true,
-    "package": "com.{{expo-app-name}}"
+    "edgeToEdgeEnabled": true
   },
   "web": {
     "bundler": "metro",
