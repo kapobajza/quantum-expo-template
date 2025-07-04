@@ -2,12 +2,29 @@
 
 Welcome to the Quantum expo template!
 
+This template contains a lot of prebuilt stuff, including:
+
+- ESLint and TS strictest configurations
+- Prettier configuration
+- Commitlint and Lefthook for commit message validation
+- Vitest and React Testing Library for testing
+- Zod for validation
+- React Query for data fetching
+- Persisted React Query cache, which makes the app work offline out of the box
+- SQLite database with Drizzle ORM
+- Ready-made API client for easier REST API interactions
+- React Hook Form for form management
+- i18n for translations
+- Custom theming solution
+- SVG icon generator
+- And much more!
+
 ## Table of Contents <!-- omit in toc -->
 
-- [Git rules](#git-rules)
+- [Git rules and hooks](#git-rules-and-hooks)
 - [Getting started](#getting-started)
 - [Running the app](#running-the-app)
-- [Styling guide](#styling-guide)
+- [UI Styling and Theming guide](#ui-styling-and-theming-guide)
 - [Testing](#testing)
 - [Adding new translations](#adding-new-translations)
   - [Updating `translation-schema.json`](#updating-translation-schemajson)
@@ -16,16 +33,43 @@ Welcome to the Quantum expo template!
 - [Adding new icons/SVGs](#adding-new-iconssvgs)
 
 
-## Git rules
+## Git rules and hooks
 
 We recommend using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages. You should also consider it, since the commit messages are validated by the [commitlint](https://commitlint.js.org/) tool.
 
+To enable commitlint to run on every commit, you can run
+
+```sh
+pnpm dlx lefthook install
+```
+
+And to enable it for everyone else on the team, you can add the following to your `package.json` file:
+
+```json
+{
+  "scripts": {
+    "postinstall": "lefthook install"
+  }
+}
+```
+
 ## Getting started
 
-Before running the app, there are some prerequisites which need to be met:
+Before running the app, there are some recommendations which you could follow to ensure a smooth development experience:
 
-- Node v23.11.0. We're using [Node Version Manager](https://github.com/nvm-sh/nvm) to manage Node versions. If you'd like to do it as well, then install `nvm` and run `nvm install` followed by `nvm use` from the root of the repo.
-- pnpm v10.10.0 - you can run `corepack enable` and it will be installed automatically.
+- Use a pinned Node version. `v23.11.0` is the one I would recommend. Using [Node Version Manager](https://github.com/nvm-sh/nvm) is highly recommended. If you'd like to do so, then install `nvm`. After that add a `.nvmrc` file to the root directory with the Node version you would like to use. Recommend other team members to install `nvm` also and run `nvm use` to switch to the correct Node version. **NOTE**: `nvmrc` is also being used in the CI, so if you don't add a `.nvmrc` file, update the [code_checks.yml](.github/workflows/code_checks.yaml) file to update the Node version. Otherwise, the CI will fail.
+- pnpm v10.12.4 - you can run `corepack enable` and it will be installed automatically.
+- For some reason the `.prettierrc.js` file is missing after the app is installed. So you will have to add it manually. Add a `.prettierrc.js` file to the root of the repo, with the following content:
+
+```js
+/** @type {import('prettier').Config} */
+module.exports = {
+  singleQuote: true,
+  bracketSpacing: true,
+  bracketSameLine: false,
+  trailingComma: 'all',
+};
+```
 
 Once you have all the prerequisites met, run
 
@@ -45,9 +89,12 @@ pnpm run ios
 pnpm run android
 ```
 
-## Styling guide
+> [!NOTE]
+> Since we're working with development builds from the get go, you should be aware of the `pnpm run ios:clean` or `pnpm run android:clean` commands. You can use them to run a clean `expo prebuild`, which is useful when you install a new package that requires native code changes, or when you want to reset the native code to the state it was in when you first cloned the repo.
 
-The styling guide is available [here](./.github/resources/Styling.md).
+## UI Styling and Theming guide
+
+The UI Styling and Theming guide is available [here](./.github/resourcees/Styling.md).
 
 ## Testing
 

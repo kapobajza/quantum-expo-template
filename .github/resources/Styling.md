@@ -1,6 +1,6 @@
 # App styling guide
 
-The styling of the app is heavily inspired by the already existing solution provided by [`react-native-unistyles@v2`](https://v2.unistyl.es/start/introduction/). The reason for not using it directly is because of simplicity.
+The styling of the app is heavily inspired by the already existing solution provided by [`react-native-unistyles@v2`](https://v2.unistyl.es/start/introduction/). The reason for not using it directly is because of simplicity and better control.
 
 ## Usage
 
