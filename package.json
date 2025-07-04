@@ -17,12 +17,13 @@
     "migrate": "drizzle-kit generate",
     "generate_translation_types": "nodemon --watch src/locale/resources --watch translation-schema.json --ext json scripts/generate_translation_types.js",
     "generate_svg_icons": "nodemon --watch assets/icons --watch svgr.config.js --ext svg --exec \"npx @svgr/cli assets/icons\"",
-    "commit": "commit"
+    "commit": "commit",
+    "postinstall": "npx lefthook install"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "7.3.10",
     "@react-navigation/elements": "2.3.8",
-    "@react-navigation/native": "7.1.6",
+    "@react-navigation/native": "7.1.14",
     "@tanstack/react-query": "5.81.5",
     "@tanstack/react-query-persist-client": "5.81.5",
     "axios": "1.10.0",
@@ -62,6 +63,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.25.2",
+    "@commitlint/cli": "19.8.0",
     "@commitlint/config-conventional": "19.8.0",
     "@commitlint/prompt-cli": "19.8.1",
     "@commitlint/types": "19.8.0",
