@@ -1,0 +1,17 @@
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      files: git diff --name-only --staged
+      glob: '*.{js,jsx,ts,tsx}'
+      run: npx eslint --fix {files} && git add {files}
+    prettier:
+      files: git diff --name-only --staged
+      glob: '*.{js,jsx,ts,tsx}'
+      run: npx prettier --write {files} && git add {files}
+
+commit-msg:
+  parallel: true
+  commands:
+    commitlint:
+      run: npx commitlint --edit
