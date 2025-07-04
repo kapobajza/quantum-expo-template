@@ -1,0 +1,102 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { renderHook, waitFor } from '@testing-library/react';
+import { describe, expect, test } from 'vitest';
+
+import useInfiniteQuery from './useInfiniteQuery';
+
+const renderHookWithQueryClient = <Result, Props>(
+  fn: (initialProps: Props) => Result,
+) => {
+  return renderHook(fn, {
+    wrapper(props) {
+      return (
+        <QueryClientProvider client={new QueryClient()}>
+          {props.children}
+        </QueryClientProvider>
+      );
+    },
+  });
+};
+
+describe('useInfiniteQuery', () => {
+  test('should return transformed results', async () => {
+    const { result, rerender } = renderHookWithQueryClient(() =>
+      useInfiniteQuery({
+        queryFn: () => {
+          return Promise.resolve({
+            results: [1, 2, 3],
+          });
+        },
+        queryKey: ['key'],
+        getNextPageParam: () => 1,
+        initialPageParam: 1,
+      }),
+    );
+
+    expect(result.current.isEmpty).toBe(true);
+
+    await waitFor(() => !result.current.isLoading);
+    rerender();
+
+    expect(result.current.results).toEqual([1, 2, 3]);
+    expect(result.current.isEmpty).toBe(false);
+  });
+
+  test('should return transformed results when fetching a new page', async () => {
+    const { result, rerender } = renderHookWithQueryClient(() =>
+      useInfiniteQuery({
+        queryFn: ({ pageParam }) => {
+          let res = [1, 2, 3];
+
+          if (pageParam === 2) {
+            res = [4, 5, 6];
+          }
+
+          return Promise.resolve({
+            results: res,
+          });
+        },
+        queryKey: ['key'],
+        getNextPageParam: (_lastPage, _allPages, page) => page + 1,
+        initialPageParam: 1,
+      }),
+    );
+
+    await waitFor(() => !result.current.isLoading);
+    rerender();
+
+    expect(result.current.results).toEqual([1, 2, 3]);
+    expect(result.current.hasNextPage).toBe(true);
+
+    await result.current.fetchNextPage();
+    await waitFor(() => !result.current.isFetchingNextPage);
+
+    expect(result.current.results).toEqual([1, 2, 3, 4, 5, 6]);
+  });
+
+  test('should return extraData if present', async () => {
+    const { result, rerender } = renderHookWithQueryClient(() =>
+      useInfiniteQuery({
+        queryFn: () => {
+          return Promise.resolve({
+            results: [1, 2, 3],
+            extraData: {
+              extra: 'extra',
+            },
+          });
+        },
+        queryKey: ['key'],
+        getNextPageParam: () => 1,
+        initialPageParam: 1,
+      }),
+    );
+
+    await waitFor(() => !result.current.isLoading);
+    rerender();
+
+    expect(result.current.results).toEqual([1, 2, 3]);
+    expect(result.current.extraData).toEqual({
+      extra: 'extra',
+    });
+  });
+});

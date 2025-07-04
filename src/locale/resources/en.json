@@ -1,0 +1,43 @@
+{
+  "validation": {
+    "fields": {
+      "email": "Email",
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "middleNames": "Middle Name",
+      "code": "Verification Code",
+      "phoneNumber": "Phone Number"
+    },
+    "messages": {
+      "required": "{field} is required",
+      "other": "Validation error",
+      "email": "Invalid email",
+      "min": "{field} needs to be at least {min} characters long",
+      "max": "{field} cannot exceed {value} characters",
+      "format": "Invalid format for {field}",
+      "phone": "Invalid phone number"
+    }
+  },
+  "general": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "ok": "OK",
+    "back": "Back"
+  },
+  "error": {
+    "general": "An error occurred",
+    "code": {
+      "badRequestError": "Bad Request error (400)",
+      "unauthorizedError": "Unauthorized error (401)",
+      "forbiddenError": "Forbidden error (403)",
+      "notFoundError": "Not Found error (404)",
+      "internalServerError": "Internal Server error (500)",
+      "unknownError": "Unknown error",
+      "invalidOtp": "You have entered an invalid verification code. Please try again.",
+      "otpExpired": "Your OTP has expired. Please request a new one.",
+      "validationError": "Validation error (422)"
+    }
+  }
+}

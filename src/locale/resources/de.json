@@ -1,0 +1,35 @@
+{
+  "validation": {
+    "fields": {
+      "email": "E-Mail",
+      "firstName": "Vorname",
+      "lastName": "Nachname"
+    },
+    "messages": {
+      "email": "Ungültige E-Mail-Adresse",
+      "required": "{field} ist erforderlich",
+      "other": "Validierungsfehler",
+      "min": "{field} muss mindestens {min} Zeichen lang sein",
+      "max": "{field} darf {value} Zeichen nicht überschreiten"
+    }
+  },
+  "error": {
+    "code": {
+      "badRequestError": "Fehler bei der Anfrage (400)",
+      "unauthorizedError": "Nicht autorisiert (401)",
+      "forbiddenError": "Zugriff verweigert (403)",
+      "notFoundError": "Nicht gefunden (404)",
+      "internalServerError": "Interner Serverfehler (500)",
+      "validationError": "Validierungsfehler (422)",
+      "unknownError": "Unbekannter Fehler"
+    },
+    "general": "Ein Fehler ist aufgetreten"
+  },
+  "general": {
+    "back": "Zurück",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "ok": "OK",
+    "submit": "Absenden"
+  }
+}

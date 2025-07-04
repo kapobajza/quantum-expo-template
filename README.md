@@ -14,7 +14,8 @@ This template contains a lot of prebuilt stuff, including:
 - SQLite database with Drizzle ORM
 - Ready-made API client for easier REST API interactions
 - React Hook Form for form management
-- i18n for translations
+- Type-safe translations
+- Type-safe environment variables
 - Custom theming solution
 - SVG icon generator
 - And much more!

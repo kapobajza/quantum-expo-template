@@ -1,0 +1,66 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "cd4aaf5e-848a-4c25-a967-0c25a53f42e0",
+  "prevId": "d27be4df-e219-4fe7-8d5f-0b8c396dc54d",
+  "tables": {
+    "locales": {
+      "name": "locales",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "code": {
+          "name": "code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "tag": {
+          "name": "tag",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "locales_code_unique": {
+          "name": "locales_code_unique",
+          "columns": [
+            "code"
+          ],
+          "isUnique": true
+        },
+        "locales_tag_unique": {
+          "name": "locales_tag_unique",
+          "columns": [
+            "tag"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {
+      "\"locales\".\"name\"": "\"locales\".\"code\""
+    }
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

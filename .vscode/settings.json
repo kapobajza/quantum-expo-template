@@ -3,5 +3,11 @@
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
     "source.sortMembers": "explicit"
-  }
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["src/locale/resources/*.json"],
+      "url": "./translation-schema.json"
+    }
+  ]
 }

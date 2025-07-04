@@ -20,6 +20,7 @@
     "commit": "commit"
   },
   "dependencies": {
+    "@hookform/resolvers": "5.0.1",
     "@react-navigation/bottom-tabs": "7.3.10",
     "@react-navigation/elements": "2.3.8",
     "@react-navigation/native": "7.1.14",
@@ -47,6 +48,7 @@
     "i18next-intervalplural-postprocessor": "3.0.0",
     "intl-pluralrules": "2.0.1",
     "lodash.get": "4.4.2",
+    "qs": "6.14.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-hook-form": "7.59.0",
@@ -56,6 +58,7 @@
     "react-native-reanimated": "3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "4.11.1",
+    "react-native-svg": "15.11.2",
     "react-native-web": "0.20.0",
     "react-native-webview": "13.13.5",
     "zod": "3.25.73"
@@ -75,6 +78,7 @@
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
     "@types/lodash": "4.17.18",
+    "@types/qs": "6.14.0",
     "@types/react": "19.0.10",
     "@vitejs/plugin-react": "4.4.1",
     "babel-plugin-inline-import": "^3.0.0",
