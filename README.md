@@ -59,6 +59,10 @@ And to enable it for everyone else on the team, you can add the following to you
 
 Before running the app, there are some recommendations which you could follow to ensure a smooth development experience:
 
+- Expo doesn't allow copying dot files into your project, so we will need to rename these files by adding a dot at the beginning of their names. You can do this by running the command: `pnpm run rename_to_dot_files`. Or rename them manually:
+  - `env.example` to `.env.example`
+  - `prettierrc.js` to `.prettierc.js`
+  - `github` to `.github`
 - Use a pinned Node version. `v23.11.0` is the one I would recommend. Using [Node Version Manager](https://github.com/nvm-sh/nvm) is highly recommended. If you'd like to do so, then follow these steps:
   -  Install `nvm`
   -  Add a `.nvmrc` file to the root directory with the Node version you would like to use.

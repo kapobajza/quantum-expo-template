@@ -9,10 +9,6 @@ const filesToRename = [
 
 const projectRoot = path.resolve(__dirname, '../');
 
-console.warn(
-  `\n\nExpo doesn't allow copying dot files into your project,\nso some files will be renamed whenever you run \`pnpm install\`.\nYou can remove the postinstall script from package.json\nonce the files are renamed.\n\n`,
-);
-
 filesToRename.forEach((file) => {
   const oldPath = path.join(projectRoot, file.oldName);
   const newPath = path.join(projectRoot, file.newName);
