@@ -15,9 +15,11 @@
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc",
     "migrate": "drizzle-kit generate",
-    "generate_translation_types": "nodemon --watch src/locale/resources --watch translation-schema.json --ext json scripts/generate_translation_types.js",
+    "generate_translation_types": "nodemon --watch src/locale/resources --watch src/locale/translation-schema.json --ext json scripts/generate_translation_types.js",
     "generate_svg_icons": "nodemon --watch assets/icons --watch svgr.config.js --ext svg --exec \"npx @svgr/cli assets/icons\"",
-    "commit": "commit"
+    "commit": "commit",
+    "rename_to_dot_files": "node scripts/rename_to_dot_files.js",
+    "postinstall": "pnpm run rename_to_dot_files"
   },
   "dependencies": {
     "@hookform/resolvers": "5.0.1",

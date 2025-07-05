@@ -10,7 +10,7 @@ const translations = JSON.parse(
 
 /** @type {Record<string, string>} */
 const translationSchema = JSON.parse(
-  fs.readFileSync('./translation-schema.json', {
+  fs.readFileSync('./src/locale/translation-schema.json', {
     encoding: 'utf-8',
   }),
 );

@@ -28,6 +28,7 @@ This template contains a lot of prebuilt stuff, including:
 - [UI Styling and Theming guide](#ui-styling-and-theming-guide)
 - [Testing](#testing)
 - [Adding new translations](#adding-new-translations)
+  - [Setting up your VSCode editor](#setting-up-your-vscode-editor)
   - [Updating `translation-schema.json`](#updating-translation-schemajson)
   - [Adding the actual translations](#adding-the-actual-translations)
   - [Adding validation translations](#adding-validation-translations)
@@ -64,17 +65,6 @@ Before running the app, there are some recommendations which you could follow to
   -  Recommend other team members to install `nvm` also and run `nvm use` to switch to the correct Node version.
   -  **NOTE**: `nvmrc` is also being used in the CI, so if you don't add a `.nvmrc` file, update the [code_checks.yml](.github/workflows/code_checks.yaml) file to and set your desired Node version. Otherwise, the CI will fail.
 - pnpm v10.12.4 - you can run `corepack enable` and it will be installed automatically.
-- For some reason the `.prettierrc.js` file is missing after the app is installed. So you will have to add it manually. Add a `.prettierrc.js` file to the root of the repo, with the following content:
-
-```js
-/** @type {import('prettier').Config} */
-module.exports = {
-  singleQuote: true,
-  bracketSpacing: true,
-  bracketSameLine: false,
-  trailingComma: 'all',
-};
-```
 
 Once you have all the prerequisites met, run
 
@@ -122,9 +112,24 @@ pnpm test:watch
 
 To add new translations follow the steps below.
 
+### Setting up your VSCode editor
+
+To display warnings for missing translations keys in your VSCode editor, you should add this to your `.vscode/settings.json` file:
+
+```json
+{
+  "json.schemas": [
+    {
+      "fileMatch": ["src/locale/resources/*.json"],
+      "url": "./src/locale/translation-schema.json"
+    }
+  ]
+}
+```
+
 ### Updating `translation-schema.json`
 
-To add new translations, make sure to first add the relevant key to the [`translation-schema.json`](./translation-schema.json) file.
+To add new translations, make sure to first add the relevant key to the [`translation-schema.json`](./src/locale/translation-schema.json) file.
 
 Translations should be categorized by screens. If we had a `Foo` screen that has a `bar` translation key, then we would add the following to the `translation-schema.json` file:
 

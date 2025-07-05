@@ -7,7 +7,7 @@
   "json.schemas": [
     {
       "fileMatch": ["src/locale/resources/*.json"],
-      "url": "./translation-schema.json"
+      "url": "./src/locale/translation-schema.json"
     }
   ]
 }
