@@ -9,13 +9,15 @@ export const createHttpClient = ({
   storageService,
   urlPrefix,
   createHttpInstance,
+  baseURL = env.API_REST_URL,
 }: CreateHttpClientParams & {
   urlPrefix: string;
+  baseURL?: string;
 }) => {
   const instance = createHttpInstance
-    ? createHttpInstance(env.API_URL)
+    ? createHttpInstance(baseURL)
     : axios.create({
-        baseURL: env.API_URL,
+        baseURL,
         timeout: 5000, // 20 seconds
       });
 

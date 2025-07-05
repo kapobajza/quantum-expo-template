@@ -1,45 +1,10 @@
 // This file is auto-generated, you shouldn't modify it manually
 
 export interface TranslationKeyParam {
-  'login.welcome': undefined;
-  'login.ssoGoogle': undefined;
-  'login.ssoMicrosoft': undefined;
-  'login.loginWithOTP': undefined;
-  'login.or': undefined;
-  'login.dontHaveAccountWithSignup': undefined;
-  'verify.loading': undefined;
-  'home.title': undefined;
-  'home.logout': undefined;
-  'home.userProfile': undefined;
-  'home.formTitle': undefined;
-  'home.helloMsg': {
-    email: string | number | undefined;
-  };
-  'home.updateLanguage': {
-    lang: string | number | undefined;
-  };
-  'home.logoutParsed': undefined;
-  'userProfileEdit.title': undefined;
-  'userProfileEdit.updateSuccess': undefined;
-  'signup.title': undefined;
-  'signup.subtitle': undefined;
-  'signup.loading': undefined;
-  'signup.alreadyHaveAccountWithLogin': undefined;
-  'verifyOtp.verifyCode': undefined;
-  'verifyOtp.sending': undefined;
-  'verifyOtp.resendCode': undefined;
-  'verifyOtp.verify': undefined;
-  'verifyOtp.verifying': undefined;
-  'verifyOtp.enterVerificationCode': {
-    phoneNumber: string | number | undefined;
-  };
   'validation.fields.email': undefined;
-  'validation.fields.username': undefined;
   'validation.fields.firstName': undefined;
   'validation.fields.lastName': undefined;
-  'validation.fields.middleNames': undefined;
-  'validation.fields.code': undefined;
-  'validation.fields.phoneNumber': undefined;
+  'validation.fields.password': undefined;
   'validation.messages.required': {
     field: string | number | undefined;
   };
@@ -53,7 +18,6 @@ export interface TranslationKeyParam {
     field: string | number | undefined;
     value: string | number | undefined;
   };
-  'validation.messages.phone': undefined;
   'general.submit': undefined;
   'general.cancel': undefined;
   'general.confirm': undefined;
@@ -64,8 +28,6 @@ export interface TranslationKeyParam {
   'error.code.unauthorizedError': undefined;
   'error.code.forbiddenError': undefined;
   'error.code.unknownError': undefined;
-  'error.code.invalidOtp': undefined;
-  'error.code.otpExpired': undefined;
   'error.code.validationError': undefined;
 }
 

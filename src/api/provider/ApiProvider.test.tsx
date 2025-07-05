@@ -13,7 +13,7 @@ import { AllApiRouters } from './types';
 describe('ApiProvider hooks', () => {
   test('useApi should return api with request methods', async () => {
     const mockAuthApi = mockDeep<AllApiRouters['authApi']>();
-    mockAuthApi.login.mockReturnValue({
+    mockAuthApi.signup.mockReturnValue({
       request: vi.fn().mockResolvedValue({ data: 'success' }),
       path: 'login',
       route: '',
@@ -26,15 +26,20 @@ describe('ApiProvider hooks', () => {
       })
       .render();
 
-    expect(result.current.authApi.login).toBeDefined();
-    await expect(result.current.authApi.login({})).resolves.toEqual({
+    expect(result.current.authApi.signup).toBeDefined();
+    await expect(
+      result.current.authApi.signup({
+        email: '',
+        password: '',
+      }),
+    ).resolves.toEqual({
       data: 'success',
     });
   });
 
   test('useApiRouter should return correct url and route path', () => {
     const mockEnv = mock<AppEnv>({
-      API_URL: 'http://localhost:3333/api/v1',
+      API_BASE_URL: 'http://localhost:3333/api/v1',
     });
 
     const { result } = buildRenderHook(useApiRouter)
@@ -51,8 +56,13 @@ describe('ApiProvider hooks', () => {
       })
       .render();
 
-    const authApi = result.current.authApi.login({});
-    expect(authApi.route).toEqual('auth/login');
-    expect(authApi.url).toEqual('http://localhost:3333/api/v1/auth/login');
+    const authApi = result.current.authApi.signup({
+      email: '',
+      password: '',
+    });
+    expect(authApi.route).toEqual('auth/v1/signup');
+    expect(authApi.url).toEqual(
+      'http://localhost:3333/api/v1/auth/v1/signup?redirect_to=my-app%3A%2F%2Fauth%2Fverify',
+    );
   });
 });

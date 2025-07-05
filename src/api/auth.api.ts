@@ -1,31 +1,33 @@
-import { z } from 'zod';
+import { HttpStatusCode } from 'axios';
+import Constants from 'expo-constants';
+
+import { ErrorCode, HttpError } from '@/error';
+import { AuthSignUpRequestBody } from '@/types';
 
 import { createApiBuilder, createHttpClient } from './factory';
-
-const baseResponseSchema = z.object({
-  message: z.string().optional(),
-});
 
 export const createAuthApi = createApiBuilder((options) => {
   const authHttpClient = createHttpClient({
     ...options,
-    urlPrefix: 'auth',
+    urlPrefix: 'auth/v1',
+    baseURL: options.env.API_BASE_URL,
   });
 
   return {
-    login(data: SendLoginOTPParams) {
-      return authHttpClient.post({
-        path: 'login',
-        body: data,
-        schema: baseResponseSchema,
-      });
-    },
+    signup(data: AuthSignUpRequestBody) {
+      if (!Constants.expoConfig?.scheme) {
+        throw new HttpError(
+          HttpStatusCode.BadRequest,
+          ErrorCode.InternalMissingAppSchema,
+        );
+      }
 
-    signup(data: SendSignupOTPParams) {
       return authHttpClient.post({
         path: 'signup',
         body: data,
-        schema: baseResponseSchema,
+        queryParams: {
+          redirect_to: `${Constants.expoConfig.scheme as string}://auth/verify`,
+        },
       });
     },
   };

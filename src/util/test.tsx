@@ -9,8 +9,7 @@ import { AllApiRouters } from '@/api/provider/types';
 import { ToastOptionsMinimal, ToastProvider } from '@/components/Toast';
 import { DatabaseProvider } from '@/db';
 import { LocaleRepo, QueryRepo } from '@/db/repo';
-import { AppEnvProvider } from '@/env';
-import { AppEnv } from '@/env/schema';
+import { AppEnv, AppEnvProvider } from '@/env';
 import { QueryFactoryProvider } from '@/query';
 import { AllServices, ServicesProvider } from '@/services/ServiceProvider';
 import { StorageService } from '@/services/storageService';
@@ -20,7 +19,7 @@ export const buildRenderHook = <Result, Props>(
   fn: (initialProps: Props) => Result,
 ) => {
   const mockEnv = mock<AppEnv>();
-  mockEnv.API_URL = 'http://localhost:1337/api';
+  mockEnv.API_BASE_URL = 'http://localhost:1337/api';
   const mockApiProvider = mockDeep<AllApiRouters>();
   const mockStorageService = mock<StorageService>();
   mockStorageService.setSecureItem.mockResolvedValue();

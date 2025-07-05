@@ -3,7 +3,8 @@
     "fields": {
       "email": "E-Mail",
       "firstName": "Vorname",
-      "lastName": "Nachname"
+      "lastName": "Nachname",
+      "password": "Passwort"
     },
     "messages": {
       "email": "Ungültige E-Mail-Adresse",

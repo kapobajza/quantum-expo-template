@@ -7,7 +7,8 @@
       "lastName": "Last Name",
       "middleNames": "Middle Name",
       "code": "Verification Code",
-      "phoneNumber": "Phone Number"
+      "phoneNumber": "Phone Number",
+      "password": "Password"
     },
     "messages": {
       "required": "{field} is required",

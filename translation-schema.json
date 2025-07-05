@@ -10,11 +10,12 @@
       "properties": {
         "fields": {
           "type": "object",
-          "required": ["email", "firstName", "lastName"],
+          "required": ["email", "firstName", "lastName", "password"],
           "properties": {
             "email": { "type": "string" },
             "firstName": { "type": "string" },
-            "lastName": { "type": "string" }
+            "lastName": { "type": "string" },
+            "password": { "type": "string" }
           }
         },
         "messages": {
