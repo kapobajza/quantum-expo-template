@@ -52,16 +52,18 @@ const pathnameMock = vi.hoisted(() => {
 
 vi.mock('expo-router', () => {
   return {
-    router: {
-      replace: (href) => {
-        if (typeof href === 'string') {
-          pathnameMock.setPathname(href);
-          return;
-        }
+    useRouter: () => {
+      return {
+        replace: (href) => {
+          if (typeof href === 'string') {
+            pathnameMock.setPathname(href);
+            return;
+          }
 
-        pathnameMock.setPathname(href.pathname);
-      },
-    } satisfies Pick<Router, 'replace'>,
+          pathnameMock.setPathname(href.pathname);
+        },
+      } satisfies Pick<Router, 'replace'>;
+    },
     useNavigation: vi.fn().mockReturnValue({
       reset: (params: { index: number; routes: { name: string }[] }) => {
         pathnameMock.setPathname(params.routes[0].name);
