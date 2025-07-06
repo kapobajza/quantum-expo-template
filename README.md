@@ -23,8 +23,8 @@ This template contains a lot of prebuilt stuff, including:
 ## Table of Contents <!-- omit in toc -->
 
 - [Git rules and hooks](#git-rules-and-hooks)
-- [Getting started with Supabase](#getting-started-with-supabase)
 - [Getting started](#getting-started)
+  - [(Optional) Getting started with Supabase](#optional-getting-started-with-supabase)
 - [Running the app](#running-the-app)
 - [UI Styling and Theming guide](#ui-styling-and-theming-guide)
 - [Testing](#testing)
@@ -56,29 +56,6 @@ And to enable it for everyone else on the team, you can add the following to you
 }
 ```
 
-## Getting started with Supabase
-
-This template is designed to work with [Supabase](https://supabase.com/). However, Supabase's REST API has been used directly with axios, instead of using the Supabase client. This is because I didn't use Supabase for any project I built with this template, but I wanted to add it just because it is easy to set up and use. I also wanted to show you an example on how to create and use your own custom REST API client, which is located in the [`src/api/factory`](./src/api/factory) directory. Feel free to remove it if you don't need it.
-
-If you want to use Supabase, you can follow these steps:
-1. Create a new Supabase project at [Supabase](https://supabase.com/)
-2. Add your Supabase URL and API key to the `.env` file. See the [`.env.example`](.env.example) file for reference.
-3. Add your deep linking `scheme` to the `app.json` file, for example:
-
-```json
-{
-  "scheme": "my-app"
-}
-```
-1. Add the following deep link to your Supabase project settings, under "Authentication" > "URL Configuration", find the "Redirect URLs" section:
-
-```
-<scheme>://auth/email-confirmed
-# <scheme> should be replaced with the one you set in the `app.json` file, in step 3.
-# For example, if your scheme is `my-app`, then the URL should be `my-app://auth/email-confirmed`
-```
-5. That's it! You can now run continue with the [Getting started](#getting-started) section to run and try out the app.
-
 ## Getting started
 
 Before running the app, there are some recommendations which you could follow to ensure a smooth development experience:
@@ -94,11 +71,34 @@ Before running the app, there are some recommendations which you could follow to
   -  **NOTE**: `nvmrc` is also being used in the CI, so if you don't add a `.nvmrc` file, update the [code_checks.yml](.github/workflows/code_checks.yaml) file to and set your desired Node version. Otherwise, the CI will fail.
 - pnpm v10.12.4 - you can run `corepack enable` and it will be installed automatically.
 
-Once you have all the prerequisites met, run
+Now you can install the dependencies by running:
 
 ```sh
 pnpm install
 ```
+
+### (Optional) Getting started with Supabase
+
+This template is designed to work with [Supabase](https://supabase.com/). However, Supabase's REST API has been used directly with axios, instead of using the Supabase client. This is because I didn't use Supabase for any project I built with this template, but I wanted to add it just because it is easy to set up and use. I also wanted to show you an example on how to create and use your own custom REST API client, which is located in the [`src/api/factory`](./src/api/factory) directory. Feel free to remove it if you don't need it.
+
+If you want to use Supabase, you can follow these steps:
+1. Create a new Supabase project at [Supabase](https://supabase.com/)
+2. Add your Supabase URL and API key to the `.env` file. See the [`.env.example`](.env.example) file for reference.
+3. Add your deep linking `scheme` to the `app.json` file, for example:
+
+```json
+{
+  "scheme": "my-app"
+}
+```
+4. Under "Authentication" > "URL Configuration", find the "Redirect URLs" section and add the following deep linking URL:
+
+```
+<scheme>://auth/email-confirmed
+# <scheme> should be replaced with the one you set in the `app.json` file, in step 3.
+# For example, if your scheme is `my-app`, then the URL should be `my-app://auth/email-confirmed`
+```
+5. That's it. Congratulations!
 
 ## Running the app
 
@@ -117,7 +117,7 @@ pnpm run android
 
 ## UI Styling and Theming guide
 
-The UI Styling and Theming guide is available [here](./.github/resourcees/Styling.md).
+The UI Styling and Theming guide is available [here](./.github/resources/Styling.md).
 
 ## Testing
 
