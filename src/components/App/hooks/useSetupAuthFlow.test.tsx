@@ -9,8 +9,8 @@ describe('useSetupAuthFlow', () => {
   test('should succeed if token is present', async () => {
     const { result } = buildRenderHook(useSetupAuthFlow)
       .withApi(({ apiProvider }) => {
-        apiProvider.userApi.me.mockReturnValue({
-          path: 'me',
+        apiProvider.authApi.getMe.mockReturnValue({
+          path: 'user',
           request: vi.fn().mockResolvedValue({ data: {} }),
           route: '',
           url: '',
@@ -54,8 +54,8 @@ describe('useSetupAuthFlow', () => {
   test('should throw if endpoint me throws', async () => {
     const { result } = buildRenderHook(useSetupAuthFlow)
       .withApi(({ apiProvider }) => {
-        apiProvider.userApi.me.mockReturnValue({
-          path: 'me',
+        apiProvider.authApi.getMe.mockReturnValue({
+          path: 'user',
           request: vi.fn().mockRejectedValue(new Error('error')),
           route: '',
           url: '',

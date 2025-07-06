@@ -23,6 +23,7 @@ This template contains a lot of prebuilt stuff, including:
 ## Table of Contents <!-- omit in toc -->
 
 - [Git rules and hooks](#git-rules-and-hooks)
+- [Getting started with Supabase](#getting-started-with-supabase)
 - [Getting started](#getting-started)
 - [Running the app](#running-the-app)
 - [UI Styling and Theming guide](#ui-styling-and-theming-guide)
@@ -54,6 +55,29 @@ And to enable it for everyone else on the team, you can add the following to you
   }
 }
 ```
+
+## Getting started with Supabase
+
+This template is designed to work with [Supabase](https://supabase.com/). However, Supabase's REST API has been used directly with axios, instead of using the Supabase client. This is because I didn't use Supabase for any project I built with this template, but I wanted to add it just because it is easy to set up and use. I also wanted to show you an example on how to create and use your own custom REST API client, which is located in the [`src/api/factory`](./src/api/factory) directory. Feel free to remove it if you don't need it.
+
+If you want to use Supabase, you can follow these steps:
+1. Create a new Supabase project at [Supabase](https://supabase.com/)
+2. Add your Supabase URL and API key to the `.env` file. See the [`.env.example`](.env.example) file for reference.
+3. Add your deep linking `scheme` to the `app.json` file, for example:
+
+```json
+{
+  "scheme": "my-app"
+}
+```
+1. Add the following deep link to your Supabase project settings, under "Authentication" > "URL Configuration", find the "Redirect URLs" section:
+
+```
+<scheme>://auth/email-confirmed
+# <scheme> should be replaced with the one you set in the `app.json` file, in step 3.
+# For example, if your scheme is `my-app`, then the URL should be `my-app://auth/email-confirmed`
+```
+5. That's it! You can now run continue with the [Getting started](#getting-started) section to run and try out the app.
 
 ## Getting started
 

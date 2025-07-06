@@ -14,7 +14,7 @@ export const isErrorCode = (error: unknown, ...codes: ErrorCode[]): boolean => {
     return false;
   }
 
-  return codes.includes(parsed.data.code);
+  return codes.includes(parsed.data.error_code);
 };
 
 export const parseErrorData = <TSchema extends z.Schema>(

@@ -45,7 +45,7 @@ export const createAuthApi = createApiBuilder((options) => {
         path: 'signup',
         body: data,
         queryParams: {
-          redirect_to: `${Constants.expoConfig.scheme as string}:/${redirect as string}`,
+          redirect_to: `${Constants.expoConfig.scheme as string}:/${redirect}`,
         },
       });
     },
