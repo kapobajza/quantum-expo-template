@@ -13,7 +13,7 @@ import { AllApiRouters } from './types';
 describe('ApiProvider hooks', () => {
   test('useApi should return api with request methods', async () => {
     const mockAuthApi = mockDeep<AllApiRouters['authApi']>();
-    mockAuthApi.signup.mockReturnValue({
+    mockAuthApi.signUp.mockReturnValue({
       request: vi.fn().mockResolvedValue({ data: 'success' }),
       path: 'login',
       route: '',
@@ -26,9 +26,9 @@ describe('ApiProvider hooks', () => {
       })
       .render();
 
-    expect(result.current.authApi.signup).toBeDefined();
+    expect(result.current.authApi.signUp).toBeDefined();
     await expect(
-      result.current.authApi.signup({
+      result.current.authApi.signUp({
         email: '',
         password: '',
       }),
@@ -56,7 +56,7 @@ describe('ApiProvider hooks', () => {
       })
       .render();
 
-    const authApi = result.current.authApi.signup({
+    const authApi = result.current.authApi.signUp({
       email: '',
       password: '',
     });

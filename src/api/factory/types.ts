@@ -2,7 +2,7 @@ import { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { z } from 'zod';
 
 import { AppEnv } from '@/env';
-import { StorageService } from '@/services';
+import { LoggingService, StorageService } from '@/services';
 
 export type PaginationQueryParams = Partial<{
   offset: number;
@@ -53,4 +53,5 @@ export interface CreateHttpClientParams {
   env: AppEnv;
   storageService: StorageService;
   createHttpInstance?: (baseURL: string) => AxiosInstance;
+  loggingService: LoggingService;
 }

@@ -1,7 +1,5 @@
 import * as Crypto from 'expo-crypto';
-import { useState } from 'react';
-
-import { useMountEffect } from '@/hooks';
+import { useEffect, useState } from 'react';
 
 import { ToastContext } from './context';
 import { ToastItem } from './ToastItem';
@@ -32,7 +30,7 @@ export const ToastList = ({
 
   const showToast = showToastFn ?? defaultShowToast;
 
-  useMountEffect(() => {
+  useEffect(() => {
     setContext({
       showError(message) {
         showToast({
@@ -53,7 +51,7 @@ export const ToastList = ({
         });
       },
     });
-  });
+  }, [setContext, showToast]);
 
   return items.map((item, index) => (
     <ToastItem

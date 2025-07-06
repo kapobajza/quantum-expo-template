@@ -2,9 +2,8 @@
 
 export interface TranslationKeyParam {
   'validation.fields.email': undefined;
-  'validation.fields.firstName': undefined;
-  'validation.fields.lastName': undefined;
   'validation.fields.password': undefined;
+  'validation.fields.repeatPassword': undefined;
   'validation.messages.required': {
     field: string | number | undefined;
   };
@@ -18,17 +17,23 @@ export interface TranslationKeyParam {
     field: string | number | undefined;
     value: string | number | undefined;
   };
+  'validation.messages.repeatPassword': undefined;
   'general.submit': undefined;
   'general.cancel': undefined;
   'general.confirm': undefined;
   'general.ok': undefined;
   'general.back': undefined;
   'error.general': undefined;
-  'error.code.badRequestError': undefined;
-  'error.code.unauthorizedError': undefined;
-  'error.code.forbiddenError': undefined;
-  'error.code.unknownError': undefined;
-  'error.code.validationError': undefined;
+  'error.code.email_not_confirmed': undefined;
+  'error.code.invalid_credentials': undefined;
+  'error.code.missing_app_schema': undefined;
+  'signUp.title': undefined;
+  'signUp.successMessage': undefined;
+  'login.dontHaveAccount': undefined;
+  'emailConfirmed.title': undefined;
+  'emailConfirmed.message': undefined;
+  'emailConfirmed.backToLogin': undefined;
+  'home.logOut': undefined;
 }
 
 export type TranslationKey = keyof TranslationKeyParam;

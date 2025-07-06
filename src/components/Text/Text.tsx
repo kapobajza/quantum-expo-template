@@ -46,6 +46,7 @@ const stylesheet = createStyleSheet((theme) => {
       return {
         ...variants[variant],
         textAlign,
+        fontFamily: theme.fontFamily.spaceMono,
       };
     },
   };

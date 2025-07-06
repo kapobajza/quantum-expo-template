@@ -8,6 +8,7 @@ import { stringify } from 'qs';
 import { z } from 'zod';
 
 import { ErrorCode, errorDataSchema, HttpError } from '@/error';
+import { LoggingService } from '@/services';
 import { Prettify } from '@/types';
 
 import {
@@ -94,11 +95,13 @@ export const buildRequest = <
   method,
   params,
   urlPrefix,
+  loggingService,
 }: {
   instance: AxiosInstance;
   method: HttpMethod;
   params?: ConstructRequestParams<RequestBody, Schema, Path>;
   urlPrefix: string;
+  loggingService: LoggingService;
 }): Prettify<{
   path: Path;
   route: string;
@@ -152,6 +155,8 @@ export const buildRequest = <
           ? AxiosResponse<unknown>
           : AxiosResponse<Schema extends z.ZodType ? z.infer<Schema> : unknown>;
       } catch (error) {
+        loggingService.captureException(error);
+
         if (!isAxiosError(error)) {
           throw new HttpError();
         }
@@ -162,7 +167,7 @@ export const buildRequest = <
         const errorData = errorDataSchema.safeParse(error.response?.data);
 
         if (errorData.success) {
-          code = errorData.data.code;
+          code = errorData.data.error_code;
           data = errorData.data.data;
         }
 

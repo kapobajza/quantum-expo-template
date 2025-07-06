@@ -8,7 +8,7 @@ export class HttpError extends AppError {
 
   constructor(
     status = 500,
-    code: ErrorCode = ErrorCode.GeneralUnknown,
+    code: ErrorCode = ErrorCode.Unknown,
     data?: unknown,
   ) {
     super(code);

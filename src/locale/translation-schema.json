@@ -2,7 +2,15 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Translation Schema",
   "type": "object",
-  "required": ["error", "validation", "general"],
+  "required": [
+    "error",
+    "validation",
+    "general",
+    "signUp",
+    "login",
+    "emailConfirmed",
+    "home"
+  ],
   "properties": {
     "validation": {
       "type": "object",
@@ -10,23 +18,30 @@
       "properties": {
         "fields": {
           "type": "object",
-          "required": ["email", "firstName", "lastName", "password"],
+          "required": ["email", "password", "repeatPassword"],
           "properties": {
             "email": { "type": "string" },
-            "firstName": { "type": "string" },
-            "lastName": { "type": "string" },
-            "password": { "type": "string" }
+            "password": { "type": "string" },
+            "repeatPassword": { "type": "string" }
           }
         },
         "messages": {
           "type": "object",
-          "required": ["required", "other", "email", "min", "max"],
+          "required": [
+            "required",
+            "other",
+            "email",
+            "min",
+            "max",
+            "repeatPassword"
+          ],
           "properties": {
             "required": { "type": "string" },
             "email": { "type": "string" },
             "other": { "type": "string" },
             "min": { "type": "string" },
-            "max": { "type": "string" }
+            "max": { "type": "string" },
+            "repeatPassword": { "type": "string" }
           }
         }
       }
@@ -50,20 +65,47 @@
         "code": {
           "type": "object",
           "required": [
-            "unknownError",
-            "forbiddenError",
-            "badRequestError",
-            "validationError",
-            "unauthorizedError"
+            "email_not_confirmed",
+            "invalid_credentials",
+            "missing_app_schema"
           ],
           "properties": {
-            "unknownError": { "type": "string" },
-            "forbiddenError": { "type": "string" },
-            "badRequestError": { "type": "string" },
-            "validationError": { "type": "string" },
-            "unauthorizedError": { "type": "string" }
+            "email_not_confirmed": { "type": "string" },
+            "invalid_credentials": { "type": "string" },
+            "missing_app_schema": { "type": "string" }
           }
         }
+      }
+    },
+    "signUp": {
+      "type": "object",
+      "required": ["title", "successMessage"],
+      "properties": {
+        "title": { "type": "string" },
+        "successMessage": { "type": "string" }
+      }
+    },
+    "login": {
+      "type": "object",
+      "required": ["dontHaveAccount"],
+      "properties": {
+        "dontHaveAccount": { "type": "string" }
+      }
+    },
+    "emailConfirmed": {
+      "type": "object",
+      "required": ["title", "message", "backToLogin"],
+      "properties": {
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "backToLogin": { "type": "string" }
+      }
+    },
+    "home": {
+      "type": "object",
+      "required": ["logOut"],
+      "properties": {
+        "logOut": { "type": "string" }
       }
     }
   },

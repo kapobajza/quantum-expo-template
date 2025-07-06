@@ -2,13 +2,8 @@
   "validation": {
     "fields": {
       "email": "Email",
-      "username": "Username",
-      "firstName": "First Name",
-      "lastName": "Last Name",
-      "middleNames": "Middle Name",
-      "code": "Verification Code",
-      "phoneNumber": "Phone Number",
-      "password": "Password"
+      "password": "Password",
+      "repeatPassword": "Repeat Password"
     },
     "messages": {
       "required": "{field} is required",
@@ -17,7 +12,7 @@
       "min": "{field} needs to be at least {min} characters long",
       "max": "{field} cannot exceed {value} characters",
       "format": "Invalid format for {field}",
-      "phone": "Invalid phone number"
+      "repeatPassword": "Passwords do not match"
     }
   },
   "general": {
@@ -30,15 +25,24 @@
   "error": {
     "general": "An error occurred",
     "code": {
-      "badRequestError": "Bad Request error (400)",
-      "unauthorizedError": "Unauthorized error (401)",
-      "forbiddenError": "Forbidden error (403)",
-      "notFoundError": "Not Found error (404)",
-      "internalServerError": "Internal Server error (500)",
-      "unknownError": "Unknown error",
-      "invalidOtp": "You have entered an invalid verification code. Please try again.",
-      "otpExpired": "Your OTP has expired. Please request a new one.",
-      "validationError": "Validation error (422)"
+      "email_not_confirmed": "Email not confirmed",
+      "invalid_credentials": "Invalid credentials",
+      "missing_app_schema": "App schema is missing"
     }
+  },
+  "signUp": {
+    "title": "Sign Up",
+    "successMessage": "Registration successful! Please check your email to confirm your account."
+  },
+  "login": {
+    "dontHaveAccount": "Don't have an account? <a>Sign Up</a>"
+  },
+  "emailConfirmed": {
+    "title": "Email Confirmed",
+    "message": "Your email has been successfully confirmed. You can now log in.",
+    "backToLogin": "Back to Login"
+  },
+  "home": {
+    "logOut": "Log Out"
   }
 }

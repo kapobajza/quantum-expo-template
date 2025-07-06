@@ -10,6 +10,7 @@ export const createHttpClient = ({
   urlPrefix,
   createHttpInstance,
   baseURL = env.API_REST_URL,
+  loggingService,
 }: CreateHttpClientParams & {
   urlPrefix: string;
   baseURL?: string;
@@ -28,6 +29,8 @@ export const createHttpClient = ({
       req.headers.Authorization = `Bearer ${tokenItem.token}`;
     }
 
+    req.headers.apikey = env.API_KEY;
+
     return req;
   });
 
@@ -40,6 +43,7 @@ export const createHttpClient = ({
         method: 'get',
         params,
         urlPrefix,
+        loggingService,
       });
     },
     post: <
@@ -54,6 +58,7 @@ export const createHttpClient = ({
         method: 'post',
         params,
         urlPrefix,
+        loggingService,
       });
     },
     put: <
@@ -68,6 +73,7 @@ export const createHttpClient = ({
         method: 'put',
         params,
         urlPrefix,
+        loggingService,
       });
     },
     patch: <
@@ -82,6 +88,7 @@ export const createHttpClient = ({
         method: 'patch',
         params,
         urlPrefix,
+        loggingService,
       });
     },
     delete: <
@@ -96,6 +103,7 @@ export const createHttpClient = ({
         method: 'delete',
         params,
         urlPrefix,
+        loggingService,
       });
     },
   };

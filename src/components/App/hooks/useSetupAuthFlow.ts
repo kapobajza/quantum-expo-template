@@ -20,7 +20,7 @@ const useSetupAuthFlow = () => {
         const token = await storageService.getSecureItem('AuthToken');
 
         if (!token) {
-          throw new AppError(ErrorCode.InternalMissingAuthToken);
+          throw new AppError(ErrorCode.MissingAuthToken);
         }
 
         await queryClient.fetchQuery({
@@ -36,13 +36,12 @@ const useSetupAuthFlow = () => {
         const meData = queryClient.getQueryData(queryOptions.users.me.queryKey);
         const isUnauthorized = isErrorCode(
           err,
-          ErrorCode.GeneralUnauthorized,
-          ErrorCode.GeneralForbidden,
-          ErrorCode.InternalMissingAuthToken,
+          ErrorCode.Unauthorized,
+          ErrorCode.MissingAuthToken,
         );
 
         if (isUnauthorized || !meData) {
-          throw new HttpError(401, ErrorCode.GeneralUnauthorized);
+          throw new HttpError(401, ErrorCode.Unauthorized);
         }
 
         showError(mapError(err));

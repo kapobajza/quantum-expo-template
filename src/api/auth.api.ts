@@ -1,8 +1,14 @@
 import { HttpStatusCode } from 'axios';
 import Constants from 'expo-constants';
+import { Href } from 'expo-router';
 
 import { ErrorCode, HttpError } from '@/error';
-import { AuthSignUpRequestBody } from '@/types';
+import {
+  AuthSignInRequestBody,
+  AuthSignUpRequestBody,
+  sessionSchema,
+  userResponseSchema,
+} from '@/types';
 
 import { createApiBuilder, createHttpClient } from './factory';
 
@@ -14,20 +20,54 @@ export const createAuthApi = createApiBuilder((options) => {
   });
 
   return {
-    signup(data: AuthSignUpRequestBody) {
+    signIn(data: AuthSignInRequestBody) {
+      return authHttpClient.post({
+        path: 'token',
+        body: data,
+        queryParams: {
+          grant_type: 'password',
+        },
+        schema: sessionSchema,
+      });
+    },
+
+    signUp(data: AuthSignUpRequestBody) {
       if (!Constants.expoConfig?.scheme) {
         throw new HttpError(
           HttpStatusCode.BadRequest,
-          ErrorCode.InternalMissingAppSchema,
+          ErrorCode.MissingAppSchema,
         );
       }
+
+      const redirect: Href = '/auth/email-confirmed';
 
       return authHttpClient.post({
         path: 'signup',
         body: data,
         queryParams: {
-          redirect_to: `${Constants.expoConfig.scheme as string}://auth/verify`,
+          redirect_to: `${Constants.expoConfig.scheme as string}:/${redirect as string}`,
         },
+      });
+    },
+
+    refreshToken() {
+      return authHttpClient.post({
+        path: 'token',
+        queryParams: { grant_type: 'refresh_token' },
+        schema: sessionSchema,
+      });
+    },
+
+    getMe() {
+      return authHttpClient.get({
+        path: 'user',
+        schema: userResponseSchema,
+      });
+    },
+
+    signOut() {
+      return authHttpClient.post({
+        path: 'logout',
       });
     },
   };

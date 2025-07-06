@@ -1,7 +1,7 @@
 import { ObjectValues } from '@/types';
 
 export const CustomValidationCode = {
-  Phone: 'phone',
+  RepeatPassword: 'repeatPassword',
 } as const;
 
 export type CustomValidationCode = ObjectValues<typeof CustomValidationCode>;

@@ -4,23 +4,13 @@ import { ErrorCodeTKey } from '@/types/translation';
 
 type TranslatedErrorCode = Extract<
   ErrorCode,
-  | 'GENERAL:BAD_REQUEST'
-  | 'GENERAL:FORBIDDEN'
-  | 'GENERAL:UNAUTHORIZED'
-  | 'GENERAL:UNKNOWN'
-  | 'OTP:INVALID'
-  | 'OTP:EXPIRED'
-  | 'GENERAL:VALIDATION'
+  'email_not_confirmed' | 'invalid_credentials' | 'missing_app_schema'
 >;
 
 const errorCodeMap = {
-  'GENERAL:BAD_REQUEST': 'badRequestError',
-  'GENERAL:FORBIDDEN': 'forbiddenError',
-  'GENERAL:UNAUTHORIZED': 'unauthorizedError',
-  'GENERAL:UNKNOWN': 'unknownError',
-  'GENERAL:VALIDATION': 'validationError',
-  'OTP:INVALID': 'invalidOtp',
-  'OTP:EXPIRED': 'otpExpired',
+  email_not_confirmed: 'email_not_confirmed',
+  invalid_credentials: 'invalid_credentials',
+  missing_app_schema: 'missing_app_schema',
 } as const satisfies Record<TranslatedErrorCode, ErrorCodeTKey>;
 
 export type MapErrorFn = (error: unknown) => string;

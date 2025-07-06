@@ -57,6 +57,7 @@ const stylesheet = createStyleSheet((theme) => ({
     fontSize: theme.fontSize['16'],
     flex: 1,
     textAlign: dir === 'rtl' ? 'right' : 'left',
+    fontFamily: theme.fontFamily.spaceMono,
   }),
   errorText: {
     color: theme.colors.error[500],

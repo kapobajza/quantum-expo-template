@@ -72,3 +72,7 @@ export const lineHeight = {
   '30': 30,
   '32': 32,
 } as const satisfies Record<string, number>;
+
+export const fontFamily = {
+  spaceMono: 'SpaceMono-Regular',
+} as const;

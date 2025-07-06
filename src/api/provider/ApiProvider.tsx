@@ -2,7 +2,6 @@ import { createContext, use, useMemo } from 'react';
 
 import { createAuthApi } from '@/api/auth.api';
 import { CreateHttpClientParams } from '@/api/factory';
-import { createUserApi } from '@/api/user.api';
 import { useAppEnv } from '@/env';
 import { useService } from '@/services';
 
@@ -68,7 +67,6 @@ export const ApiProvider = ({
       storageService,
     };
     const apiProviderValue = {
-      userApi: createUserApi(params),
       authApi: createAuthApi(params),
     } satisfies Record<keyof AllApiRouters, unknown>;
 

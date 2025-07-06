@@ -57,8 +57,8 @@ const tooBigValidator: ValidatorFn<ZodTooBigIssue> = (issue) => {
 };
 
 const customValidator: ValidatorFn<ZodCustomIssue> = (issue) => {
-  if (issue.params?.code === CustomValidationCode.Phone) {
-    return { messageKey: 'phone' };
+  if (issue.params?.code === CustomValidationCode.RepeatPassword) {
+    return { messageKey: 'repeatPassword' };
   }
 };
 

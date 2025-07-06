@@ -2,6 +2,7 @@ import { Header as RNHeader } from '@react-navigation/elements';
 
 import { Text } from '@/components/Text';
 import { useTranslation } from '@/locale';
+import { useTheme } from '@/theme';
 
 export interface HeaderProps {
   canGoBack?: boolean;
@@ -10,6 +11,7 @@ export interface HeaderProps {
 
 export const Header = ({ title, canGoBack }: HeaderProps) => {
   const { t } = useTranslation();
+  const theme = useTheme();
 
   return (
     <RNHeader
@@ -23,6 +25,10 @@ export const Header = ({ title, canGoBack }: HeaderProps) => {
             }
           : undefined
       }
+      headerBackTitleStyle={{
+        fontFamily: theme.fontFamily.spaceMono,
+        fontSize: theme.fontSize['16'],
+      }}
     />
   );
 };

@@ -6,7 +6,7 @@ import { Text } from '@/components/Text';
 import { createStyleSheet, useStyles } from '@/theme';
 
 export interface ContainerProps extends ViewProps {
-  center?: boolean;
+  center?: boolean | 'horizontal' | 'vertical';
   isLoading?: boolean;
   isError?: boolean;
   error?: Error | null;
@@ -55,12 +55,18 @@ export const Container = ({
 };
 
 const stylesheet = createStyleSheet((theme) => ({
-  root: (props: Pick<ContainerProps, 'center' | 'fill'>) => ({
-    margin: theme.spacing['4'],
-    alignItems: props.center ? 'center' : undefined,
-    justifyContent: props.center ? 'center' : undefined,
-    flex: props.fill ? 1 : undefined,
-  }),
+  root: (props: Pick<ContainerProps, 'center' | 'fill'>) => {
+    const centerHorizontal =
+      props.center === 'horizontal' || props.center === true;
+    const centerVertical = props.center === 'vertical' || props.center === true;
+
+    return {
+      margin: theme.spacing['4'],
+      alignItems: centerHorizontal ? 'center' : undefined,
+      justifyContent: centerVertical ? 'center' : undefined,
+      flex: props.fill ? 1 : undefined,
+    };
+  },
   errorContainer: {
     flex: 1,
     alignItems: 'center',

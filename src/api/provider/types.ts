@@ -1,8 +1,6 @@
 import { AuthApi } from '@/api/auth.api';
-import { UserApi } from '@/api/user.api';
 
 export interface AllApiRouters {
-  userApi: UserApi;
   authApi: AuthApi;
 }
 

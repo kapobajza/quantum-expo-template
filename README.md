@@ -59,7 +59,7 @@ And to enable it for everyone else on the team, you can add the following to you
 
 Before running the app, there are some recommendations which you could follow to ensure a smooth development experience:
 
-- Expo doesn't allow copying dot files into your project, so we will need to rename these files by adding a dot at the beginning of their names. You can do this by running the command: `pnpm run rename_to_dot_files`. Or rename them manually:
+- Expo doesn't allow copying dot files into your project from a template, so we will need to rename these files by adding a dot at the beginning of their names. You can do this by running the command: `pnpm run rename_to_dot_files`. Or rename them manually:
   - `env.example` to `.env.example`
   - `prettierrc.js` to `.prettierc.js`
   - `github` to `.github`

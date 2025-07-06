@@ -4,25 +4,23 @@
       "email": "E-Mail",
       "firstName": "Vorname",
       "lastName": "Nachname",
-      "password": "Passwort"
+      "password": "Passwort",
+      "repeatPassword": "Passwort wiederholen"
     },
     "messages": {
       "email": "Ungültige E-Mail-Adresse",
       "required": "{field} ist erforderlich",
       "other": "Validierungsfehler",
       "min": "{field} muss mindestens {min} Zeichen lang sein",
-      "max": "{field} darf {value} Zeichen nicht überschreiten"
+      "max": "{field} darf {value} Zeichen nicht überschreiten",
+      "repeatPassword": "Passwörter stimmen nicht überein"
     }
   },
   "error": {
     "code": {
-      "badRequestError": "Fehler bei der Anfrage (400)",
-      "unauthorizedError": "Nicht autorisiert (401)",
-      "forbiddenError": "Zugriff verweigert (403)",
-      "notFoundError": "Nicht gefunden (404)",
-      "internalServerError": "Interner Serverfehler (500)",
-      "validationError": "Validierungsfehler (422)",
-      "unknownError": "Unbekannter Fehler"
+      "email_not_confirmed": "E-Mail nicht bestätigt",
+      "invalid_credentials": "Ungültige Anmeldeinformationen",
+      "missing_app_schema": "App-Schema fehlt"
     },
     "general": "Ein Fehler ist aufgetreten"
   },
@@ -32,5 +30,17 @@
     "confirm": "Bestätigen",
     "ok": "OK",
     "submit": "Absenden"
+  },
+  "login": {
+    "dontHaveAccount": "Kein Konto? <a>Registrieren</a>"
+  },
+  "signUp": {
+    "title": "Registrieren",
+    "successMessage": "Registrierung erfolgreich! Bitte überprüfen Sie Ihre E-Mail, um Ihr Konto zu bestätigen."
+  },
+  "emailConfirmed": {
+    "title": "E-Mail bestätigt",
+    "message": "Ihre E-Mail wurde erfolgreich bestätigt. Sie können sich jetzt anmelden.",
+    "backToLogin": "Zurück zur Anmeldung"
   }
 }

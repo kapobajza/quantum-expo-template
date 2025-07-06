@@ -3,6 +3,7 @@ import * as SecureStore from 'expo-secure-store';
 export interface SecureStorageParamMap {
   AuthToken: {
     token: string;
+    refreshToken: string;
   };
 }
 

@@ -8,7 +8,8 @@
       "foregroundImage": "./assets/images/adaptive-icon.png",
       "backgroundColor": "#ffffff"
     },
-    "edgeToEdgeEnabled": true
+    "edgeToEdgeEnabled": true,
+    "package": "com.cosmoexpo.quantumexpotemplate"
   },
   "web": {
     "bundler": "metro",
@@ -33,15 +34,34 @@
     [
       "expo-font",
       {
-        "fonts": ["./assets/fonts/SpaceMono-Regular.ttf"],
+        "fonts": [
+          "./assets/fonts/SpaceMono-Regular.ttf",
+          "./assets/fonts/SpaceMono-Bold.ttf",
+          "./assets/fonts/SpaceMono-Italic.ttf",
+          "./assets/fonts/SpaceMono-BoldItalic.ttf"
+        ],
         "android": {
           "fonts": [
             {
-              "fontFamily": "Space Mono",
+              "fontFamily": "SpaceMono-Regular",
               "fontDefinitions": [
                 {
-                  "path": "./path/to/SourceSerif4-ExtraBold.ttf",
-                  "weight": 800
+                  "path": "./assets/fonts/SpaceMono-Regular.ttf",
+                  "weight": 400
+                },
+                {
+                  "path": "./assets/fonts/SpaceMono-Bold.ttf",
+                  "weight": 700
+                },
+                {
+                  "path": "./assets/fonts/SpaceMono-Italic.ttf",
+                  "weight": 400,
+                  "style": "italic"
+                },
+                {
+                  "path": "./assets/fonts/SpaceMono-BoldItalic.ttf",
+                  "weight": 700,
+                  "style": "italic"
                 }
               ]
             }
@@ -53,5 +73,9 @@
   "experiments": {
     "typedRoutes": true,
     "reactCompiler": true
-  }
+  },
+  "ios": {
+    "bundleIdentifier": "com.cosmoexpo.quantumexpotemplate"
+  },
+  "scheme": "my-app"
 }

@@ -6,7 +6,7 @@ export const createUsersQueryOptions = createQueryOptionsFactory(
     me: {
       queryKey: ['me'],
       async queryFn() {
-        const { data } = await api.userApi.me();
+        const { data } = await api.authApi.getMe();
         return data;
       },
     },
