@@ -4,7 +4,7 @@ import { ModalName, ShowModalFn } from './types';
 
 export interface ModalContext {
   showModal: ShowModalFn;
-  hideModal: (name: ModalName) => void;
+  hideModal: (name?: ModalName) => void;
   closeAllModals: () => void;
 }
 

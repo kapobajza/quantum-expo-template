@@ -20,7 +20,8 @@
     "code": {
       "email_not_confirmed": "E-Mail nicht bestätigt",
       "invalid_credentials": "Ungültige Anmeldeinformationen",
-      "missing_app_schema": "App-Schema fehlt"
+      "missing_app_schema": "App-Schema fehlt",
+      "over_email_send_rate_limit": "Sie haben das E-Mail-Sende-Limit überschritten"
     },
     "general": "Ein Fehler ist aufgetreten"
   },

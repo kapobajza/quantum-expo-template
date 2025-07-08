@@ -28,6 +28,7 @@ export interface TranslationKeyParam {
   'error.code.email_not_confirmed': undefined;
   'error.code.invalid_credentials': undefined;
   'error.code.missing_app_schema': undefined;
+  'error.code.over_email_send_rate_limit': undefined;
   'signUp.title': undefined;
   'signUp.successMessage': undefined;
   'login.dontHaveAccount': undefined;

@@ -12,6 +12,7 @@ export const errorCodeSchema = z.union([
   z.literal('missing_auth_token'),
   z.literal('email_not_confirmed'),
   z.literal('invalid_credentials'),
+  z.literal('over_email_send_rate_limit'),
 ]);
 
 export type ErrorCode = z.infer<typeof errorCodeSchema>;
@@ -26,6 +27,7 @@ export const ErrorCode = {
   MissingAuthToken: 'missing_auth_token',
   EmailNotConfirmed: 'email_not_confirmed',
   InvalidCredentials: 'invalid_credentials',
+  OverEmailSendRateLimit: 'over_email_send_rate_limit',
 } as const satisfies {
   [K in ErrorCode as SnakeToPascalCase<K>]: K;
 };

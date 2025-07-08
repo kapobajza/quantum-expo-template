@@ -50,4 +50,34 @@ export interface ModalItem<TModalName extends ModalName = ModalName> {
   Component: ModalComponent;
   params?: ModalStackParams[TModalName];
   options?: ModalOptions;
+  id: string;
 }
+
+export interface ModalState {
+  modals: ModalItem[];
+  pendingCloseQueue: Set<string>;
+}
+
+export const ModalActionType = {
+  Show: 'show_modal',
+  Remove: 'remove_modal',
+  Dismiss: 'dismiss_modal',
+  DismisAll: 'dismiss_all_modals',
+} as const;
+
+export type ModalAction =
+  | {
+      type: typeof ModalActionType.Show;
+      modal: Omit<ModalItem, 'id'>;
+    }
+  | {
+      type: typeof ModalActionType.Remove;
+      id: string;
+    }
+  | {
+      type: typeof ModalActionType.Dismiss;
+      name?: ModalName;
+    }
+  | {
+      type: typeof ModalActionType.DismisAll;
+    };

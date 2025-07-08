@@ -19,7 +19,7 @@ export const createHttpClient = ({
     ? createHttpInstance(baseURL)
     : axios.create({
         baseURL,
-        timeout: 5000, // 20 seconds
+        timeout: 15000, // 15 seconds
       });
 
   instance.interceptors.request.use(async (req) => {

@@ -1,5 +1,6 @@
 import { View } from 'react-native';
 
+import { useAlert } from '@/components/Alert/hooks';
 import { useModal } from '@/components/Modal';
 import { Pressable } from '@/components/Pressable';
 import { Text } from '@/components/Text';
@@ -10,7 +11,8 @@ export const ChangeLanguageModal = () => {
   const { t, i18n } = useTranslation();
   const { changeLanguage, isLoading } = useChangeLanguage();
   const styles = useStyles(stylesheet);
-  const { showModal, closeAllModals } = useModal();
+  const { showAlert } = useAlert();
+  const { closeAllModals } = useModal();
 
   return (
     <View style={styles.container}>
@@ -33,23 +35,16 @@ export const ChangeLanguageModal = () => {
                 return;
               }
 
-              showModal('Alert', {
-                args: {
-                  title: t('general.areYouSure'),
-                  message: t('changeLanguage.alertMessage', {
-                    language: languageName,
-                  }),
-                  onConfirm: () => {
-                    changeLanguage(value);
-                    closeAllModals();
-                  },
-                  type: 'prompt',
+              showAlert({
+                title: t('general.areYouSure'),
+                message: t('changeLanguage.alertMessage', {
+                  language: languageName,
+                }),
+                onConfirm: () => {
+                  changeLanguage(value);
+                  closeAllModals();
                 },
-                options: {
-                  backdropProps: {
-                    disabled: true,
-                  },
-                },
+                type: 'prompt',
               });
             }}
             disabled={isLoading}

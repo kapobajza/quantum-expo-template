@@ -71,12 +71,14 @@
           "required": [
             "email_not_confirmed",
             "invalid_credentials",
-            "missing_app_schema"
+            "missing_app_schema",
+            "over_email_send_rate_limit"
           ],
           "properties": {
             "email_not_confirmed": { "type": "string" },
             "invalid_credentials": { "type": "string" },
-            "missing_app_schema": { "type": "string" }
+            "missing_app_schema": { "type": "string" },
+            "over_email_send_rate_limit": { "type": "string" }
           }
         }
       }

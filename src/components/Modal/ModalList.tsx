@@ -1,31 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { ModalContext } from './context';
 import { Modal } from './Modal';
-import { ModalItem, ModalStack } from './types';
+import { useModalStore } from './store';
+import { ModalActionType, ModalStack } from './types';
 
 interface ModalListProps {
   setContext: (context: ModalContext) => void;
   stack: ModalStack;
 }
 
-const timeoutsMap = new Map<string, ReturnType<typeof setTimeout>>();
-
 export const ModalList = ({ setContext, stack }: ModalListProps) => {
-  const [items, setItems] = useState<ModalItem[]>([]);
+  const { modals, dispatch, pendingCloseQueue } = useModalStore();
 
   useEffect(() => {
     setContext({
       hideModal: (name) => {
-        timeoutsMap.set(
+        dispatch({
+          type: ModalActionType.Dismiss,
           name,
-          // eslint-disable-next-line @eslint-react/web-api/no-leaked-timeout
-          setTimeout(() => {
-            setItems((prevItems) =>
-              prevItems.filter((item) => item.name !== name),
-            );
-          }, 300),
-        );
+        });
       },
       showModal: (...args) => {
         const [name, opts] = args;
@@ -35,32 +29,38 @@ export const ModalList = ({ setContext, stack }: ModalListProps) => {
           options,
         } = opts ?? {};
 
-        setItems((prevItems) => [
-          ...prevItems,
-          {
+        dispatch({
+          type: ModalActionType.Show,
+          modal: {
             name,
             Component: stack[name],
-            params: params as never,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            params,
             options,
           },
-        ]);
+        });
       },
       closeAllModals() {
-        timeoutsMap.forEach((timeout) => {
-          clearTimeout(timeout);
+        dispatch({
+          type: ModalActionType.DismisAll,
         });
-        timeoutsMap.clear();
-        setItems([]);
       },
     });
+  }, [dispatch, modals, setContext, stack]);
 
-    return () => {
-      timeoutsMap.forEach((timeout) => {
-        clearTimeout(timeout);
-      });
-      timeoutsMap.clear();
-    };
-  }, [items, setContext, stack]);
-
-  return items.map((item) => <Modal item={item} key={item.name} />);
+  return modals.map((item) => {
+    return (
+      <Modal
+        item={item}
+        key={item.name}
+        isPendingClose={pendingCloseQueue.has(item.id)}
+        removeModal={(modalId) => {
+          dispatch({
+            type: ModalActionType.Remove,
+            id: modalId,
+          });
+        }}
+      />
+    );
+  });
 };

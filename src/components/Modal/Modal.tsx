@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Animated, {
   interpolateColor,
@@ -11,18 +11,18 @@ import Animated, {
 import { useMountEffect } from '@/hooks';
 import { createStyleSheet, useStyles, useTheme } from '@/theme';
 
-import { useModal } from './context';
 import { ModalItem } from './types';
 
 interface ModalProps {
   item: ModalItem;
+  isPendingClose: boolean;
+  removeModal: (id: string) => void;
 }
 
-export const Modal = ({ item }: ModalProps) => {
+export const Modal = ({ item, isPendingClose, removeModal }: ModalProps) => {
   const scaleAnimation = useSharedValue(0);
   const styles = useStyles(stylesheet);
   const theme = useTheme();
-  const { hideModal } = useModal();
 
   useMountEffect(() => {
     scaleAnimation.value = withTiming(1, {
@@ -48,9 +48,9 @@ export const Modal = ({ item }: ModalProps) => {
     opacity: scaleAnimation.value,
   }));
 
-  const handleHideModal = () => {
+  const handleHideModal = useCallback(() => {
     const handleAnimationEnd = () => {
-      hideModal(item.name);
+      removeModal(item.id);
     };
 
     scaleAnimation.value = withTiming(
@@ -62,7 +62,13 @@ export const Modal = ({ item }: ModalProps) => {
         runOnJS(handleAnimationEnd)();
       },
     );
-  };
+  }, [item.name, removeModal, scaleAnimation]);
+
+  useEffect(() => {
+    if (isPendingClose) {
+      handleHideModal();
+    }
+  }, [handleHideModal, isPendingClose]);
 
   return (
     <Animated.View

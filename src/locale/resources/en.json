@@ -28,7 +28,8 @@
     "code": {
       "email_not_confirmed": "Email not confirmed",
       "invalid_credentials": "Invalid credentials",
-      "missing_app_schema": "App schema is missing"
+      "missing_app_schema": "App schema is missing",
+      "over_email_send_rate_limit": "You have exceeded the email send rate limit"
     }
   },
   "signUp": {
