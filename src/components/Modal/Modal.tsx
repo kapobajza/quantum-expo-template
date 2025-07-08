@@ -62,7 +62,7 @@ export const Modal = ({ item, isPendingClose, removeModal }: ModalProps) => {
         runOnJS(handleAnimationEnd)();
       },
     );
-  }, [item.name, removeModal, scaleAnimation]);
+  }, [item.id, removeModal, scaleAnimation]);
 
   useEffect(() => {
     if (isPendingClose) {
