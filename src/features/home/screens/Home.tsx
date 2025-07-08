@@ -3,6 +3,7 @@ import React from 'react';
 
 import { useApi } from '@/api';
 import { Button, Container } from '@/components';
+import { ChangeLanguageButton } from '@/components/ChangeLanguage';
 import { useTranslation } from '@/locale';
 import { useMutation } from '@/query';
 import { useService } from '@/services';
@@ -24,15 +25,18 @@ const Home = () => {
   });
 
   return (
-    <Container center="vertical" fill useSafeAreas>
-      <Button
-        title={t('home.logOut')}
-        onPress={() => {
-          logOut();
-        }}
-        isLoading={isPending}
-      />
-    </Container>
+    <>
+      <ChangeLanguageButton />
+      <Container center="vertical" fill useSafeAreas>
+        <Button
+          title={t('home.logOut')}
+          onPress={() => {
+            logOut();
+          }}
+          isLoading={isPending}
+        />
+      </Container>
+    </>
   );
 };
 

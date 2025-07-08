@@ -22,6 +22,12 @@ vi.mock('react-native', () => ({
     select: (obj: Record<string, unknown>) => obj,
   },
   NativeModules: vi.mocked({}),
+  useWindowDimensions: vi.fn().mockReturnValue({
+    width: 375,
+    height: 667,
+    fontScale: 1,
+    scale: 2,
+  }),
 }));
 
 vi.mock('expo-linking', () => ({

@@ -31,7 +31,6 @@ export const Pressable = ({
   onPressOut,
   style,
   scaleOutputRange = defaultScaleOutputRange,
-  key,
   ref,
   ...props
 }: PressableProps) => {
@@ -63,7 +62,6 @@ export const Pressable = ({
 
   return (
     <ReanimatedPressable
-      key={key}
       {...props}
       ref={ref as React.Ref<View>}
       onPressIn={handlePressIn}

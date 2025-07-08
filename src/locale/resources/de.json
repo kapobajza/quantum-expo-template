@@ -29,7 +29,8 @@
     "cancel": "Abbrechen",
     "confirm": "Bestätigen",
     "ok": "OK",
-    "submit": "Absenden"
+    "submit": "Absenden",
+    "areYouSure": "Sind Sie sicher?"
   },
   "login": {
     "dontHaveAccount": "Kein Konto? <a>Registrieren</a>"
@@ -42,5 +43,13 @@
     "title": "E-Mail bestätigt",
     "message": "Ihre E-Mail wurde erfolgreich bestätigt. Sie können sich jetzt anmelden.",
     "backToLogin": "Zurück zur Anmeldung"
+  },
+  "home": {
+    "logOut": "Abmelden"
+  },
+  "changeLanguage": {
+    "title": "Sprache ändern",
+    "languageName": "{code, select, en {Englisch} de {Deutsch} other {Unbekannt}}",
+    "alertMessage": "Sind Sie sicher, dass Sie die Sprache auf {language} ändern möchten?"
   }
 }

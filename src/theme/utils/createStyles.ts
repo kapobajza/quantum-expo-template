@@ -1,9 +1,18 @@
-import { StyleSheet } from 'react-native';
+import { ScaledSize, StyleSheet, useWindowDimensions } from 'react-native';
+import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppTheme } from '@/theme';
 import { useTheme } from '@/theme/ThemeProvider';
 
 import { ExtractStyles, NamedStyles, RNNamedStyles } from './types';
+
+type StyleSheetFunction<T> = (
+  theme: AppTheme,
+  options: {
+    insets: EdgeInsets;
+    dimensions: ScaledSize;
+  },
+) => T;
 
 /**
  * This is just a wrapper function to deal with the types
@@ -11,7 +20,7 @@ import { ExtractStyles, NamedStyles, RNNamedStyles } from './types';
  * @returns The `stylesheet` param
  */
 export const createStyleSheet = <TStyleSheet extends NamedStyles>(
-  stylesheet: TStyleSheet | ((theme: AppTheme) => TStyleSheet),
+  stylesheet: TStyleSheet | StyleSheetFunction<TStyleSheet>,
 ): TStyleSheet => {
   if (typeof stylesheet === 'function') {
     return stylesheet as unknown as TStyleSheet;
@@ -74,11 +83,15 @@ export const createStyleSheet = <TStyleSheet extends NamedStyles>(
  * }));
  */
 export const useStyles = <TStyleSheet extends NamedStyles>(
-  stylesheet: TStyleSheet | ((theme: AppTheme) => TStyleSheet),
+  stylesheet: TStyleSheet | StyleSheetFunction<TStyleSheet>,
 ): ExtractStyles<TStyleSheet> => {
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
+  const dimensions = useWindowDimensions();
   const parsedStyles =
-    typeof stylesheet === 'function' ? stylesheet(theme) : stylesheet;
+    typeof stylesheet === 'function'
+      ? stylesheet(theme, { insets, dimensions })
+      : stylesheet;
 
   const dynamicStyles = Object.entries(parsedStyles).reduce(
     (acc, [key, value]) => {

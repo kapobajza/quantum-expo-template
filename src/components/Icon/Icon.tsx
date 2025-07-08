@@ -10,6 +10,7 @@ export const Icon = (props: IconProps) => {
     name,
     width = '4',
     height = '4',
+    size,
     color = 'secondary.50',
     style,
     ...rest
@@ -20,7 +21,7 @@ export const Icon = (props: IconProps) => {
 
   return (
     <Component
-      style={[styles.icon({ width, height, color }), style]}
+      style={[styles.icon({ width, height, color, size }), style]}
       {...rest}
     />
   );
@@ -31,9 +32,11 @@ const stylesheet = createStyleSheet((theme) => ({
     width,
     height,
     color,
-  }: Required<Pick<IconProps, 'width' | 'height' | 'color'>>) => ({
-    width: theme.spacing[width],
-    height: theme.spacing[height],
+    size,
+  }: Required<Pick<IconProps, 'width' | 'height' | 'color'>> &
+    Pick<IconProps, 'size'>) => ({
+    width: theme.spacing[size ?? width],
+    height: theme.spacing[size ?? height],
     fill: get(theme.colors, color),
   }),
 }));

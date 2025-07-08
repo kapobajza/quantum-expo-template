@@ -17,7 +17,7 @@ const EmailConfirmed = () => {
       <Header title={t('emailConfirmed.title')} />
       <Container fill useSafeAreas style={styles.container}>
         <Icon
-          name="CheckMarkSquareIcon"
+          name="CheckMarkSquare"
           width="15"
           height="15"
           color="success.100"

@@ -6,7 +6,7 @@ import { DeepMockProxy, mock, mockDeep } from 'vitest-mock-extended';
 
 import { ApiProvider } from '@/api';
 import { AllApiRouters } from '@/api/provider/types';
-import { ToastOptionsMinimal, ToastProvider } from '@/components/Toast';
+import { ToastItemMinimal, ToastProvider } from '@/components/Toast';
 import { DatabaseProvider } from '@/db';
 import { LocaleRepo, QueryRepo } from '@/db/repo';
 import { AppEnv, AppEnvProvider } from '@/env';
@@ -28,8 +28,8 @@ export const buildRenderHook = <Result, Props>(
     loggingService: mockDeep(),
   };
   let apiProvider = mockApiProvider;
-  const toastMessages: ToastOptionsMinimal[] = [];
-  const mockShowToast = vi.fn((item: ToastOptionsMinimal) => {
+  const toastMessages: ToastItemMinimal[] = [];
+  const mockShowToast = vi.fn((item: ToastItemMinimal) => {
     toastMessages.push(item);
   });
 

@@ -6,7 +6,9 @@ import { LogBox } from 'react-native';
 
 import { ApiProvider } from '@/api';
 import { MigrationsRunner } from '@/components';
-import { AlertProvider } from '@/components/Alert';
+import { AlertModal } from '@/components/Alert';
+import { ChangeLanguageModal } from '@/components/ChangeLanguage';
+import { ModalProvider, ModalStack } from '@/components/Modal';
 import { ToastProvider } from '@/components/Toast';
 import { DatabaseProvider, SqliteDatabase } from '@/db';
 import { DatabaseRepository } from '@/db/context';
@@ -51,6 +53,11 @@ const repo: DatabaseRepository = {
 
 const sqliteQueryPersister = createSqlitePersister(repo.queryRepository);
 
+const modalStack: ModalStack = {
+  ChangeLanguage: ChangeLanguageModal,
+  Alert: AlertModal,
+};
+
 function RootLayout() {
   return (
     <StrictMode>
@@ -64,9 +71,9 @@ function RootLayout() {
                     <QueryProvider persister={sqliteQueryPersister}>
                       <ApiProvider>
                         <QueryFactoryProvider>
-                          <AlertProvider>
+                          <ModalProvider stack={modalStack}>
                             <Slot />
-                          </AlertProvider>
+                          </ModalProvider>
                         </QueryFactoryProvider>
                       </ApiProvider>
                     </QueryProvider>

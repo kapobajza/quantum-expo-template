@@ -20,7 +20,8 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "ok": "OK",
-    "back": "Back"
+    "back": "Back",
+    "areYouSure": "Are you sure?"
   },
   "error": {
     "general": "An error occurred",
@@ -44,5 +45,10 @@
   },
   "home": {
     "logOut": "Log Out"
+  },
+  "changeLanguage": {
+    "title": "Change Language",
+    "languageName": "{code, select, en {English} de {German} other {Unknown}}",
+    "alertMessage": "Are you sure you want to change the language to {language}?"
   }
 }

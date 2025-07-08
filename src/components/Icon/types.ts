@@ -14,5 +14,7 @@ export interface IconProps
   width?: ThemeSpacingAbsolute;
   /** height in theme spacing, x4 */
   height?: ThemeSpacingAbsolute;
+  /** size in theme spacing, x4 */
+  size?: ThemeSpacingAbsolute;
   color?: ThemeColors;
 }

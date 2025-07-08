@@ -23,6 +23,7 @@ export interface TranslationKeyParam {
   'general.confirm': undefined;
   'general.ok': undefined;
   'general.back': undefined;
+  'general.areYouSure': undefined;
   'error.general': undefined;
   'error.code.email_not_confirmed': undefined;
   'error.code.invalid_credentials': undefined;
@@ -34,6 +35,13 @@ export interface TranslationKeyParam {
   'emailConfirmed.message': undefined;
   'emailConfirmed.backToLogin': undefined;
   'home.logOut': undefined;
+  'changeLanguage.title': undefined;
+  'changeLanguage.languageName': {
+    code: 'en' | 'de';
+  };
+  'changeLanguage.alertMessage': {
+    language: string | number | undefined;
+  };
 }
 
 export type TranslationKey = keyof TranslationKeyParam;

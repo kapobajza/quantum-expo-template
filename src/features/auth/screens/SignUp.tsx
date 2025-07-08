@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Button, Container, ControlInput } from '@/components';
+import { ChangeLanguageButton } from '@/components/ChangeLanguage';
 import { Header } from '@/components/Navigation';
 import { useSignUp } from '@/features/auth/hooks/useSignUp';
 import { useForm } from '@/hooks';
@@ -22,6 +23,7 @@ function SignUp() {
   return (
     <>
       <Header title={t('signUp.title')} canGoBack />
+      <ChangeLanguageButton topOffset={50} />
       <Container style={styles.container} fill useSafeAreas>
         <ControlInput
           control={control}
