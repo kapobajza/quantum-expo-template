@@ -20,6 +20,10 @@ This template contains a lot of prebuilt stuff, including:
 - SVG icon generator
 - And much more!
 
+
+https://github.com/user-attachments/assets/287c821c-1c2b-42f2-98dd-d8a99c4d800f
+
+
 ## Table of Contents <!-- omit in toc -->
 
 - [Git rules and hooks](#git-rules-and-hooks)
