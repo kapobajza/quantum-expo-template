@@ -43,16 +43,30 @@ vi.mock('expo-web-browser', () => ({
 }));
 
 const pathnameMock = vi.hoisted(() => {
-  let pathname: string | undefined;
+  let paths: string[] = [];
+
+  const setPath = (path: string | undefined) => {
+    if (!path) {
+      return;
+    }
+
+    paths.push(!path.startsWith('/') ? `/${path}` : path);
+  };
 
   return {
-    setPathname: (newPathname: string | undefined) => {
-      if (newPathname && !newPathname.startsWith('/')) {
-        newPathname = `/${newPathname}`;
+    setPath,
+    getPath: () => paths.at(-1),
+    resetPaths: (initial: string[] = []) => {
+      if (initial.length === 0) {
+        paths = [];
+        return;
       }
-      pathname = newPathname;
+
+      initial.forEach((path) => {
+        setPath(path);
+      });
     },
-    getPathname: () => pathname,
+    popPaths: () => paths.pop(),
   };
 });
 
@@ -62,20 +76,23 @@ vi.mock('expo-router', () => {
       return {
         replace: (href) => {
           if (typeof href === 'string') {
-            pathnameMock.setPathname(href);
+            pathnameMock.setPath(href);
             return;
           }
 
-          pathnameMock.setPathname(href.pathname);
+          pathnameMock.setPath(href.pathname);
         },
-      } satisfies Pick<Router, 'replace'>;
+        back() {
+          pathnameMock.popPaths();
+        },
+      } satisfies Pick<Router, 'replace' | 'back'>;
     },
     useNavigation: vi.fn().mockReturnValue({
       reset: (params: { index: number; routes: { name: string }[] }) => {
-        pathnameMock.setPathname(params.routes[0].name);
+        pathnameMock.resetPaths(params.routes.map((r) => r.name));
       },
     }),
-    usePathname: () => pathnameMock.getPathname(),
+    usePathname: () => pathnameMock.getPath(),
   };
 });
 
@@ -162,5 +179,5 @@ vi.stubGlobal('expo', {
 vi.stubEnv('EXPO_OS', 'ios');
 
 afterEach(() => {
-  pathnameMock.setPathname(undefined);
+  pathnameMock.resetPaths();
 });
