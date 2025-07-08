@@ -94,19 +94,17 @@ If you want to use Supabase, you can follow these steps:
 1. Create a new Supabase project at [Supabase](https://supabase.com/)
 2. Add your Supabase URL and API key to the `.env` file. See the [`.env.example`](.env.example) file for reference.
 3. Add your deep linking `scheme` to the `app.json` file, for example:
-
-```json
-{
-  "scheme": "my-app"
-}
-```
+   ```json
+   {
+     "scheme": "my-app"
+   }
+   ```
 4. Under "Authentication" > "URL Configuration", find the "Redirect URLs" section and add the following deep linking URL:
-
-```
-<scheme>://auth/email-confirmed
-# <scheme> should be replaced with the one you set in the `app.json` file, in step 3.
-# For example, if your scheme is `my-app`, then the URL should be `my-app://auth/email-confirmed`
-```
+   ```
+   <scheme>://auth/email-confirmed
+   # <scheme> should be replaced with the one you set in the `app.json` file, in step 3.
+   # For example, if your scheme is `my-app`, then the URL should be `my-app://auth/email-confirmed`
+   ```
 5. That's it. Congratulations!
 
 ## Running the app
@@ -168,8 +166,7 @@ To display warnings for missing translations keys in your VSCode editor, you sho
 
 To add new translations, make sure to first add the relevant key to the [`translation-schema.json`](./src/locale/translation-schema.json) file.
 
-Translations should be categorized by screens. If we had a `Foo` screen that has a `bar` translation key, then we would add the following to the `translation-schema.json` file:
-
+My recommendation is to categorize translations by screens. If we had a `Foo` screen that has a `bar` translation key, then we would add the following to the `translation-schema.json` file:
 ```json
 {
   ...
