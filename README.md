@@ -21,11 +21,10 @@ This template contains a lot of prebuilt stuff, including:
 - And much more!
 
 
-https://github.com/user-attachments/assets/287c821c-1c2b-42f2-98dd-d8a99c4d800f
-
 
 ## Table of Contents <!-- omit in toc -->
 
+- [Demo](#demo)
 - [Git rules and hooks](#git-rules-and-hooks)
 - [Getting started](#getting-started)
   - [(Optional) Getting started with Supabase](#optional-getting-started-with-supabase)
@@ -39,6 +38,12 @@ https://github.com/user-attachments/assets/287c821c-1c2b-42f2-98dd-d8a99c4d800f
   - [Adding validation translations](#adding-validation-translations)
 - [Adding new icons/SVGs](#adding-new-iconssvgs)
 
+
+## Demo
+
+Here is a demo of the template in action:
+
+https://github.com/user-attachments/assets/287c821c-1c2b-42f2-98dd-d8a99c4d800f
 
 ## Git rules and hooks
 
