@@ -47,6 +47,9 @@ export const colors = {
     800: '#B3FFB3',
     900: '#99FF99',
   },
+  background: {
+    main: '#FFFFFF',
+  },
 } as const;
 
 export type ThemeColors = Leaves<typeof colors>;

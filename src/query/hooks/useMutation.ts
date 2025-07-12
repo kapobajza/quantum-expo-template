@@ -7,6 +7,7 @@ import {
 
 import { useToast } from '@/components/Toast/context';
 import { useMapError } from '@/error/hooks';
+import { useService } from '@/services';
 
 import { UseMutationOptions } from './types';
 
@@ -22,11 +23,14 @@ export default function useMutation<
   const { showToastError = true, onError, ...otherOptions } = options;
   const { showError } = useToast();
   const mapError = useMapError();
+  const { loggingService } = useService();
 
   return useTSQMutation(
     {
       ...otherOptions,
       onError: (error, variables, context) => {
+        loggingService.captureException(error);
+
         if (onError) {
           onError(error, variables, context, showError, mapError);
           return;

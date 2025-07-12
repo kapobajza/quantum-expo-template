@@ -1,8 +1,7 @@
-import { HttpStatusCode } from 'axios';
 import Constants from 'expo-constants';
 import { Href } from 'expo-router';
 
-import { ErrorCode, HttpError } from '@/error';
+import { AppError, ErrorCode } from '@/error';
 import {
   AuthSignInRequestBody,
   AuthSignUpRequestBody,
@@ -33,10 +32,9 @@ export const createAuthApi = createApiBuilder((options) => {
 
     signUp(data: AuthSignUpRequestBody) {
       if (!Constants.expoConfig?.scheme) {
-        throw new HttpError(
-          HttpStatusCode.BadRequest,
-          ErrorCode.MissingAppSchema,
-        );
+        throw new AppError({
+          code: ErrorCode.MissingAppSchema,
+        });
       }
 
       const redirect: Href = '/auth/email-confirmed';

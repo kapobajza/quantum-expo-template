@@ -1,3 +1,7 @@
+import {
+  DefaultTheme,
+  ThemeProvider as RNThemeProvider,
+} from '@react-navigation/native';
 import { drizzle } from 'drizzle-orm/expo-sqlite';
 import { Slot } from 'expo-router';
 import { openDatabaseSync } from 'expo-sqlite';
@@ -66,19 +70,29 @@ function RootLayout() {
           <MigrationsRunner database={drizzleDb}>
             <DatabaseProvider repository={repo}>
               <I18nProvider>
-                <ThemeProvider theme={defaultTheme}>
-                  <ToastProvider>
-                    <QueryProvider persister={sqliteQueryPersister}>
-                      <ApiProvider>
-                        <QueryFactoryProvider>
-                          <ModalProvider stack={modalStack}>
-                            <Slot />
-                          </ModalProvider>
-                        </QueryFactoryProvider>
-                      </ApiProvider>
-                    </QueryProvider>
-                  </ToastProvider>
-                </ThemeProvider>
+                <RNThemeProvider
+                  value={{
+                    ...DefaultTheme,
+                    colors: {
+                      ...DefaultTheme.colors,
+                      background: defaultTheme.colors.background.main,
+                    },
+                  }}
+                >
+                  <ThemeProvider theme={defaultTheme}>
+                    <ToastProvider>
+                      <QueryProvider persister={sqliteQueryPersister}>
+                        <ApiProvider>
+                          <QueryFactoryProvider>
+                            <ModalProvider stack={modalStack}>
+                              <Slot />
+                            </ModalProvider>
+                          </QueryFactoryProvider>
+                        </ApiProvider>
+                      </QueryProvider>
+                    </ToastProvider>
+                  </ThemeProvider>
+                </RNThemeProvider>
               </I18nProvider>
             </DatabaseProvider>
           </MigrationsRunner>

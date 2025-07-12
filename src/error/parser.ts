@@ -1,36 +1,57 @@
+import { isAxiosError } from 'axios';
 import { z } from 'zod';
 
-import { HttpError } from './HttpError';
+import { AppError } from './AppError';
 import { ErrorCode, errorDataSchema } from './types';
 
-export const isHttpError = (error: unknown): error is HttpError => {
-  return error instanceof HttpError;
+export const isAppError = (error: unknown): error is AppError => {
+  return error instanceof AppError;
+};
+
+export const parseError = (error: unknown) => {
+  let data: unknown = undefined;
+
+  if (isAxiosError(error)) {
+    data = error.response?.data;
+  } else if (isAppError(error)) {
+    data = error;
+  }
+
+  const parsed = errorDataSchema.safeParse(data);
+
+  if (!parsed.success) {
+    return undefined;
+  }
+
+  return parsed.data;
 };
 
 export const isErrorCode = (error: unknown, ...codes: ErrorCode[]): boolean => {
-  const parsed = errorDataSchema.safeParse(error);
+  const parsedData = parseError(error);
 
-  if (!parsed.success) {
+  if (!parsedData) {
     return false;
   }
 
-  return codes.includes(parsed.data.error_code);
+  return codes.includes(parsedData.error_code);
 };
 
-export const parseErrorData = <TSchema extends z.Schema>(
+export const parseErrorResponseData = <TSchema extends z.Schema>(
   error: unknown,
   code: ErrorCode,
   schema: TSchema,
 ): TSchema['_output'] | undefined => {
-  if (!isHttpError(error)) {
+  const errorData = parseError(error);
+
+  if (!errorData) {
     return undefined;
   }
 
-  if (error.code !== code) {
+  if (errorData.error_code !== code) {
     return undefined;
   }
 
-  const parsedData = schema.safeParse(error.data);
+  const parsedData = schema.safeParse(errorData.data);
 
   if (!parsedData.success) {
     return undefined;
