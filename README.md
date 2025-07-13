@@ -43,8 +43,7 @@ This template contains a lot of prebuilt stuff, including:
 
 Here is a demo of the template in action:
 
-https://github.com/user-attachments/assets/287c821c-1c2b-42f2-98dd-d8a99c4d800f
-
+https://github.com/user-attachments/assets/828a515a-20bb-4700-b453-59669fc4086e
 
 ## Getting started
 
