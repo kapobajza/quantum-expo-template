@@ -8,8 +8,7 @@
       "foregroundImage": "./assets/images/adaptive-icon.png",
       "backgroundColor": "#ffffff"
     },
-    "edgeToEdgeEnabled": true,
-    "package": "com.anonymous.quantumexpotemplate"
+    "edgeToEdgeEnabled": true
   },
   "web": {
     "bundler": "metro",
@@ -73,9 +72,5 @@
   "experiments": {
     "typedRoutes": true,
     "reactCompiler": true
-  },
-  "scheme": "my-app",
-  "ios": {
-    "bundleIdentifier": "com.anonymous.quantumexpotemplate"
   }
 }
