@@ -2,6 +2,7 @@ import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { stringify } from 'qs';
 import { z } from 'zod';
 
+import { LoggingService } from '@/services';
 import { Prettify } from '@/types';
 
 import {
@@ -88,11 +89,13 @@ export const buildRequest = <
   method,
   params,
   urlPrefix,
+  loggingService,
 }: {
   instance: AxiosInstance;
   method: HttpMethod;
   params?: ConstructRequestParams<RequestBody, Schema, Path>;
   urlPrefix: string;
+  loggingService: LoggingService;
 }): Prettify<{
   path: Path;
   route: string;
@@ -112,35 +115,43 @@ export const buildRequest = <
     route,
     url: buildFullUrl(instance.defaults.baseURL ?? '', route, queryParams),
     async request() {
-      const doRequest = instance as <
-        T = unknown,
-        R = AxiosResponse<T>,
-        D = unknown,
-      >(
-        config: AxiosRequestConfig<D>,
-      ) => Promise<R>;
+      try {
+        const doRequest = instance as <
+          T = unknown,
+          R = AxiosResponse<T>,
+          D = unknown,
+        >(
+          config: AxiosRequestConfig<D>,
+        ) => Promise<R>;
 
-      const res = await doRequest({
-        ...(options ?? {}),
-        method,
-        url: `${route}${stringify(queryParams, {
-          addQueryPrefix: true,
-        })}`,
-        data: body,
-      });
+        const res = await doRequest({
+          ...(options ?? {}),
+          method,
+          url: `${route}${stringify(queryParams, {
+            addQueryPrefix: true,
+          })}`,
+          data: body,
+        });
 
-      let data: unknown = res.data;
+        let data: unknown = res.data;
 
-      if (schema) {
-        data = schema.safeParse(res.data).data ?? res.data;
+        if (schema) {
+          data = schema.safeParse(res.data).data ?? res.data;
+        }
+
+        return {
+          ...res,
+          data,
+        } as ClientRequestParams<
+          RequestBody,
+          Schema
+        >['schema'] extends undefined
+          ? AxiosResponse<unknown>
+          : AxiosResponse<Schema extends z.ZodType ? z.infer<Schema> : unknown>;
+      } catch (error) {
+        loggingService.captureException(error);
+        throw error;
       }
-
-      return {
-        ...res,
-        data,
-      } as ClientRequestParams<RequestBody, Schema>['schema'] extends undefined
-        ? AxiosResponse<unknown>
-        : AxiosResponse<Schema extends z.ZodType ? z.infer<Schema> : unknown>;
     },
   };
 };

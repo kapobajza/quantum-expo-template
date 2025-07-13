@@ -1,5 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { describe, expect, test } from 'vitest';
+import { mock } from 'vitest-mock-extended';
+
+import { LoggingService } from '@/services';
 
 import { buildRequest } from './request';
 
@@ -9,12 +12,15 @@ const mockAxiosInstance = axios.create({
   baseURL,
 });
 
+const logginServiceMock = mock<LoggingService>();
+
 describe('request factory', () => {
   test('should build request correctly', () => {
     const req = buildRequest({
       instance: mockAxiosInstance,
       method: 'get',
       urlPrefix: 'users',
+      loggingService: logginServiceMock,
     });
 
     expect(req.route).toBe('users/');
@@ -40,6 +46,7 @@ describe('request factory', () => {
         path: '123',
         queryParams: { sortBy: 'name', sortOrder: 'asc' },
       },
+      loggingService: logginServiceMock,
     });
 
     const res = await req.request();

@@ -25,9 +25,9 @@ This template contains a lot of prebuilt stuff, including:
 ## Table of Contents <!-- omit in toc -->
 
 - [Demo](#demo)
-- [Git rules and hooks](#git-rules-and-hooks)
 - [Getting started](#getting-started)
   - [(Optional) Getting started with Supabase](#optional-getting-started-with-supabase)
+- [Git rules and hooks](#git-rules-and-hooks)
 - [Running the app](#running-the-app)
 - [UI Styling and Theming guide](#ui-styling-and-theming-guide)
 - [Testing](#testing)
@@ -45,29 +45,18 @@ Here is a demo of the template in action:
 
 https://github.com/user-attachments/assets/287c821c-1c2b-42f2-98dd-d8a99c4d800f
 
-## Git rules and hooks
-
-Using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages is recommended. You should also consider it, since the commit messages can be validated by the [commitlint](https://commitlint.js.org/) tool.
-
-To enable commitlint to run on every commit, you can run
-
-```sh
-pnpm dlx lefthook install
-```
-
-And to enable it for everyone else on the team, you can add the following to your `package.json` file:
-
-```json
-{
-  "scripts": {
-    "postinstall": "lefthook install"
-  }
-}
-```
 
 ## Getting started
 
-Before running the app, there are some recommendations which you could follow to ensure a smooth development experience:
+To get started, you should create an expo app using this template:
+
+```sh
+pnpm create create-expo-app --template https://github.com/kapobajza/quantum-expo-template
+```
+
+Open the newly created project in your favorite code editor, and you're ready to continue.
+
+Now before running the app, there are some recommendations which you could follow to ensure a smooth development experience:
 
 - Expo doesn't allow copying dot files into your project from a template, so we will need to rename these files by adding a dot at the beginning of their names. You can do this by running the command: `pnpm run rename_to_dot_files`. Or rename them manually:
   - `env.example` to `.env.example`
@@ -80,11 +69,6 @@ Before running the app, there are some recommendations which you could follow to
   -  **NOTE**: `nvmrc` is also being used in the CI, so if you don't add a `.nvmrc` file, update the [code_checks.yml](.github/workflows/code_checks.yaml) file to and set your desired Node version. Otherwise, the CI will fail.
 - pnpm v10.12.4 - you can run `corepack enable` and it will be installed automatically.
 
-Now you can install the dependencies by running:
-
-```sh
-pnpm install
-```
 
 ### (Optional) Getting started with Supabase
 
@@ -106,6 +90,26 @@ If you want to use Supabase, you can follow these steps:
    # For example, if your scheme is `my-app`, then the URL should be `my-app://auth/email-confirmed`
    ```
 5. That's it. Congratulations!
+
+## Git rules and hooks
+
+Using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages is recommended. You should also consider it, since the commit messages can be validated by the [commitlint](https://commitlint.js.org/) tool.
+
+To enable commitlint to run on every commit, you can run
+
+```sh
+pnpm dlx lefthook install
+```
+
+And to enable it for everyone else on the team, you can add the following to your `package.json` file:
+
+```json
+{
+  "scripts": {
+    "postinstall": "lefthook install"
+  }
+}
+```
 
 ## Running the app
 
