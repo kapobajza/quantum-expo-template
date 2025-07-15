@@ -1,13 +1,13 @@
 import { createContext, ReactNode, use } from 'react';
 
-import { useQueryBuilder } from './hooks';
+import { createQueryBuilder } from './factory/builder';
 
-type QueryFactoryContext = ReturnType<typeof useQueryBuilder>;
+type QueryFactoryContext = ReturnType<typeof createQueryBuilder>;
 
 const QueryFactoryContext = createContext<QueryFactoryContext | null>(null);
 
 export const QueryFactoryProvider = ({ children }: { children: ReactNode }) => {
-  const queryOptions = useQueryBuilder();
+  const queryOptions = createQueryBuilder();
 
   return (
     <QueryFactoryContext value={queryOptions}>{children}</QueryFactoryContext>

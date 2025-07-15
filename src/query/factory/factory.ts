@@ -1,6 +1,5 @@
 import { QueryOptions } from '@tanstack/react-query';
 
-import { AllApiClients } from '@/api';
 import { Prettify } from '@/types';
 
 type FactoryQueryKeyArrayType = string | number | object | boolean | undefined;
@@ -26,7 +25,7 @@ type FactoryOptions = Record<
   FactoryField | string | ((...args: any[]) => FactoryField)
 >;
 
-type FactoryOptionsExtended<
+export type FactoryOptionsExtended<
   TOptions extends FactoryOptions = FactoryOptions,
   TName extends string = string,
 > = TOptions & {
@@ -38,12 +37,10 @@ export function createQueryOptionsFactory<
   const TOptions extends FactoryOptions,
 >(
   name: TFactoryQueryKeyName,
-  options: (api: AllApiClients) => TOptions,
-): (
-  api: AllApiClients,
-) => FactoryOptionsExtended<TOptions, TFactoryQueryKeyName> {
-  return (api) => {
-    const queryOptions = options(api);
+  options: () => TOptions,
+): () => FactoryOptionsExtended<TOptions, TFactoryQueryKeyName> {
+  return () => {
+    const queryOptions = options();
 
     const obj = Object.entries(queryOptions).reduce<FactoryOptions>(
       (acc, [key, value]) => {
@@ -104,7 +101,7 @@ type StoreFromMergedQueryKeys<TMergeArgs extends FactoryOptionsExtended[]> =
         StoreFromMergedQueryKeys<TRest>
     : unknown;
 
-export function mergeQueryOptions<TArgs extends FactoryOptionsExtended[]>(
+export function mergeQueryOptions<const TArgs extends FactoryOptionsExtended[]>(
   ...args: TArgs
 ): Prettify<StoreFromMergedQueryKeys<TArgs>> {
   return args.reduce<Record<string, unknown>>((acc, value) => {
