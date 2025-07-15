@@ -1,4 +1,4 @@
-import { AppError, ErrorCode } from '@/error';
+import { ErrorCode, parseError } from '@/error';
 import { useTranslation } from '@/locale';
 import { ErrorCodeTKey } from '@/types/translation';
 
@@ -23,12 +23,14 @@ export const useMapError = () => {
   const { t } = useTranslation();
 
   const mapErrorFn: MapErrorFn = (error) => {
-    if (!(error instanceof AppError)) {
+    const parsedError = parseError(error);
+
+    if (!parsedError) {
       return t('error.general');
     }
 
     const errorCodeMesageKey = errorCodeMap[
-      error.code as TranslatedErrorCode
+      parsedError.error_code as TranslatedErrorCode
     ] as ErrorCodeTKey | undefined;
 
     if (errorCodeMesageKey) {

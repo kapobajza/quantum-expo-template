@@ -1,9 +1,17 @@
+import { isAxiosError } from 'axios';
+
 export const createLoggingService = () => {
   return {
     captureException(exception: unknown) {
       if (__DEV__) {
+        let data: unknown = undefined;
+
+        if (isAxiosError(exception)) {
+          data = exception.response?.data;
+        }
+
         // eslint-disable-next-line no-console
-        console.error(exception);
+        console.error(exception, data);
         return;
       }
 

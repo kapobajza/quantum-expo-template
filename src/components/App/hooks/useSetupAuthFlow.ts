@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import * as SplashScreen from 'expo-splash-screen';
 
 import { useToast } from '@/components/Toast';
-import { AppError, ErrorCode, HttpError, isErrorCode } from '@/error';
+import { AppError, ErrorCode, isErrorCode } from '@/error';
 import { useMapError } from '@/error/hooks';
 import { useMutation, useQueryOptionsFactory } from '@/query';
 import { useService } from '@/services';
@@ -20,7 +20,9 @@ const useSetupAuthFlow = () => {
         const token = await storageService.getSecureItem('AuthToken');
 
         if (!token) {
-          throw new AppError(ErrorCode.MissingAuthToken);
+          throw new AppError({
+            code: ErrorCode.MissingAuthToken,
+          });
         }
 
         await queryClient.fetchQuery({
@@ -41,7 +43,10 @@ const useSetupAuthFlow = () => {
         );
 
         if (isUnauthorized || !meData) {
-          throw new HttpError(401, ErrorCode.Unauthorized);
+          throw new AppError({
+            code: ErrorCode.Unauthorized,
+            originalError: err,
+          });
         }
 
         showError(mapError(err));

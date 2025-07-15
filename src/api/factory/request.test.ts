@@ -12,13 +12,15 @@ const mockAxiosInstance = axios.create({
   baseURL,
 });
 
+const logginServiceMock = mock<LoggingService>();
+
 describe('request factory', () => {
   test('should build request correctly', () => {
     const req = buildRequest({
       instance: mockAxiosInstance,
       method: 'get',
       urlPrefix: 'users',
-      loggingService: mock<LoggingService>(),
+      loggingService: logginServiceMock,
     });
 
     expect(req.route).toBe('users/');
@@ -44,7 +46,7 @@ describe('request factory', () => {
         path: '123',
         queryParams: { sortBy: 'name', sortOrder: 'asc' },
       },
-      loggingService: mock<LoggingService>(),
+      loggingService: logginServiceMock,
     });
 
     const res = await req.request();

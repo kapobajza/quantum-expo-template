@@ -1,13 +1,7 @@
-import {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  isAxiosError,
-} from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { stringify } from 'qs';
 import { z } from 'zod';
 
-import { ErrorCode, errorDataSchema, HttpError } from '@/error';
 import { LoggingService } from '@/services';
 import { Prettify } from '@/types';
 
@@ -156,22 +150,7 @@ export const buildRequest = <
           : AxiosResponse<Schema extends z.ZodType ? z.infer<Schema> : unknown>;
       } catch (error) {
         loggingService.captureException(error);
-
-        if (!isAxiosError(error)) {
-          throw new HttpError();
-        }
-
-        let code: ErrorCode | undefined;
-        let data: unknown;
-        const status = error.response?.status ?? 500;
-        const errorData = errorDataSchema.safeParse(error.response?.data);
-
-        if (errorData.success) {
-          code = errorData.data.error_code;
-          data = errorData.data.data;
-        }
-
-        throw new HttpError(status, code, data);
+        throw error;
       }
     },
   };
