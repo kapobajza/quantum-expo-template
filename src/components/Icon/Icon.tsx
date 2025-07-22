@@ -1,6 +1,6 @@
 import get from 'lodash/get';
 
-import { createStyleSheet, useStyles } from '@/theme';
+import { createStyleSheet, useStyles, useTheme } from '@/theme';
 
 import * as iconName from './raw';
 import { IconProps } from './types';
@@ -15,14 +15,17 @@ export const Icon = (props: IconProps) => {
     style,
     ...rest
   } = props;
-  const styles = useStyles(stylesheet);
   // eslint-disable-next-line import-x/namespace
   const Component = iconName[name];
+  const styles = useStyles(stylesheet);
+  const theme = useTheme();
+  const iconColor = get(theme.colors, color);
 
   return (
     <Component
       style={[styles.icon({ width, height, color, size }), style]}
       {...rest}
+      color={iconColor}
     />
   );
 };

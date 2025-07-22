@@ -2,6 +2,7 @@ import {
   DefaultError,
   QueryFunctionContext,
   QueryKey,
+  RefetchOptions,
   UseInfiniteQueryOptions as UseTSInfiniteQueryOptions,
   UseInfiniteQueryResult as UseTSInfiniteQueryResult,
   UseMutationOptions as UseTSMutationOptions,
@@ -59,16 +60,23 @@ export type UseQueryMinimalOptions<
   'queryKey' | 'queryFn'
 >;
 
+export interface UseManualRefetchResult {
+  manualRefetch: (params?: RefetchOptions) => Promise<void>;
+  isRefetchingManually: boolean;
+}
+
 export type UseInfiniteQueryResult<
   TQueryFnData = unknown,
   TData = unknown,
   TError = DefaultError,
   TExtraData extends Record<string, unknown> | undefined = undefined,
-> = UseTSInfiniteQueryResult<TData, TError> & {
-  isEmpty: boolean;
-  results: TQueryFnData[];
-  extraData: TExtraData;
-};
+> = UseTSInfiniteQueryResult<TData, TError> &
+  UseManualRefetchResult & {
+    isEmpty: boolean;
+    results: TQueryFnData[];
+    extraData: TExtraData;
+    onEndReached: (info?: { distanceFromEnd: number }) => void;
+  };
 
 export interface UseInfiniteQueryOptions<
   TQueryFnData = unknown,

@@ -30,7 +30,7 @@ export const useMapError = () => {
     }
 
     const errorCodeMesageKey = errorCodeMap[
-      parsedError.error_code as TranslatedErrorCode
+      parsedError.code as TranslatedErrorCode
     ] as ErrorCodeTKey | undefined;
 
     if (errorCodeMesageKey) {

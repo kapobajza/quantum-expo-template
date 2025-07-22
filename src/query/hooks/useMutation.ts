@@ -4,7 +4,6 @@ import {
   UseMutationResult,
   useMutation as useTSQMutation,
 } from '@tanstack/react-query';
-import { isAxiosError } from 'axios';
 
 import { useToast } from '@/components/Toast/context';
 import { useMapError } from '@/error/hooks';
@@ -30,10 +29,7 @@ export default function useMutation<
     {
       ...otherOptions,
       onError: (error, variables, context) => {
-        // We're logging the axios error inside of the request.ts wrapper
-        if (!isAxiosError(error)) {
-          loggingService.captureException(error);
-        }
+        loggingService.captureException(error);
 
         if (onError) {
           onError(error, variables, context, showError, mapError);

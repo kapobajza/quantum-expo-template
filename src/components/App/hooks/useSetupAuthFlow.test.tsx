@@ -45,10 +45,9 @@ describe('useSetupAuthFlow', () => {
 
     result.current.mutate();
 
-    await waitFor(() => result.current.isError);
+    await waitFor(() => result.current.isSuccess);
 
-    expect(result.current.isSuccess).toBe(false);
-    expect(result.current.error).toBeDefined();
+    expect(result.current.data).toBe('no_token');
   });
 
   test('should throw if endpoint me throws', async () => {

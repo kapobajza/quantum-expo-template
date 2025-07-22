@@ -1,9 +1,5 @@
 import { Leaves } from '@/types';
 
-// 395E66	4D6E75	617E85	748E94	889EA3	9CAFB3	B0BFC2
-
-// 33555C	2E4B52	284247	22383D
-
 export const colors = {
   primary: {
     50: '#B0BFC2',

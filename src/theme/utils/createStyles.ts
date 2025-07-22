@@ -19,7 +19,7 @@ type StyleSheetFunction<T> = (
  * @param stylesheet The object or function that contain the styles
  * @returns The `stylesheet` param
  */
-export const createStyleSheet = <TStyleSheet extends NamedStyles>(
+export const createStyleSheet = <const TStyleSheet extends NamedStyles>(
   stylesheet: TStyleSheet | StyleSheetFunction<TStyleSheet>,
 ): TStyleSheet => {
   if (typeof stylesheet === 'function') {
@@ -82,7 +82,7 @@ export const createStyleSheet = <TStyleSheet extends NamedStyles>(
  *   },
  * }));
  */
-export const useStyles = <TStyleSheet extends NamedStyles>(
+export const useStyles = <const TStyleSheet extends NamedStyles>(
   stylesheet: TStyleSheet | StyleSheetFunction<TStyleSheet>,
 ): ExtractStyles<TStyleSheet> => {
   const theme = useTheme();

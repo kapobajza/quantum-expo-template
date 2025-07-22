@@ -1,8 +1,13 @@
-import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  isAxiosError,
+} from 'axios';
 import { stringify } from 'qs';
 import { z } from 'zod';
 
-import { LoggingService } from '@/services';
 import { Prettify } from '@/types';
 
 import {
@@ -89,13 +94,11 @@ export const buildRequest = <
   method,
   params,
   urlPrefix,
-  loggingService,
 }: {
   instance: AxiosInstance;
   method: HttpMethod;
   params?: ConstructRequestParams<RequestBody, Schema, Path>;
   urlPrefix: string;
-  loggingService: LoggingService;
 }): Prettify<{
   path: Path;
   route: string;
@@ -149,8 +152,28 @@ export const buildRequest = <
           ? AxiosResponse<unknown>
           : AxiosResponse<Schema extends z.ZodType ? z.infer<Schema> : unknown>;
       } catch (error) {
-        loggingService.captureException(error);
-        throw error;
+        if (!isAxiosError(error)) {
+          throw error;
+        }
+
+        const parsed = z
+          .object({
+            error_code: z.string(),
+          })
+          .safeParse(error.response?.data);
+
+        throw new AxiosError(
+          error.message,
+          error.code,
+          error.config,
+          error.request,
+          {
+            ...error.response,
+            data: {
+              code: parsed.success ? parsed.data.error_code : undefined,
+            },
+          } as AxiosResponse,
+        );
       }
     },
   };

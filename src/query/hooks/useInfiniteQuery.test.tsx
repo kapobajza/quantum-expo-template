@@ -99,4 +99,41 @@ describe('useInfiniteQuery', () => {
       extra: 'extra',
     });
   });
+
+  test('should fetch on end reached if distanceFromEnd is greater than 0', async () => {
+    const { result, rerender } = renderHookWithQueryClient(() =>
+      useInfiniteQuery({
+        queryFn: ({ pageParam }) => {
+          let res = [1, 2, 3];
+
+          if (pageParam === 2) {
+            res = [4, 5, 6];
+          } else if (pageParam === 3) {
+            res = [7, 8, 9];
+          }
+
+          return Promise.resolve({
+            results: res,
+          });
+        },
+        queryKey: ['key'],
+        getNextPageParam: (_lastPage, _allPages, page) => page + 1,
+        initialPageParam: 1,
+      }),
+    );
+
+    expect(result.current.isEmpty).toBe(true);
+
+    await waitFor(() => !result.current.isLoading);
+    rerender();
+
+    result.current.onEndReached({ distanceFromEnd: 10 });
+    result.current.onEndReached({ distanceFromEnd: 10 });
+    result.current.onEndReached({ distanceFromEnd: 10 });
+
+    expect(result.current.results).toEqual([1, 2, 3]);
+    await waitFor(() => {
+      expect(result.current.results).toEqual([1, 2, 3, 4, 5, 6]);
+    });
+  });
 });

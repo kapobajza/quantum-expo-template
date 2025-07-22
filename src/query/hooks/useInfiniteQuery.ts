@@ -6,8 +6,10 @@ import {
   QueryKey,
   useInfiniteQuery as useTSInfiniteQuery,
 } from '@tanstack/react-query';
+import { useRef } from 'react';
 
 import { UseInfiniteQueryOptions, UseInfiniteQueryResult } from './types';
+import useManualRefetch from './useManualRefetch';
 import { isEmptyQueryResult } from './util';
 
 function useInfiniteQuery<
@@ -31,6 +33,7 @@ function useInfiniteQuery<
   >,
   queryClient?: QueryClient,
 ): UseInfiniteQueryResult<TQueryFnData, TData, TError, TExtraData> {
+  const promiseRef = useRef<Promise<void>>(null);
   const res = useTSInfiniteQuery<
     {
       results: TQueryFnData[];
@@ -71,6 +74,7 @@ function useInfiniteQuery<
     },
     queryClient,
   );
+  const manualRefetchResult = useManualRefetch(res.refetch);
   const { extraData = {}, results = [] } =
     (res.data as unknown as
       | {
@@ -80,11 +84,34 @@ function useInfiniteQuery<
       | undefined) ?? {};
   const isEmpty = isEmptyQueryResult(results);
 
+  const fetchOnEndReach = () => {
+    promiseRef.current ??= (async () => {
+      try {
+        await res.fetchNextPage();
+      } finally {
+        promiseRef.current = null;
+      }
+    })();
+  };
+
+  const onEndReached: UseInfiniteQueryResult['onEndReached'] = (info) => {
+    const { distanceFromEnd } = info ?? {};
+
+    if (typeof distanceFromEnd === 'number' && distanceFromEnd > 0) {
+      fetchOnEndReach();
+      return;
+    }
+
+    fetchOnEndReach();
+  };
+
   return {
     ...res,
+    ...manualRefetchResult,
     isEmpty,
     results,
     extraData: extraData as TExtraData,
+    onEndReached,
   };
 }
 

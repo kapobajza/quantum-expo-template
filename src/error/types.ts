@@ -33,6 +33,6 @@ export const ErrorCode = {
 };
 
 export const errorDataSchema = z.object({
-  error_code: errorCodeSchema,
+  code: errorCodeSchema,
   data: z.unknown().optional(),
 });

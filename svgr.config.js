@@ -30,6 +30,12 @@ module.exports = {
           elemSeparator: '#',
         },
       },
+      {
+        name: 'convertColors',
+        params: {
+          currentColor: true,
+        },
+      },
     ],
   },
 };
