@@ -10,6 +10,7 @@ import {
 } from '@/theme/tokens/typography';
 import { zIndex } from '@/theme/tokens/zIndex';
 
+import { shadows } from './tokens/ahdows';
 import { addColorTransparency } from './utils/color';
 
 export const defaultTheme = {
@@ -23,6 +24,7 @@ export const defaultTheme = {
   fontFamily,
   typography,
   addColorTransparency,
+  shadows,
 } as const;
 
 export type AppTheme = typeof defaultTheme;

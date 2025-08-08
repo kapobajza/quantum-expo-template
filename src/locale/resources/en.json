@@ -21,7 +21,8 @@
     "confirm": "Confirm",
     "ok": "OK",
     "back": "Back",
-    "areYouSure": "Are you sure?"
+    "areYouSure": "Are you sure?",
+    "noResults": "No results found"
   },
   "error": {
     "general": "An error occurred",

@@ -14,9 +14,7 @@ describe('createStyles', () => {
   ) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     return renderHook(() => useStyles(stylesheet), {
-      wrapper: ({ children }) => (
-        <ThemeProvider theme={defaultTheme}>{children}</ThemeProvider>
-      ),
+      wrapper: ({ children }) => <ThemeProvider>{children}</ThemeProvider>,
     }).result.current;
   };
 
@@ -36,7 +34,7 @@ describe('createStyles', () => {
     const stylesheet = createStyleSheet((theme) => ({
       container: {
         flex: 1,
-        backgroundColor: theme.colors.secondary[500],
+        backgroundColor: theme.colors.greyscale[500],
       },
     }));
 
@@ -44,7 +42,7 @@ describe('createStyles', () => {
 
     expect(styles.container).toEqual({
       flex: 1,
-      backgroundColor: defaultTheme.colors.secondary[500],
+      backgroundColor: defaultTheme.colors.greyscale[500],
     });
   });
 
@@ -52,7 +50,7 @@ describe('createStyles', () => {
     const stylesheet = createStyleSheet((theme) => ({
       container: {
         flex: 1,
-        backgroundColor: theme.colors.primary[500],
+        backgroundColor: theme.colors.primary[300],
       },
       text: ({ color }: { color: string }) => ({ color }),
     }));
@@ -61,7 +59,7 @@ describe('createStyles', () => {
 
     expect(styles.container).toEqual({
       flex: 1,
-      backgroundColor: defaultTheme.colors.primary[500],
+      backgroundColor: defaultTheme.colors.primary[300],
     });
     expect(styles.text({ color: 'red' })).toEqual({ color: 'red' });
   });

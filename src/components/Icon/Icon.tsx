@@ -11,7 +11,7 @@ export const Icon = (props: IconProps) => {
     width = '4',
     height = '4',
     size,
-    color = 'secondary.50',
+    color = 'background.text.main',
     style,
     ...rest
   } = props;

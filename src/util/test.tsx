@@ -13,7 +13,7 @@ import { AppEnv, AppEnvProvider } from '@/env';
 import { QueryFactoryProvider } from '@/query';
 import { AllServices, ServicesProvider } from '@/services/ServiceProvider';
 import { StorageService } from '@/services/storageService';
-import { defaultTheme, ThemeProvider } from '@/theme';
+import { ThemeProvider } from '@/theme';
 
 export const buildRenderHook = <Result, Props>(
   fn: (initialProps: Props) => Result,
@@ -79,7 +79,7 @@ export const buildRenderHook = <Result, Props>(
                   <AppEnvProvider config={mockEnv}>
                     <ApiProvider value={apiProvider}>
                       <QueryFactoryProvider>
-                        <ThemeProvider theme={defaultTheme}>
+                        <ThemeProvider>
                           <ToastProvider showToastFn={mockShowToast}>
                             {children}
                           </ToastProvider>

@@ -14,7 +14,7 @@ import { createStyleSheet, useStyles } from '@/theme';
 
 import { useToastStore } from './store';
 import { ToastActionType, ToastItem, ToastType } from './types';
-import { buildContaienrVariants } from './variants';
+import { buildToastContainerVariants } from './variants';
 
 const MAX_Y_TRANSLATE = 30;
 
@@ -104,7 +104,7 @@ export const Toast = ({ item, offset }: ToastProps) => {
 };
 
 const stylesheet = createStyleSheet((theme) => {
-  const containerVariants = buildContaienrVariants(theme);
+  const containerVariants = buildToastContainerVariants(theme);
 
   return {
     container: {
@@ -125,7 +125,7 @@ const stylesheet = createStyleSheet((theme) => {
       ...containerVariants[type],
     }),
     message: {
-      color: theme.colors.secondary['50'],
+      color: theme.colors.greyscale['50'],
       fontWeight: theme.fontWeight.bold,
     },
   };

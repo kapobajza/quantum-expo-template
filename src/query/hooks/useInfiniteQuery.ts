@@ -2,15 +2,16 @@ import {
   DefaultError,
   InfiniteData,
   QueryClient,
-  QueryFunctionContext,
   QueryKey,
   useInfiniteQuery as useTSInfiniteQuery,
 } from '@tanstack/react-query';
 import { useRef } from 'react';
 
+import { QueryFnParams } from '@/types/api/pagination';
+
 import { UseInfiniteQueryOptions, UseInfiniteQueryResult } from './types';
 import useManualRefetch from './useManualRefetch';
-import { isEmptyQueryResult } from './util';
+import { constructQueryListProps, isEmptyQueryResult } from './util';
 
 function useInfiniteQuery<
   TQueryFnData,
@@ -34,6 +35,8 @@ function useInfiniteQuery<
   queryClient?: QueryClient,
 ): UseInfiniteQueryResult<TQueryFnData, TData, TError, TExtraData> {
   const promiseRef = useRef<Promise<void>>(null);
+  const { selectPageData, queryFn, limit = 10 } = options;
+  // @ts-expect-error - it's hard to infer the proper select type with our custom generic types
   const res = useTSInfiniteQuery<
     {
       results: TQueryFnData[];
@@ -44,16 +47,13 @@ function useInfiniteQuery<
     TQueryKey
   >(
     {
-      // @ts-expect-error - it's hard to infer the proper select type with our custom generic types
       select(data) {
         const newData = data.pages.reduce<TQueryFnData[]>((arr, val) => {
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           let results = val?.results ?? [];
 
-          if (options.selectPageData) {
-            results = options.selectPageData(
-              results,
-            ) as unknown as TQueryFnData[];
+          if (selectPageData) {
+            results = selectPageData(results) as unknown as TQueryFnData[];
           }
 
           return [...arr, ...results];
@@ -66,10 +66,26 @@ function useInfiniteQuery<
       },
       ...options,
       queryFn: async (params) => {
-        return options.queryFn({
-          ...(params as QueryFunctionContext<TQueryKey, TPageParam>),
+        return queryFn({
+          ...(params as QueryFnParams<TQueryKey>),
           limit: options.limit ?? 10,
         });
+      },
+      initialPageParam: 1,
+      getNextPageParam: (
+        lastPage,
+        _allPages,
+        lastPageParam: number | undefined,
+      ) => {
+        const page = lastPage as
+          | { results: TQueryFnData[] | undefined }
+          | undefined;
+
+        if ((page?.results?.length ?? 0) >= limit) {
+          return (lastPageParam ?? 0) + 1;
+        }
+
+        return undefined;
       },
     },
     queryClient,
@@ -105,13 +121,18 @@ function useInfiniteQuery<
     fetchOnEndReach();
   };
 
-  return {
+  const queryResult = {
     ...res,
     ...manualRefetchResult,
     isEmpty,
     results,
     extraData: extraData as TExtraData,
     onEndReached,
+  };
+
+  return {
+    ...queryResult,
+    listProps: constructQueryListProps(queryResult),
   };
 }
 

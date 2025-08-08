@@ -31,7 +31,8 @@
     "confirm": "Bestätigen",
     "ok": "OK",
     "submit": "Absenden",
-    "areYouSure": "Sind Sie sicher?"
+    "areYouSure": "Sind Sie sicher?",
+    "noResults": "Keine Ergebnisse gefunden"
   },
   "login": {
     "dontHaveAccount": "Kein Konto? <a>Registrieren</a>"

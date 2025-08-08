@@ -1,6 +1,5 @@
 import {
   DefaultError,
-  QueryFunctionContext,
   QueryKey,
   RefetchOptions,
   UseInfiniteQueryOptions as UseTSInfiniteQueryOptions,
@@ -10,8 +9,10 @@ import {
   UseQueryResult as UseTSQueryResult,
 } from '@tanstack/react-query';
 
+import { CommonListProps, FlatListProps } from '@/components/List/types';
 import { ToastContext } from '@/components/Toast';
 import { MapErrorFn } from '@/error/hooks';
+import { QueryFnParams } from '@/types/api/pagination';
 
 export type UseMutationOptions<
   TData = unknown,
@@ -36,12 +37,22 @@ export type UseMutationOptions<
   ) => void;
 };
 
+export interface UseManualRefetchResult {
+  manualRefetch: (params?: RefetchOptions) => Promise<void>;
+  isRefetchingManually: boolean;
+}
+
+export type QueryListPropsResult = CommonListProps &
+  Pick<FlatListProps<unknown>, 'onEndReached'>;
+
 export type UseQueryResult<
   TData = unknown,
   TError = DefaultError,
-> = UseTSQueryResult<TData, TError> & {
-  isEmpty: boolean;
-};
+> = UseTSQueryResult<TData, TError> &
+  UseManualRefetchResult & {
+    isEmpty: boolean;
+    listProps: QueryListPropsResult;
+  };
 
 export type UseQueryOptions<
   TQueryFnData = unknown,
@@ -60,11 +71,6 @@ export type UseQueryMinimalOptions<
   'queryKey' | 'queryFn'
 >;
 
-export interface UseManualRefetchResult {
-  manualRefetch: (params?: RefetchOptions) => Promise<void>;
-  isRefetchingManually: boolean;
-}
-
 export type UseInfiniteQueryResult<
   TQueryFnData = unknown,
   TData = unknown,
@@ -76,6 +82,7 @@ export type UseInfiniteQueryResult<
     results: TQueryFnData[];
     extraData: TExtraData;
     onEndReached: (info?: { distanceFromEnd: number }) => void;
+    listProps: QueryListPropsResult;
   };
 
 export interface UseInfiniteQueryOptions<
@@ -84,7 +91,7 @@ export interface UseInfiniteQueryOptions<
   TData = TQueryFnData,
   TQueryData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey,
-  TPageParam = unknown,
+  TPageParam = number,
   TTransformData = TData,
   TExtraData extends Record<string, unknown> | undefined = undefined,
 > extends Omit<
@@ -95,13 +102,11 @@ export interface UseInfiniteQueryOptions<
       TQueryKey,
       TPageParam
     >,
-    'queryFn'
+    'queryFn' | 'getNextPageParam' | 'initialPageParam'
   > {
   selectPageData?: (data: TQueryFnData[]) => TTransformData[];
   queryFn: (
-    params: QueryFunctionContext<TQueryKey, TPageParam> & {
-      limit: number;
-    },
+    params: QueryFnParams<TQueryKey>,
   ) => Promise<{ results: TQueryData[]; extraData?: TExtraData }>;
   limit?: number;
 }

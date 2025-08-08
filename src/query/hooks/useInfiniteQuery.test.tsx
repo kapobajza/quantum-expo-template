@@ -28,8 +28,6 @@ describe('useInfiniteQuery', () => {
           });
         },
         queryKey: ['key'],
-        getNextPageParam: () => 1,
-        initialPageParam: 1,
       }),
     );
 
@@ -57,8 +55,7 @@ describe('useInfiniteQuery', () => {
           });
         },
         queryKey: ['key'],
-        getNextPageParam: (_lastPage, _allPages, page) => page + 1,
-        initialPageParam: 1,
+        limit: 3,
       }),
     );
 
@@ -86,8 +83,6 @@ describe('useInfiniteQuery', () => {
           });
         },
         queryKey: ['key'],
-        getNextPageParam: () => 1,
-        initialPageParam: 1,
       }),
     );
 
@@ -117,8 +112,7 @@ describe('useInfiniteQuery', () => {
           });
         },
         queryKey: ['key'],
-        getNextPageParam: (_lastPage, _allPages, page) => page + 1,
-        initialPageParam: 1,
+        limit: 3,
       }),
     );
 

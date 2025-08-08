@@ -1,15 +1,13 @@
 import React, { useCallback, useEffect } from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Animated, {
-  interpolateColor,
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
 
-import { useMountEffect } from '@/hooks';
-import { createStyleSheet, useStyles, useTheme } from '@/theme';
+import { createStyleSheet, useStyles } from '@/theme';
 
 import { ModalItem } from './types';
 
@@ -22,25 +20,15 @@ interface ModalProps {
 export const Modal = ({ item, isPendingClose, removeModal }: ModalProps) => {
   const scaleAnimation = useSharedValue(0);
   const styles = useStyles(stylesheet);
-  const theme = useTheme();
 
-  useMountEffect(() => {
+  useEffect(() => {
     scaleAnimation.value = withTiming(1, {
       duration: 300,
     });
-  });
-
-  const interpolatedColors = [
-    theme.addColorTransparency(theme.colors.secondary[100], 0),
-    theme.addColorTransparency(theme.colors.secondary[100], 0.5),
-  ];
+  }, [scaleAnimation]);
 
   const animatedOverlayStyle = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(
-      scaleAnimation.value,
-      [0, 1],
-      interpolatedColors,
-    ),
+    opacity: scaleAnimation.value,
   }));
 
   const animatedContainerStyle = useAnimatedStyle(() => ({
@@ -92,19 +80,24 @@ export const Modal = ({ item, isPendingClose, removeModal }: ModalProps) => {
   );
 };
 
-const stylesheet = createStyleSheet((theme, { dimensions }) => ({
+const stylesheet = createStyleSheet((theme) => ({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: theme.zIndex.highest,
+    backgroundColor: theme.addColorTransparency(
+      theme.colors.background.main,
+      0.4,
+    ),
   },
   container: {
-    padding: theme.spacing['4'],
-    backgroundColor: theme.colors.secondary[900],
-    borderRadius: theme.radii['4'],
+    padding: theme.spacing.md,
+    marginHorizontal: theme.spacing.md,
+    backgroundColor: theme.colors.background.main,
+    borderRadius: theme.radii['8'],
     justifyContent: 'center',
-    width: dimensions.width - theme.spacing['8'],
+    ...theme.shadows.large,
   },
   button: {
     padding: theme.spacing['2'],

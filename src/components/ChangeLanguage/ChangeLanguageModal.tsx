@@ -65,7 +65,7 @@ const stylesheet = createStyleSheet((theme) => ({
       padding: theme.spacing['4'],
       borderRadius: theme.radii['4'],
       borderWidth: 1,
-      borderColor: theme.colors.primary[400],
+      borderColor: theme.colors.primary[100],
       ...(isSelected && {
         backgroundColor: theme.colors.primary[300],
       }),
@@ -78,6 +78,6 @@ const stylesheet = createStyleSheet((theme) => ({
     marginBottom: theme.spacing['4'],
   },
   buttonText: (isSelected: boolean) => ({
-    color: isSelected ? theme.colors.secondary[900] : theme.colors.primary[400],
+    color: isSelected ? theme.colors.greyscale[0] : theme.colors.primary[100],
   }),
 }));

@@ -1,31 +1,18 @@
-import React from 'react';
-import { View } from 'react-native';
+import { useEffect } from 'react';
 
-import { Pressable } from '@/components/Pressable';
-import { Text } from '@/components/Text';
-import { createStyleSheet, useStyles, useThemeOptions } from '@/theme';
+import { ThemeApperance, useThemeOptions } from '@/theme';
 
-export const ThemeSwitcher = () => {
-  const styles = useStyles(stylesheet);
+export const ThemeSwitcher = ({
+  theme,
+}: {
+  theme: ThemeApperance | undefined;
+}) => {
   const { updateTheme } = useThemeOptions();
 
-  return (
-    <View style={styles.container}>
-      <Pressable
-        onPress={() => {
-          updateTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-        }}
-        style={{ alignSelf: 'flex-start' }}
-      >
-        <Text>Switch Theme</Text>
-      </Pressable>
-    </View>
-  );
-};
+  useEffect(() => {
+    if (!theme) return;
+    updateTheme(theme);
+  }, [theme, updateTheme]);
 
-const stylesheet = createStyleSheet((theme) => ({
-  container: {
-    paddingHorizontal: theme.spacing.md,
-    marginVertical: theme.spacing[4],
-  },
-}));
+  return null;
+};

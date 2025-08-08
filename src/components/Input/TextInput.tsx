@@ -1,14 +1,17 @@
 import i18next from 'i18next';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TextInput as RNTextInput,
   TextInputProps as RNTextInputProps,
   View,
+  ViewStyle,
 } from 'react-native';
 
-import { Text } from '@/components/Text';
+import { Text, TextError } from '@/components/Text';
 import { useTranslation } from '@/locale';
-import { createStyleSheet, useStyles } from '@/theme';
+import { createStyleSheet, useStyles, useTheme } from '@/theme';
+
+import { buildTextInputVariants, TextInputVariants } from './variants';
 
 export interface TextInputProps extends RNTextInputProps {
   InputLeftElement?: React.ReactNode;
@@ -16,6 +19,9 @@ export interface TextInputProps extends RNTextInputProps {
   error?: string;
   ref?: React.Ref<RNTextInput>;
   label?: string;
+  variant?: keyof TextInputVariants;
+  rootStyle?: ViewStyle;
+  containerStyle?: ViewStyle;
 }
 
 export const TextInput = ({
@@ -24,49 +30,103 @@ export const TextInput = ({
   style,
   error,
   label,
+  onFocus,
+  onBlur,
+  variant = 'primary',
+  rootStyle,
+  containerStyle,
   ...props
 }: TextInputProps) => {
   const styles = useStyles(stylesheet);
   const { i18n } = useTranslation();
+  const theme = useTheme();
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View style={styles.root}>
-      {label && <Text style={styles.label}>{label}</Text>}
-      <View style={styles.container}>
+    <View style={[styles.root, rootStyle]}>
+      {label && <Text variant="small.medium">{label}</Text>}
+      <View
+        style={[
+          styles.container({ variant, isFocused, isError: !!error }),
+          containerStyle,
+        ]}
+      >
         {InputLeftElement}
-        <RNTextInput style={[styles.input(i18n.dir()), style]} {...props} />
+        <RNTextInput
+          style={[
+            styles.input({
+              dir: i18n.dir(),
+              variant,
+            }),
+            style,
+          ]}
+          placeholderTextColor={theme.colors.greyscale[300]}
+          onFocus={(e) => {
+            setIsFocused(true);
+            onFocus?.(e);
+          }}
+          onBlur={(e) => {
+            setIsFocused(false);
+            onBlur?.(e);
+          }}
+          {...props}
+        />
         {InputRightElement}
       </View>
-      {error ? <Text style={styles.errorText}>{error}</Text> : null}
+      <TextError error={error} />
     </View>
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: theme.spacing['4'],
-    borderWidth: 1,
-    borderRadius: theme.radii['4'],
-    borderColor: theme.colors.primary[800],
-  },
-  input: (dir: ReturnType<(typeof i18next)['dir']>) => ({
-    paddingVertical: theme.spacing['3'],
-    paddingHorizontal: theme.spacing['4'],
-    fontSize: theme.fontSize['16'],
-    flex: 1,
-    textAlign: dir === 'rtl' ? 'right' : 'left',
-    fontFamily: theme.fontFamily.spaceMono,
-  }),
-  errorText: {
-    color: theme.colors.error[500],
-    fontWeight: theme.fontWeight.bold,
-  },
-  root: {
-    gap: theme.spacing['1'],
-  },
-  label: {
-    fontWeight: theme.fontWeight.bold,
-  },
-}));
+const stylesheet = createStyleSheet((theme) => {
+  const variants = buildTextInputVariants(theme);
+
+  return {
+    container: ({
+      variant,
+      isFocused,
+      isError,
+    }: Required<Pick<TextInputProps, 'variant'>> & {
+      isFocused: boolean;
+      isError: boolean | undefined;
+    }) => {
+      const variantStyle = variants[variant];
+      const focusStyle = isFocused ? variantStyle.focus : {};
+      let borderColor = variantStyle.container.borderColor;
+
+      if (isFocused) {
+        borderColor = focusStyle.borderColor;
+      }
+
+      if (isError) {
+        borderColor = theme.colors.error[100];
+      }
+
+      return {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: theme.spacing['3'],
+        borderWidth: 1,
+        paddingHorizontal: theme.spacing['4'],
+        borderRadius: theme.radii['4'],
+        ...variantStyle.container,
+        ...focusStyle,
+        borderColor,
+      };
+    },
+    input: ({
+      variant,
+    }: Required<Pick<TextInputProps, 'variant'>> & {
+      dir: ReturnType<typeof i18next.dir>;
+    }) => ({
+      ...variants[variant].input,
+      paddingVertical: theme.spacing['3'],
+      fontSize: theme.fontSize['16'],
+      flex: 1,
+      fontFamily: theme.fontFamily.spaceMono,
+    }),
+    root: {
+      gap: theme.spacing['1'],
+    },
+  };
+});

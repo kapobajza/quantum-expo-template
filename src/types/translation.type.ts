@@ -24,6 +24,7 @@ export interface TranslationKeyParam {
   'general.ok': undefined;
   'general.back': undefined;
   'general.areYouSure': undefined;
+  'general.noResults': undefined;
   'error.general': undefined;
   'error.code.email_not_confirmed': undefined;
   'error.code.invalid_credentials': undefined;

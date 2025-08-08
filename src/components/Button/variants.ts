@@ -26,18 +26,18 @@ export const buildButtonVariants = (theme: AppTheme): ButtonVariants => {
     primary: {
       button: {
         main: {
-          backgroundColor: theme.colors.primary[500],
+          backgroundColor: theme.colors.primary[300],
         },
         disabled: {
-          backgroundColor: theme.colors.primary[200],
+          backgroundColor: theme.colors.primary[25],
         },
       },
       text: {
         main: {
-          color: theme.colors.secondary[900],
+          color: theme.colors.greyscale[0],
         },
         disabled: {
-          color: theme.colors.secondary[50],
+          color: theme.colors.greyscale[600],
           opacity: 0.3,
         },
       },
@@ -47,10 +47,10 @@ export const buildButtonVariants = (theme: AppTheme): ButtonVariants => {
         main: {
           backgroundColor: theme.colors.background.main,
           borderWidth: 1,
-          borderColor: theme.colors.primary[500],
+          borderColor: theme.colors.primary[300],
         },
         disabled: {
-          borderColor: theme.colors.secondary[100],
+          borderColor: theme.colors.greyscale[100],
           opacity: 0.4,
         },
       },
@@ -59,22 +59,22 @@ export const buildButtonVariants = (theme: AppTheme): ButtonVariants => {
           color: theme.colors.primary[300],
         },
         disabled: {
-          color: theme.colors.secondary[100],
+          color: theme.colors.greyscale[100],
         },
       },
     },
     danger: {
       button: {
         main: {
-          backgroundColor: theme.colors.error[300],
+          backgroundColor: theme.colors.error[100],
         },
         disabled: {
-          backgroundColor: theme.colors.error[700],
+          backgroundColor: theme.colors.error[25],
         },
       },
       text: {
         main: {
-          color: theme.colors.secondary[900],
+          color: theme.colors.greyscale[0],
         },
       },
     },
@@ -82,11 +82,11 @@ export const buildButtonVariants = (theme: AppTheme): ButtonVariants => {
       button: {
         main: {
           backgroundColor: theme.colors.background.main,
-          borderColor: theme.colors.error[300],
+          borderColor: theme.colors.error[100],
           borderWidth: 1,
         },
         disabled: {
-          borderColor: theme.colors.error[700],
+          borderColor: theme.colors.error[25],
         },
       },
       text: {
@@ -94,14 +94,14 @@ export const buildButtonVariants = (theme: AppTheme): ButtonVariants => {
           color: theme.colors.error[100],
         },
         disabled: {
-          color: theme.colors.error[700],
+          color: theme.colors.error[25],
         },
       },
     },
   };
 };
 
-export type ButtonVariant = keyof ButtonVariants;
+export type ButtonVariant = keyof ReturnType<typeof buildButtonVariants>;
 
 export const buildButtonSizes = (theme: AppTheme) => {
   return {

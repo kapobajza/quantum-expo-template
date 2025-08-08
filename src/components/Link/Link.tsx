@@ -12,7 +12,7 @@ export const Link = ({ style, ...props }: LinkProps) => {
 
 const stylesheet = createStyleSheet((theme) => ({
   link: {
-    color: theme.colors.primary[500],
+    color: theme.colors.primary[300],
     textDecorationLine: 'underline',
   },
 }));

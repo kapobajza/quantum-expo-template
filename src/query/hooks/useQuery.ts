@@ -7,7 +7,8 @@ import {
 } from '@tanstack/react-query';
 
 import { UseQueryResult } from './types';
-import { isEmptyQueryResult } from './util';
+import useManualRefetch from './useManualRefetch';
+import { constructQueryListProps, isEmptyQueryResult } from './util';
 
 function useQuery<
   TQueryFnData = unknown,
@@ -20,10 +21,16 @@ function useQuery<
 ): UseQueryResult<NoInfer<TData>, TError> {
   const res = useTSQuery(options, queryClient);
   const isEmpty = isEmptyQueryResult(res.data);
+  const manualRefetchResult = useManualRefetch(res.refetch);
+  const queryResult = {
+    ...res,
+    ...manualRefetchResult,
+    isEmpty,
+  };
 
   return {
-    ...res,
-    isEmpty,
+    ...queryResult,
+    listProps: constructQueryListProps(queryResult),
   };
 }
 
