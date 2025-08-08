@@ -20,8 +20,6 @@ This template contains a lot of prebuilt stuff, including:
 - SVG icon generator
 - And much more!
 
-
-
 ## Table of Contents <!-- omit in toc -->
 
 - [Demo](#demo)
@@ -37,7 +35,6 @@ This template contains a lot of prebuilt stuff, including:
   - [Adding the actual translations](#adding-the-actual-translations)
   - [Adding validation translations](#adding-validation-translations)
 - [Adding new icons/SVGs](#adding-new-iconssvgs)
-
 
 ## Demo
 
@@ -61,19 +58,20 @@ Now before running the app, there are some recommendations which you could follo
   - `env.example` to `.env.example`
   - `prettierrc.js` to `.prettierc.js`
   - `github` to `.github`
+- The script from the previous step will also remove the `app.json` file, because the `app.config.ts` file is being used instead. Because of that, you will need to adjust the `app.config.ts` file to your needs. Like change the `name`, `slug`, `scheme`, bundle identifier, etc.
 - Use a pinned Node version. `v23.11.0` is the one I would recommend. Using [Node Version Manager](https://github.com/nvm-sh/nvm) is highly recommended. If you'd like to do so, then follow these steps:
-  -  Install `nvm`
-  -  Add a `.nvmrc` file to the root directory with the Node version you would like to use.
-  -  Recommend other team members to install `nvm` also and run `nvm use` to switch to the correct Node version.
-  -  **NOTE**: `nvmrc` is also being used in the CI, so if you don't add a `.nvmrc` file, update the [code_checks.yml](.github/workflows/code_checks.yaml) file to and set your desired Node version. Otherwise, the CI will fail.
+  - Install `nvm`
+  - Add a `.nvmrc` file to the root directory with the Node version you would like to use.
+  - Recommend other team members to install `nvm` also and run `nvm use` to switch to the correct Node version.
+  - **NOTE**: `nvmrc` is also being used in the CI, so if you don't add a `.nvmrc` file, update the [code_checks.yml](.github/workflows/code_checks.yaml) file to and set your desired Node version. Otherwise, the CI will fail.
 - pnpm v10.12.4 - you can run `corepack enable` and it will be installed automatically.
-
 
 ### (Optional) Getting started with Supabase
 
 This template is designed to work with [Supabase](https://supabase.com/). However, Supabase's REST API has been used directly with axios, instead of using the Supabase client. This is because I didn't use Supabase for any project I built with this template, but I wanted to add it just because it is easy to set up and use. I also wanted to show you an example on how to create and use your own custom REST API client, which is located in the [`src/api/factory`](./src/api/factory) directory. Feel free to remove it if you don't need it.
 
 If you want to use Supabase, you can follow these steps:
+
 1. Create a new Supabase project at [Supabase](https://supabase.com/)
 2. Add your Supabase URL and API key to the `.env` file. See the [`.env.example`](.env.example) file for reference.
 3. Add your deep linking `scheme` to the `app.json` file, for example:
@@ -170,6 +168,7 @@ To display warnings for missing translations keys in your VSCode editor, you sho
 To add new translations, make sure to first add the relevant key to the [`translation-schema.json`](./src/locale/translation-schema.json) file.
 
 My recommendation is to categorize translations by screens. If we had a `Foo` screen that has a `bar` translation key, then we would add the following to the `translation-schema.json` file:
+
 ```json
 {
   ...

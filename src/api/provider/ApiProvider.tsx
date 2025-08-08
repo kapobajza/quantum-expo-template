@@ -59,13 +59,12 @@ export const ApiProvider = ({
   value?: AllApiRouters;
 }) => {
   const env = useAppEnv();
-  const { storageService, loggingService } = useService();
+  const { storageService } = useService();
 
   const contextValue = useMemo(() => {
-    const params: CreateHttpClientParams = {
+    const params: CreateHttpClientParams & Record<string, unknown> = {
       env,
       storageService,
-      loggingService,
     };
     const apiProviderValue = {
       authApi: createAuthApi(params),
@@ -77,7 +76,7 @@ export const ApiProvider = ({
       apiClient,
       apiRouter: value ?? apiProviderValue,
     };
-  }, [env, loggingService, storageService, value]);
+  }, [env, storageService, value]);
 
   return <ApiContext value={contextValue}>{children}</ApiContext>;
 };

@@ -84,6 +84,7 @@ export const spacing = {
   '4/6': '66.666%',
   '5/6': '83.333%',
   full: '100%',
+  md: 16,
 } as const;
 
 export type ThemeSpacing = keyof typeof spacing;

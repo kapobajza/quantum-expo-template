@@ -79,7 +79,7 @@ function RootLayout() {
                     },
                   }}
                 >
-                  <ThemeProvider theme={defaultTheme}>
+                  <ThemeProvider>
                     <ToastProvider>
                       <QueryProvider persister={sqliteQueryPersister}>
                         <ApiProvider>

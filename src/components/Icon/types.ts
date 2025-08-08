@@ -1,6 +1,6 @@
 import { SvgProps } from 'react-native-svg';
 
-import { ThemeColors } from '@/theme/tokens/colors';
+import { ThemeColor } from '@/theme/tokens/colors';
 import { ThemeSpacingAbsolute } from '@/theme/tokens/spacing';
 
 import * as iconName from './raw';
@@ -16,5 +16,5 @@ export interface IconProps
   height?: ThemeSpacingAbsolute;
   /** size in theme spacing, x4 */
   size?: ThemeSpacingAbsolute;
-  color?: ThemeColors;
+  color?: ThemeColor;
 }

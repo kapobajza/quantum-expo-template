@@ -2,7 +2,7 @@ import { ScaledSize, StyleSheet, useWindowDimensions } from 'react-native';
 import { EdgeInsets, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppTheme } from '@/theme';
-import { useTheme } from '@/theme/ThemeProvider';
+import { useTheme } from '@/theme/context';
 
 import { ExtractStyles, NamedStyles, RNNamedStyles } from './types';
 

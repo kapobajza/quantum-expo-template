@@ -1,34 +1,138 @@
 import { TextStyle, ViewStyle } from 'react-native';
 
 import { AppTheme } from '@/theme';
+import { TypographyOptions } from '@/theme/tokens/typography';
 
-export const buildButtonVariants = (theme: AppTheme) => {
+interface ButtonVariantOptions {
+  button: {
+    main: ViewStyle;
+    disabled?: ViewStyle;
+  };
+  text: {
+    main: TextStyle;
+    disabled?: TextStyle;
+  };
+}
+
+export interface ButtonVariants {
+  primary: ButtonVariantOptions;
+  secondary: ButtonVariantOptions;
+  danger: ButtonVariantOptions;
+  'danger-outline': ButtonVariantOptions;
+}
+
+export const buildButtonVariants = (theme: AppTheme): ButtonVariants => {
   return {
     primary: {
       button: {
-        backgroundColor: theme.colors.primary[500],
+        main: {
+          backgroundColor: theme.colors.primary[500],
+        },
+        disabled: {
+          backgroundColor: theme.colors.primary[200],
+        },
       },
       text: {
-        color: theme.colors.secondary[900],
+        main: {
+          color: theme.colors.secondary[900],
+        },
+        disabled: {
+          color: theme.colors.secondary[50],
+          opacity: 0.3,
+        },
       },
     },
     secondary: {
       button: {
-        backgroundColor: theme.colors.secondary[900],
-        borderWidth: 1,
-        borderColor: theme.colors.primary[500],
+        main: {
+          backgroundColor: theme.colors.background.main,
+          borderWidth: 1,
+          borderColor: theme.colors.primary[500],
+        },
+        disabled: {
+          borderColor: theme.colors.secondary[100],
+          opacity: 0.4,
+        },
       },
       text: {
-        color: theme.colors.primary[500],
+        main: {
+          color: theme.colors.primary[300],
+        },
+        disabled: {
+          color: theme.colors.secondary[100],
+        },
       },
     },
-  } satisfies Record<
+    danger: {
+      button: {
+        main: {
+          backgroundColor: theme.colors.error[300],
+        },
+        disabled: {
+          backgroundColor: theme.colors.error[700],
+        },
+      },
+      text: {
+        main: {
+          color: theme.colors.secondary[900],
+        },
+      },
+    },
+    'danger-outline': {
+      button: {
+        main: {
+          backgroundColor: theme.colors.background.main,
+          borderColor: theme.colors.error[300],
+          borderWidth: 1,
+        },
+        disabled: {
+          borderColor: theme.colors.error[700],
+        },
+      },
+      text: {
+        main: {
+          color: theme.colors.error[100],
+        },
+        disabled: {
+          color: theme.colors.error[700],
+        },
+      },
+    },
+  };
+};
+
+export type ButtonVariant = keyof ButtonVariants;
+
+export const buildButtonSizes = (theme: AppTheme) => {
+  return {
+    xSmall: {
+      button: {
+        height: theme.spacing[6],
+      },
+      text: theme.typography.xSmall.semibold,
+    },
+    small: {
+      button: {
+        height: theme.spacing[8],
+      },
+      text: theme.typography.small.semibold,
+    },
+    medium: {
+      button: {
+        height: theme.spacing[10],
+      },
+      text: theme.typography.body.semibold,
+    },
+    large: {
+      button: {
+        height: theme.spacing[12],
+      },
+      text: theme.typography.body.medium,
+    },
+  } as const satisfies Record<
     string,
-    {
-      button: ViewStyle;
-      text: TextStyle;
-    }
+    { button: { height: ViewStyle['height'] }; text: TypographyOptions }
   >;
 };
 
-export type ButtonVariant = keyof ReturnType<typeof buildButtonVariants>;
+export type ButtonSize = keyof ReturnType<typeof buildButtonSizes>;

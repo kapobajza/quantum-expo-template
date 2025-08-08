@@ -2,12 +2,15 @@ import { Href } from 'expo-router';
 import { ReactNode, Ref } from 'react';
 import { Text as RNText, TextProps as RNTextProps } from 'react-native';
 
-import { TextVariant } from './variants';
+import { ThemeColor } from '@/theme/tokens/colors';
+import { FontWeight, TypographyVariant } from '@/theme/tokens/typography';
 
 export interface TextProps extends RNTextProps {
-  variant?: TextVariant;
+  variant?: TypographyVariant;
   center?: boolean;
   ref?: Ref<RNText>;
+  color?: ThemeColor;
+  fontWeight?: FontWeight;
 }
 
 export type BaseParseShape = Pick<

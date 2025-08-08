@@ -29,6 +29,7 @@ export default defineConfig([
       'babel.config.js',
       'scripts/*.js',
       'src/types/strapi/*',
+      './.rnstorybook/storybook.requires.ts',
     ],
   },
   {

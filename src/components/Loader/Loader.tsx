@@ -2,6 +2,7 @@ import React from 'react';
 import {
   ActivityIndicator,
   ActivityIndicatorProps,
+  ColorValue,
   View,
   ViewProps,
 } from 'react-native';
@@ -14,7 +15,7 @@ export interface LoaderProps {
   fill?: boolean;
   style?: ViewProps['style'];
   title?: string;
-  color?: string;
+  color?: ColorValue;
   center?: boolean;
 }
 

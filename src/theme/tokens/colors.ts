@@ -1,6 +1,6 @@
 import { Leaves } from '@/types';
 
-export const colors = {
+const generalColors = {
   primary: {
     50: '#B0BFC2',
     100: '#9CAFB3',
@@ -47,9 +47,37 @@ export const colors = {
     800: '#B3FFB3',
     900: '#99FF99',
   },
+} as const;
+
+type GeneralColors = typeof generalColors;
+
+interface CustomizableColors extends GeneralColors {
+  background: {
+    main: string;
+    text: {
+      main: string;
+    };
+  };
+}
+
+export const lightThemeColors: CustomizableColors = {
+  ...generalColors,
   background: {
     main: '#FFFFFF',
+    text: {
+      main: '#284247',
+    },
   },
 } as const;
 
-export type ThemeColors = Leaves<typeof colors>;
+export const darkThemeColors: CustomizableColors = {
+  ...generalColors,
+  background: {
+    main: '#1A1A1A',
+    text: {
+      main: '#E6E6E6',
+    },
+  },
+} as const;
+
+export type ThemeColor = Leaves<typeof lightThemeColors>;

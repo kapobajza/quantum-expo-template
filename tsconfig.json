@@ -9,6 +9,7 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
+    "./.rnstorybook/**/*",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "./*.js",

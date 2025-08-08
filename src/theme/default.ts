@@ -1,4 +1,4 @@
-import { colors } from '@/theme/tokens/colors';
+import { lightThemeColors } from '@/theme/tokens/colors';
 import { radii } from '@/theme/tokens/radii';
 import { spacing } from '@/theme/tokens/spacing';
 import {
@@ -6,13 +6,14 @@ import {
   fontSize,
   fontWeight,
   lineHeight,
+  typography,
 } from '@/theme/tokens/typography';
 import { zIndex } from '@/theme/tokens/zIndex';
 
 import { addColorTransparency } from './utils/color';
 
 export const defaultTheme = {
-  colors,
+  colors: lightThemeColors,
   spacing,
   zIndex,
   fontSize,
@@ -20,6 +21,7 @@ export const defaultTheme = {
   lineHeight,
   radii,
   fontFamily,
+  typography,
   addColorTransparency,
 } as const;
 

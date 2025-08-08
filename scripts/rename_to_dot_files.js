@@ -33,3 +33,16 @@ filesToRename.forEach((file) => {
     }
   });
 });
+
+const filesToDelete = ['app.json'];
+
+filesToDelete.forEach((file) => {
+  const filePath = path.join(projectRoot, file);
+
+  if (!fs.existsSync(filePath)) {
+    console.warn(`File ${file} does not exist at ${filePath}.`);
+    return;
+  }
+
+  fs.unlinkSync(filePath);
+});

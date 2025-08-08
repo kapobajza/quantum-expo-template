@@ -1,25 +1,25 @@
-import { createContext, ReactNode, use } from 'react';
+import { ReactNode, useMemo, useState } from 'react';
 
-import { AppTheme } from '@/theme/default';
+import { ThemeApperance, ThemeContext } from './context';
+import { defaultTheme } from './default';
+import { darkThemeColors, lightThemeColors } from './tokens/colors';
 
-export const ThemeContext = createContext<AppTheme | undefined>(undefined);
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [themeAppearance, setThemeAppearance] =
+    useState<ThemeApperance>('light');
 
-export const ThemeProvider = ({
-  children,
-  theme,
-}: {
-  children: ReactNode;
-  theme: AppTheme;
-}) => {
-  return <ThemeContext value={theme}>{children}</ThemeContext>;
-};
+  const value = useMemo<ThemeContext>(
+    () => ({
+      theme: {
+        ...defaultTheme,
+        colors:
+          themeAppearance === 'light' ? lightThemeColors : darkThemeColors,
+      },
+      appearance: themeAppearance,
+      updateTheme: setThemeAppearance,
+    }),
+    [themeAppearance],
+  );
 
-export const useTheme = () => {
-  const context = use(ThemeContext);
-
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-
-  return context;
+  return <ThemeContext value={value}>{children}</ThemeContext>;
 };

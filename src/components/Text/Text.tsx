@@ -1,52 +1,50 @@
-import i18next from 'i18next';
+import _ from 'lodash';
 import React from 'react';
-import { Text as RNText, TextStyle } from 'react-native';
+import { Text as RNText, StyleSheet } from 'react-native';
 
-import useTranslation from '@/locale/hooks/useTranslation';
 import { createStyleSheet, useStyles } from '@/theme/utils/createStyles';
 
 import { TextProps } from './types';
-import { buildTextVariants } from './variants';
 
 export const Text = ({
-  variant = 'body',
+  variant = 'body.regular',
   center,
   style,
+  color,
+  fontWeight,
   ...props
 }: TextProps) => {
   const styles = useStyles(stylesheet);
-  const { i18n } = useTranslation();
 
   return (
     <RNText
-      style={[styles.text({ variant, center, dir: i18n.dir() }), style]}
+      style={StyleSheet.flatten([
+        styles.text({ variant, center, color, fontWeight }),
+        style,
+      ])}
       {...props}
     />
   );
 };
 
 const stylesheet = createStyleSheet((theme) => {
-  const variants = buildTextVariants(theme);
-
   return {
     text: ({
       variant,
       center,
-      dir,
+      color,
+      fontWeight,
     }: Required<Pick<TextProps, 'variant'>> &
-      Pick<TextProps, 'center'> & {
-        dir: ReturnType<(typeof i18next)['dir']>;
-      }) => {
-      let textAlign: TextStyle['textAlign'] = dir === 'rtl' ? 'right' : 'left';
-
-      if (center) {
-        textAlign = 'center';
-      }
+      Pick<TextProps, 'center' | 'color' | 'fontWeight'>) => {
+      const variantStyle = _.get(theme.typography, variant);
+      const weight = fontWeight ?? variantStyle.fontWeight;
 
       return {
-        ...variants[variant],
-        textAlign,
+        ...variantStyle,
+        textAlign: center ? 'center' : 'left',
         fontFamily: theme.fontFamily.spaceMono,
+        color: _.get(theme.colors, color ?? 'background.text.main'),
+        fontWeight: weight,
       };
     },
   };
