@@ -1,4 +1,9 @@
-import { ReactNode, useMemo } from 'react';
+import {
+  DefaultTheme,
+  ThemeProvider as RNThemeProvider,
+} from '@react-navigation/native';
+import * as SystemUI from 'expo-system-ui';
+import { ReactNode, useEffect, useMemo } from 'react';
 
 import { ThemeApperance, ThemeContext } from './context';
 import { defaultTheme } from './default';
@@ -23,9 +28,31 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     [isLoading, themeAppearance, updateThemeAppearance],
   );
 
+  useEffect(() => {
+    void (async () => {
+      await SystemUI.setBackgroundColorAsync(
+        value.theme.colors.background.main,
+      );
+    })();
+  }, [value.theme.colors.background.main]);
+
+  const rnThemeValue = useMemo(() => {
+    return {
+      ...DefaultTheme,
+      colors: {
+        ...DefaultTheme.colors,
+        background: value.theme.colors.background.main,
+      },
+    };
+  }, [value.theme.colors.background.main]);
+
   if (isLoading) {
     return null;
   }
 
-  return <ThemeContext value={value}>{children}</ThemeContext>;
+  return (
+    <ThemeContext value={value}>
+      <RNThemeProvider value={rnThemeValue}>{children}</RNThemeProvider>
+    </ThemeContext>
+  );
 };

@@ -1,8 +1,7 @@
-import { useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 import { useColorScheme } from 'react-native';
 
 import { useDatabaseRepo } from '@/db/context';
-import { useMountEffect } from '@/hooks';
 import { ThemeApperance, ThemeContext } from '@/theme/context';
 
 interface State {
@@ -46,24 +45,45 @@ export const useThemeApperance = () => {
   const { configRepository } = useDatabaseRepo();
   const colorScheme = useColorScheme();
 
-  const updateThemeAppearance: ThemeContext['updateTheme'] = (themeOrCb) => {
+  const getConfiguredTheme = useCallback(
+    async (themeOrCb: Parameters<ThemeContext['updateTheme']>[0]) => {
+      const appearance = await configRepository.getThemeApperance();
+      const newTheme =
+        typeof themeOrCb === 'function' ? themeOrCb(appearance) : themeOrCb;
+      return newTheme;
+    },
+    [configRepository],
+  );
+
+  const updateThemeAppearance: ThemeContext['updateTheme'] = useCallback(
+    (themeOrCb) => {
+      void (async () => {
+        try {
+          dispatch({ type: 'update_loading', payload: true });
+          const newTheme = await getConfiguredTheme(themeOrCb);
+          dispatch({ type: 'update_theme', payload: newTheme });
+          await configRepository.setThemeApperance(newTheme);
+        } finally {
+          dispatch({ type: 'update_loading', payload: false });
+        }
+      })();
+    },
+    [configRepository, getConfiguredTheme],
+  );
+
+  useEffect(() => {
     void (async () => {
       try {
         dispatch({ type: 'update_loading', payload: true });
-        const appearance = await configRepository.getThemeApperance();
-        const newTheme =
-          typeof themeOrCb === 'function' ? themeOrCb(appearance) : themeOrCb;
+        const newTheme = await getConfiguredTheme(
+          (prev) => prev ?? colorScheme ?? 'light',
+        );
         dispatch({ type: 'update_theme', payload: newTheme });
-        await configRepository.setThemeApperance(newTheme);
       } finally {
         dispatch({ type: 'update_loading', payload: false });
       }
     })();
-  };
-
-  useMountEffect(() => {
-    updateThemeAppearance((prev) => prev ?? colorScheme ?? 'light');
-  });
+  }, [colorScheme, getConfiguredTheme]);
 
   return {
     ...state,

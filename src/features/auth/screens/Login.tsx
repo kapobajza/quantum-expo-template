@@ -46,7 +46,7 @@ const Login = () => {
           onPress={handleSignIn}
         />
         <ParsedText
-          variant="h6"
+          variant="body.semibold"
           center
           parse={[
             {

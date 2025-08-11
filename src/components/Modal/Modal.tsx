@@ -80,7 +80,7 @@ export const Modal = ({ item, isPendingClose, removeModal }: ModalProps) => {
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const stylesheet = createStyleSheet((theme, { dimensions }) => ({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
@@ -97,6 +97,7 @@ const stylesheet = createStyleSheet((theme) => ({
     backgroundColor: theme.colors.background.main,
     borderRadius: theme.radii['8'],
     justifyContent: 'center',
+    width: dimensions.width - theme.spacing.md * 2,
     ...theme.shadows.large,
   },
   button: {

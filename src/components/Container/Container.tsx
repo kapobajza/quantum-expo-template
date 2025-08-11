@@ -1,9 +1,17 @@
+import { get } from 'lodash';
 import React from 'react';
-import { SafeAreaView, View, ViewProps } from 'react-native';
+import {
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  ViewProps,
+} from 'react-native';
 
 import { Loader } from '@/components/Loader';
 import { Text } from '@/components/Text';
 import { createStyleSheet, useStyles } from '@/theme';
+import { ThemeSpacing } from '@/theme/tokens/spacing';
 
 export interface ContainerProps extends ViewProps {
   center?: boolean | 'horizontal' | 'vertical';
@@ -14,6 +22,7 @@ export interface ContainerProps extends ViewProps {
   LoaderComponent?: React.ReactNode;
   useSafeAreas?: boolean;
   fill?: boolean;
+  bottomSpacing?: boolean | ThemeSpacing;
 }
 
 export const Container = ({
@@ -27,6 +36,7 @@ export const Container = ({
   style,
   useSafeAreas,
   fill,
+  bottomSpacing,
   ...props
 }: ContainerProps) => {
   const styles = useStyles(stylesheet);
@@ -48,23 +58,30 @@ export const Container = ({
   }
 
   return (
-    <RootComponent style={[styles.root({ center, fill }), style]} {...props}>
+    <RootComponent
+      style={StyleSheet.flatten([styles.root({ center, fill }), style])}
+      {...props}
+    >
       {Component}
+      {bottomSpacing && Platform.OS === 'android' && (
+        <View style={styles.bottom(bottomSpacing)} />
+      )}
     </RootComponent>
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const stylesheet = createStyleSheet((theme, { insets }) => ({
   root: (props: Pick<ContainerProps, 'center' | 'fill'>) => {
     const centerHorizontal =
       props.center === 'horizontal' || props.center === true;
     const centerVertical = props.center === 'vertical' || props.center === true;
 
     return {
-      margin: theme.spacing['4'],
+      margin: theme.spacing.md,
       alignItems: centerHorizontal ? 'center' : undefined,
       justifyContent: centerVertical ? 'center' : undefined,
       flex: props.fill ? 1 : undefined,
+      backgroundColor: theme.colors.background.main,
     };
   },
   errorContainer: {
@@ -75,4 +92,10 @@ const stylesheet = createStyleSheet((theme) => ({
   errorText: {
     textAlign: 'center',
   },
+  bottom: (spacing: true | ThemeSpacing) => ({
+    paddingBottom:
+      typeof spacing === 'boolean'
+        ? insets.bottom
+        : insets.bottom + (get(theme.spacing, spacing, 0) as number),
+  }),
 }));

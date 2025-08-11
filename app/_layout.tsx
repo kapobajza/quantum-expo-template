@@ -1,7 +1,3 @@
-import {
-  DefaultTheme,
-  ThemeProvider as RNThemeProvider,
-} from '@react-navigation/native';
 import { Slot } from 'expo-router';
 import { StrictMode } from 'react';
 import { LogBox } from 'react-native';
@@ -19,7 +15,7 @@ import { I18nProvider } from '@/locale';
 import { QueryFactoryProvider } from '@/query';
 import { QueryProvider } from '@/query/QueryProvider';
 import { ServicesProvider } from '@/services';
-import { defaultTheme, ThemeProvider } from '@/theme';
+import { ThemeProvider } from '@/theme';
 
 LogBox.ignoreLogs([
   /findNodeHandle is deprecated.*/,
@@ -39,29 +35,19 @@ function RootLayout() {
           <MigrationsRunner database={drizzleDb}>
             <DatabaseProvider repository={databaseRepository}>
               <I18nProvider>
-                <RNThemeProvider
-                  value={{
-                    ...DefaultTheme,
-                    colors: {
-                      ...DefaultTheme.colors,
-                      background: defaultTheme.colors.background.main,
-                    },
-                  }}
-                >
-                  <ThemeProvider>
-                    <ToastProvider>
-                      <QueryProvider>
-                        <ApiProvider>
-                          <QueryFactoryProvider>
-                            <ModalProvider stack={modalStack}>
-                              <Slot />
-                            </ModalProvider>
-                          </QueryFactoryProvider>
-                        </ApiProvider>
-                      </QueryProvider>
-                    </ToastProvider>
-                  </ThemeProvider>
-                </RNThemeProvider>
+                <ThemeProvider>
+                  <ToastProvider>
+                    <QueryProvider>
+                      <ApiProvider>
+                        <QueryFactoryProvider>
+                          <ModalProvider stack={modalStack}>
+                            <Slot />
+                          </ModalProvider>
+                        </QueryFactoryProvider>
+                      </ApiProvider>
+                    </QueryProvider>
+                  </ToastProvider>
+                </ThemeProvider>
               </I18nProvider>
             </DatabaseProvider>
           </MigrationsRunner>
