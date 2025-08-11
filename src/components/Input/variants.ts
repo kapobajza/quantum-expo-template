@@ -17,8 +17,8 @@ export const buildTextInputVariants = (theme: AppTheme): TextInputVariants => {
   return {
     primary: {
       container: {
-        borderColor: theme.colors.greyscale[700],
-        backgroundColor: theme.colors.greyscale[800],
+        borderColor: theme.colors.surface.border,
+        backgroundColor: theme.colors.surface.background,
       },
       focus: {
         backgroundColor: theme.addColorTransparency(
@@ -28,13 +28,13 @@ export const buildTextInputVariants = (theme: AppTheme): TextInputVariants => {
         borderColor: theme.colors.primary[300],
       },
       input: {
-        color: theme.colors.greyscale[0],
+        color: theme.colors.background.text.main,
       },
     },
     chat: {
       container: {
-        borderColor: theme.colors.greyscale[700],
-        backgroundColor: theme.colors.greyscale[800],
+        borderColor: 'transparent',
+        backgroundColor: theme.colors.surface.background,
         borderRadius: theme.radii[8],
       },
       focus: {
@@ -46,7 +46,7 @@ export const buildTextInputVariants = (theme: AppTheme): TextInputVariants => {
         borderWidth: 1,
       },
       input: {
-        color: theme.colors.greyscale[0],
+        color: theme.colors.background.text.main,
       },
     },
   };

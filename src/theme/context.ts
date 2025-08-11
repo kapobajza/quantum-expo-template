@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction, use } from 'react';
+import { createContext, use } from 'react';
 
 import { AppTheme } from './default';
 
@@ -6,8 +6,13 @@ export type ThemeApperance = 'light' | 'dark';
 
 export interface ThemeContext {
   theme: AppTheme;
-  updateTheme: Dispatch<SetStateAction<ThemeApperance>>;
-  appearance: ThemeApperance;
+  updateTheme: (
+    themeOrCb:
+      | ThemeApperance
+      | ((prev: ThemeApperance | undefined) => ThemeApperance),
+  ) => void;
+  appearance: ThemeApperance | undefined;
+  isLoading: boolean;
 }
 
 export const ThemeContext = createContext<ThemeContext | undefined>(undefined);

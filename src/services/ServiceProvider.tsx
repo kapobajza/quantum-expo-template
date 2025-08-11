@@ -1,7 +1,7 @@
 import { createContext, use } from 'react';
 
-import { LoggingService } from './loggingService';
-import { StorageService } from './storageService';
+import { createLoggingService, LoggingService } from './loggingService';
+import { createStorageService, StorageService } from './storageService';
 
 export interface AllServices {
   storageService: StorageService;
@@ -10,14 +10,23 @@ export interface AllServices {
 
 const ServicesContext = createContext<AllServices | undefined>(undefined);
 
+export const defaultServices: AllServices = {
+  storageService: createStorageService(),
+  loggingService: createLoggingService(),
+};
+
 export const ServicesProvider = ({
   children,
   services,
 }: {
   children: React.ReactNode;
-  services: AllServices;
+  services?: AllServices;
 }) => {
-  return <ServicesContext value={services}>{children}</ServicesContext>;
+  return (
+    <ServicesContext value={services ?? defaultServices}>
+      {children}
+    </ServicesContext>
+  );
 };
 
 export const useService = () => {

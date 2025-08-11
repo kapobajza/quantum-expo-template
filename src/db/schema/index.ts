@@ -1,3 +1,4 @@
+export * from './configs';
 export * from './locales';
 export * from './mutations';
 export * from './queries';

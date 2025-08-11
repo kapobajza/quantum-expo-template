@@ -79,7 +79,7 @@ const lightExtensibleColors: ThemeExtensibleColors = {
     main: generalColors.greyscale[0],
     text: {
       main: generalColors.greyscale[900],
-      dimmed: generalColors.greyscale[600],
+      dimmed: generalColors.greyscale[500],
     },
   },
   surface: {

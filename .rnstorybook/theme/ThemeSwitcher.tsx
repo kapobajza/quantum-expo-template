@@ -1,18 +1,17 @@
-import { useEffect } from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
+import { STORY_ARGS_UPDATED } from 'storybook/internal/core-events';
+import { useChannel } from 'storybook/internal/preview-api';
 
 import { ThemeApperance, useThemeOptions } from '@/theme';
 
-export const ThemeSwitcher = ({
-  theme,
-}: {
-  theme: ThemeApperance | undefined;
-}) => {
+export const withThemeSwitcher = (Story: React.ComponentType) => {
   const { updateTheme } = useThemeOptions();
 
-  useEffect(() => {
-    if (!theme) return;
-    updateTheme(theme);
-  }, [theme, updateTheme]);
+  useChannel({
+    [STORY_ARGS_UPDATED]: ({ args }: { args: { theme: ThemeApperance } }) => {
+      updateTheme(args.theme);
+    },
+  });
 
-  return null;
+  return <Story />;
 };

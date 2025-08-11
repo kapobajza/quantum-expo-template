@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import * as Crypto from 'expo-crypto';
 
 import * as schema from '@/db/schema';
@@ -24,8 +24,8 @@ export const createQueryRepo = (db: SqliteDatabase) => {
         .onConflictDoUpdate({
           target: schema.queryClients.id,
           set: {
-            timestamp: data.timestamp,
-            buster: data.buster,
+            timestamp: sql.raw('excluded.timestamp'),
+            buster: sql.raw('excluded.buster'),
           },
         })
         .returning({
@@ -42,7 +42,8 @@ export const createQueryRepo = (db: SqliteDatabase) => {
         .onConflictDoUpdate({
           target: schema.queries.queryHash,
           set: {
-            value: schema.queries.value,
+            value: sql.raw('excluded.value'),
+            queryClientId: sql.raw('excluded.queryClientId'),
           },
         })
         .returning();
@@ -62,7 +63,8 @@ export const createQueryRepo = (db: SqliteDatabase) => {
         .onConflictDoUpdate({
           target: schema.mutations.mutationKey,
           set: {
-            value: schema.mutations.value,
+            value: sql.raw('excluded.value'),
+            queryClientId: sql.raw('excluded.queryClientId'),
           },
         })
         .returning();

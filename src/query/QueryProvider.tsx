@@ -6,14 +6,20 @@ import {
 import React, { ReactNode, useState } from 'react';
 
 import { useToast } from '@/components/Toast';
+import { databaseRepository } from '@/db/instance';
+import { createSqlitePersister } from '@/db/persister';
 import { useMapError } from '@/error/hooks';
+
+const defaultPersister = createSqlitePersister(
+  databaseRepository.queryRepository,
+);
 
 export const QueryProvider = ({
   children,
   persister,
 }: {
   children: ReactNode;
-  persister: Persister;
+  persister?: Persister;
 }) => {
   const mapError = useMapError();
   const { showError } = useToast();
@@ -45,7 +51,7 @@ export const QueryProvider = ({
     <PersistQueryClientProvider
       client={queryClient}
       persistOptions={{
-        persister,
+        persister: persister ?? defaultPersister,
       }}
       onSuccess={onPersisterSuccess}
     >

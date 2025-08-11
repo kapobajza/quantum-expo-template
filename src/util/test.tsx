@@ -8,7 +8,7 @@ import { ApiProvider } from '@/api';
 import { AllApiRouters } from '@/api/provider/types';
 import { ToastItemMinimal, ToastProvider } from '@/components/Toast';
 import { DatabaseProvider } from '@/db';
-import { LocaleRepo, QueryRepo } from '@/db/repo';
+import { ConfigRepo, LocaleRepo, QueryRepo } from '@/db/repo';
 import { AppEnv, AppEnvProvider } from '@/env';
 import { QueryFactoryProvider } from '@/query';
 import { AllServices, ServicesProvider } from '@/services/ServiceProvider';
@@ -73,6 +73,7 @@ export const buildRenderHook = <Result, Props>(
                 repository={{
                   localeRepository: mock<LocaleRepo>(),
                   queryRepository: mock<QueryRepo>(),
+                  configRepository: mock<ConfigRepo>(),
                 }}
               >
                 <QueryClientProvider client={new QueryClient()}>

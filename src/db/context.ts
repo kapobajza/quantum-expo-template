@@ -1,10 +1,11 @@
 import { createContext, use } from 'react';
 
-import { LocaleRepo, QueryRepo } from './repo';
+import { ConfigRepo, LocaleRepo, QueryRepo } from './repo';
 
 export interface DatabaseRepository {
   localeRepository: LocaleRepo;
   queryRepository: QueryRepo;
+  configRepository: ConfigRepo;
 }
 
 export const DatabaseContext = createContext<DatabaseRepository | undefined>(
