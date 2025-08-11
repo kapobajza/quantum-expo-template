@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/react';
 
 import { ApiProvider } from '@/api/provider';
 import { MigrationsRunner } from '@/components/App';
+import { BottomSheetProvider } from '@/components/BottomSheet';
 import { ToastProvider } from '@/components/Toast';
 import { DatabaseProvider } from '@/db/DatabaseProvider';
 import { databaseRepository, drizzleDb } from '@/db/instance';
@@ -11,6 +12,7 @@ import { QueryFactoryProvider } from '@/query';
 import { QueryProvider } from '@/query/QueryProvider';
 import { ServicesProvider } from '@/services';
 import { ThemeApperance, ThemeProvider } from '@/theme';
+import { ModalProvider } from '@/components/Modal';
 
 import { Background } from './components/Background';
 import { withThemeSwitcher } from './theme/ThemeSwitcher';
@@ -38,9 +40,13 @@ const preview: Preview = {
                       <QueryProvider>
                         <ApiProvider>
                           <QueryFactoryProvider>
-                            <Background>
-                              <Story />
-                            </Background>
+                            <ModalProvider>
+                              <BottomSheetProvider>
+                                <Background>
+                                  <Story />
+                                </Background>
+                              </BottomSheetProvider>
+                            </ModalProvider>
                           </QueryFactoryProvider>
                         </ApiProvider>
                       </QueryProvider>

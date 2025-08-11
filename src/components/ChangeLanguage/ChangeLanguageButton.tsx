@@ -1,7 +1,7 @@
 import { Icon } from '@/components/Icon';
-import { useModal } from '@/components/Modal';
 import { Pressable } from '@/components/Pressable';
 import { createStyleSheet, useStyles } from '@/theme';
+import { useBottomSheet } from '@/components/BottomSheet';
 
 interface ChangeLanguageButtonProps {
   topOffset?: number;
@@ -10,14 +10,14 @@ interface ChangeLanguageButtonProps {
 export const ChangeLanguageButton = ({
   topOffset,
 }: ChangeLanguageButtonProps) => {
-  const { showModal } = useModal();
+  const { showBottomSheet } = useBottomSheet();
   const styles = useStyles(stylesheet);
 
   return (
     <Pressable
       style={styles.button({ topOffset })}
       onPress={() => {
-        showModal('ChangeLanguage');
+        showBottomSheet('ChangeLanguage');
       }}
       scaleOutputRange={[0.95, 1]}
     >

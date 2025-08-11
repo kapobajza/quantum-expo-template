@@ -9,6 +9,7 @@ export const radii = {
   '8': 16,
   '9': 18,
   '10': 20,
+  '12': 24,
   full: 9999,
 } as const;
 

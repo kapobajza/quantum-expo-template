@@ -1,16 +1,18 @@
 import { useState } from 'react';
 
+import { AlertModal } from '@/components/Alert';
+import { ChangeLanguageModal } from '@/components/ChangeLanguage';
+
 import { ModalContext } from './context';
 import { ModalList } from './ModalList';
 import { ModalStack } from './types';
 
-export const ModalProvider = ({
-  children,
-  stack,
-}: {
-  children: React.ReactNode;
-  stack: ModalStack;
-}) => {
+const stack: ModalStack = {
+  ChangeLanguage: ChangeLanguageModal,
+  Alert: AlertModal,
+};
+
+export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
   const [context, setContext] = useState<ModalContext>({
     hideModal() {
       // no-op, will be overridden

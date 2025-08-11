@@ -4,9 +4,8 @@ import { LogBox } from 'react-native';
 
 import { ApiProvider } from '@/api';
 import { MigrationsRunner } from '@/components';
-import { AlertModal } from '@/components/Alert';
-import { ChangeLanguageModal } from '@/components/ChangeLanguage';
-import { ModalProvider, ModalStack } from '@/components/Modal';
+import { BottomSheetProvider } from '@/components/BottomSheet';
+import { ModalProvider } from '@/components/Modal';
 import { ToastProvider } from '@/components/Toast';
 import { DatabaseProvider } from '@/db';
 import { databaseRepository, drizzleDb } from '@/db/instance';
@@ -22,11 +21,6 @@ LogBox.ignoreLogs([
   /findHostInstance_DEPRECATED is deprecated.*/,
 ]);
 
-const modalStack: ModalStack = {
-  ChangeLanguage: ChangeLanguageModal,
-  Alert: AlertModal,
-};
-
 function RootLayout() {
   return (
     <StrictMode>
@@ -40,8 +34,10 @@ function RootLayout() {
                     <QueryProvider>
                       <ApiProvider>
                         <QueryFactoryProvider>
-                          <ModalProvider stack={modalStack}>
-                            <Slot />
+                          <ModalProvider>
+                            <BottomSheetProvider>
+                              <Slot />
+                            </BottomSheetProvider>
                           </ModalProvider>
                         </QueryFactoryProvider>
                       </ApiProvider>
