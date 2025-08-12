@@ -2,7 +2,8 @@
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit",
-    "source.sortMembers": "explicit"
+    "source.sortMembers": "explicit",
+    "source.fixAll.eslint": "explicit"
   },
   "json.schemas": [
     {

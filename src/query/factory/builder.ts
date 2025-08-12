@@ -1,4 +1,3 @@
-import { createConfigQueryOptions } from '@/query/config.query';
 import {
   FactoryField,
   FactoryQueryKey,
@@ -6,6 +5,7 @@ import {
 } from '@/query/factory';
 import { createUsersQueryOptions } from '@/query/users.query';
 import { Prettify } from '@/types';
+import { createChatsQueryOptions } from '@/query/chats.query';
 
 type ConvertOptionsToQueryKeys<T> = {
   [K in Exclude<keyof T, '__name'>]: T[K] extends { queryKey: FactoryQueryKey }
@@ -61,11 +61,8 @@ export const constructQueryKeys = <TOptions extends object>(
 
 export const createQueryBuilder = () => {
   const usersQueryOptions = createUsersQueryOptions();
-  const configsQueryOptions = createConfigQueryOptions();
-  const queryOptions = mergeQueryOptions(
-    usersQueryOptions,
-    configsQueryOptions,
-  );
+  const chatsQueryOptions = createChatsQueryOptions();
+  const queryOptions = mergeQueryOptions(usersQueryOptions, chatsQueryOptions);
   const queryKeys = constructQueryKeys(queryOptions);
 
   return {

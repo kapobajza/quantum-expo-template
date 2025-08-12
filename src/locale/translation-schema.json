@@ -11,7 +11,9 @@
     "emailConfirmed",
     "home",
     "changeLanguage",
-    "bottomTabBar"
+    "bottomTabBar",
+    "conversations",
+    "chat"
   ],
   "properties": {
     "validation": {
@@ -137,6 +139,30 @@
       "properties": {
         "index": { "type": "string" },
         "message": { "type": "string" }
+      }
+    },
+    "conversations": {
+      "type": "object",
+      "required": ["title", "noResults", "noMessages"],
+      "properties": {
+        "title": { "type": "string" },
+        "noMessages": { "type": "string" },
+        "noResults": {
+          "type": "object",
+          "required": ["message", "action"],
+          "properties": {
+            "message": { "type": "string" },
+            "action": { "type": "string" }
+          }
+        }
+      }
+    },
+    "chat": {
+      "type": "object",
+      "required": ["title", "inputPlaceholder"],
+      "properties": {
+        "title": { "type": "string" },
+        "inputPlaceholder": { "type": "string" }
       }
     }
   },

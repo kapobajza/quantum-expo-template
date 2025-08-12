@@ -14,6 +14,9 @@ export const RouteName = {
     SignUp: '/auth/sign-up',
     EmailConfirmed: '/auth/email-confirmed',
   },
+  Chat: {
+    ById: '/chat/[id]',
+  },
 } as const satisfies Record<
   string,
   ExpoRouteName | Record<string, ExpoRouteName>

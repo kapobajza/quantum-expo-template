@@ -1,7 +1,7 @@
+import { useBottomSheet } from '@/components/BottomSheet';
 import { Icon } from '@/components/Icon';
 import { Pressable } from '@/components/Pressable';
 import { createStyleSheet, useStyles } from '@/theme';
-import { useBottomSheet } from '@/components/BottomSheet';
 
 interface ChangeLanguageButtonProps {
   topOffset?: number;

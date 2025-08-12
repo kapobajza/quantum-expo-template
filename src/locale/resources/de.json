@@ -57,5 +57,17 @@
   "bottomTabBar": {
     "index": "Home",
     "message": "Chat"
+  },
+  "conversations": {
+    "title": "Konversationen",
+    "noMessages": "Noch keine Nachrichten. Starten Sie die Konversation!",
+    "noResults": {
+      "message": "Keine Konversationen gefunden. Starten Sie einen neuen Chat mit einem zufälligen Benutzer.",
+      "action": "Chat starten"
+    }
+  },
+  "chat": {
+    "title": "Chat",
+    "inputPlaceholder": "Geben Sie Ihre Nachricht ein..."
   }
 }

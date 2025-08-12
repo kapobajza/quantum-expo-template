@@ -1,7 +1,9 @@
 import { createContext, use, useMemo } from 'react';
 
 import { createAuthApi } from '@/api/auth.api';
+import { createChatApi } from '@/api/chat.api';
 import { CreateHttpClientParams } from '@/api/factory';
+import { createUserApi } from '@/api/user.api';
 import { useAppEnv } from '@/env';
 import { useService } from '@/services';
 
@@ -68,6 +70,8 @@ export const ApiProvider = ({
     };
     const apiProviderValue = {
       authApi: createAuthApi(params),
+      chatApi: createChatApi(params),
+      userApi: createUserApi(params),
     } satisfies Record<keyof AllApiRouters, unknown>;
 
     const apiClient = generateApiClient(value ?? apiProviderValue);

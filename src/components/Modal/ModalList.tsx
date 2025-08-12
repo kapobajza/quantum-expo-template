@@ -34,7 +34,7 @@ export const ModalList = ({ setContext, stack }: ModalListProps) => {
           modal: {
             name,
             Component: stack[name],
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
             params,
             options,
           },

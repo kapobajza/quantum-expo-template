@@ -46,6 +46,12 @@ export interface TranslationKeyParam {
   };
   'bottomTabBar.index': undefined;
   'bottomTabBar.message': undefined;
+  'conversations.title': undefined;
+  'conversations.noMessages': undefined;
+  'conversations.noResults.message': undefined;
+  'conversations.noResults.action': undefined;
+  'chat.title': undefined;
+  'chat.inputPlaceholder': undefined;
 }
 
 export type TranslationKey = keyof TranslationKeyParam;

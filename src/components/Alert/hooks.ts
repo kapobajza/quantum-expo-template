@@ -1,4 +1,5 @@
-import { ModalStackParams, useModal } from '@/components/Modal';
+import { useModal } from '@/components/Modal/context';
+import { ModalStackParams } from '@/components/Modal/types';
 
 export const useAlert = () => {
   const { showModal, hideModal } = useModal();

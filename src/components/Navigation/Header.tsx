@@ -1,24 +1,42 @@
 import { Header as RNHeader } from '@react-navigation/elements';
+import { ComponentProps, ReactNode } from 'react';
+import { Platform, View } from 'react-native';
 
-import { Icon } from '@/components/Icon';
-import { Pressable } from '@/components/Pressable';
-import { Text } from '@/components/Text';
 import { useTranslation } from '@/locale';
-import { createStyleSheet, useStyles } from '@/theme';
+import { createStyleSheet, useStyles, useTheme } from '@/theme';
 
-export interface HeaderProps {
+import { HeaderBackButton } from './HeaderBackButton';
+import { HeaderTitle } from './HeaderTitle';
+
+type RNHeaderProps = ComponentProps<typeof RNHeader>;
+
+export interface HeaderProps extends Omit<RNHeaderProps, 'title'> {
   canGoBack?: boolean;
-  title: string;
+  modal?: boolean;
+  title: string | ReactNode;
 }
 
-export const Header = ({ title, canGoBack }: HeaderProps) => {
+export const Header = ({
+  title,
+  canGoBack,
+  modal,
+  headerRight,
+  headerTitleAlign,
+  headerLeft,
+  headerStyle,
+  ...props
+}: HeaderProps) => {
   const { t } = useTranslation();
   const styles = useStyles(stylesheet);
+  const theme = useTheme();
 
   return (
     <RNHeader
-      title={title}
-      headerTitle={({ children }) => <Text variant="h5">{children}</Text>}
+      {...props}
+      title={typeof title === 'string' ? title : ''}
+      headerTitle={() =>
+        typeof title === 'string' ? <HeaderTitle>{title}</HeaderTitle> : title
+      }
       back={
         canGoBack
           ? {
@@ -27,28 +45,41 @@ export const Header = ({ title, canGoBack }: HeaderProps) => {
             }
           : undefined
       }
-      headerLeft={({ label, onPress }) => {
-        return (
-          <Pressable
-            style={styles.headerLeft}
-            onPress={() => {
-              onPress?.();
-            }}
-          >
-            <Icon name="ChevronLeftIcon" />
-            <Text variant="h6">{label}</Text>
-          </Pressable>
-        );
-      }}
+      headerLeft={
+        headerLeft ??
+        ((props) => {
+          return canGoBack ? (
+            <View>
+              <HeaderBackButton {...props} modal={modal} />
+            </View>
+          ) : null;
+        })
+      }
+      headerRight={
+        headerRight
+          ? (props) => (
+              <View style={styles.headerRight}>{headerRight(props)}</View>
+            )
+          : undefined
+      }
+      headerStatusBarHeight={
+        modal && Platform.OS === 'ios' ? theme.spacing['2'] : undefined
+      }
+      modal={modal}
+      headerStyle={[styles.headerBackgroundContainer, headerStyle]}
+      headerTitleAlign={headerTitleAlign}
     />
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
-  headerLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: theme.spacing['1'],
-    marginLeft: theme.spacing['2'],
-  },
-}));
+const stylesheet = createStyleSheet((theme) => {
+  return {
+    headerRight: {
+      marginEnd: theme.spacing.md,
+    },
+    headerBackgroundContainer: {
+      backgroundColor: theme.colors.background.main,
+      ...theme.shadows.medium,
+    },
+  };
+});

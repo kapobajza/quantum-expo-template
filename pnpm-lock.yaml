@@ -23,6 +23,9 @@ importers:
       '@react-navigation/native':
         specifier: 7.1.14
         version: 7.1.14(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
+      '@shopify/flash-list':
+        specifier: 2.0.2
+        version: 2.0.2(@babel/runtime@7.27.6)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
       '@tanstack/react-query':
         specifier: 5.81.5
         version: 5.81.5(react@19.0.0)
@@ -116,6 +119,9 @@ importers:
       react-native-gesture-handler:
         specifier: 2.24.0
         version: 2.24.0(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
+      react-native-keyboard-controller:
+        specifier: 1.18.4
+        version: 1.18.4(react-native-reanimated@3.17.4(@babel/core@7.25.2)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
       react-native-reanimated:
         specifier: 3.17.4
         version: 3.17.4(@babel/core@7.25.2)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
@@ -1803,6 +1809,13 @@ packages:
     resolution: {integrity: sha512-SRf1cytG7wqcHVLrBc9VtPK4pU5wxiB/lNIkNmW2ApKXIg+RpqwHfsaEK+e7eH4A1BpI6BX/aBWXxZCIrJg3uA==}
     cpu: [x64]
     os: [win32]
+
+  '@shopify/flash-list@2.0.2':
+    resolution: {integrity: sha512-zhlrhA9eiuEzja4wxVvotgXHtqd3qsYbXkQ3rsBfOgbFA9BVeErpDE/yEwtlIviRGEqpuFj/oU5owD6ByaNX+w==}
+    peerDependencies:
+      '@babel/runtime': '*'
+      react: '*'
+      react-native: '*'
 
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
@@ -5235,6 +5248,13 @@ packages:
       react: '*'
       react-native: '*'
 
+  react-native-keyboard-controller@1.18.4:
+    resolution: {integrity: sha512-s5mY3kymUVQ1LGISW4h9Sd9JU7arKQuEvWJVfcA7ZNKJI3ao5JXhHlnCBjuydh1l7vzFppYNSo0s0cixtcDP2Q==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-reanimated: '>=3.0.0'
+
   react-native-modal-datetime-picker@18.0.0:
     resolution: {integrity: sha512-0jdvhhraZQlRACwr7pM6vmZ2kxgzJ4CpnmV6J3TVA6MrXMXK6Zo/upRBKkRp0+fTOiKuNblzesA2U59rYo6SGA==}
     peerDependencies:
@@ -8210,6 +8230,13 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.45.0':
     optional: true
+
+  '@shopify/flash-list@2.0.2(@babel/runtime@7.27.6)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@babel/runtime': 7.27.6
+      react: 19.0.0
+      react-native: 0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)
+      tslib: 2.8.1
 
   '@sinclair/typebox@0.27.8': {}
 
@@ -11946,6 +11973,13 @@ snapshots:
     dependencies:
       react: 19.0.0
       react-native: 0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)
+
+  react-native-keyboard-controller@1.18.4(react-native-reanimated@3.17.4(@babel/core@7.25.2)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-native: 0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)
+      react-native-is-edge-to-edge: 1.2.1(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
+      react-native-reanimated: 3.17.4(@babel/core@7.25.2)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
 
   react-native-modal-datetime-picker@18.0.0(@react-native-community/datetimepicker@8.4.3(expo@53.0.17(@babel/core@7.25.2)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)):
     dependencies:

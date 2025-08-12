@@ -1,6 +1,7 @@
 import { Slot } from 'expo-router';
 import { StrictMode } from 'react';
 import { LogBox } from 'react-native';
+import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 import { ApiProvider } from '@/api';
 import { MigrationsRunner } from '@/components';
@@ -35,9 +36,11 @@ function RootLayout() {
                       <ApiProvider>
                         <QueryFactoryProvider>
                           <ModalProvider>
-                            <BottomSheetProvider>
-                              <Slot />
-                            </BottomSheetProvider>
+                            <KeyboardProvider>
+                              <BottomSheetProvider>
+                                <Slot />
+                              </BottomSheetProvider>
+                            </KeyboardProvider>
                           </ModalProvider>
                         </QueryFactoryProvider>
                       </ApiProvider>

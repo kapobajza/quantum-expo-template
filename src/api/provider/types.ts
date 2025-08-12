@@ -1,7 +1,11 @@
 import { AuthApi } from '@/api/auth.api';
+import { ChatApi } from '@/api/chat.api';
+import { UserApi } from '@/api/user.api';
 
 export interface AllApiRouters {
   authApi: AuthApi;
+  chatApi: ChatApi;
+  userApi: UserApi;
 }
 
 /**

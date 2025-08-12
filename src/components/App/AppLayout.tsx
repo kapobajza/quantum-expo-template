@@ -1,17 +1,20 @@
+import { useQueryClient } from '@tanstack/react-query';
+import * as DevMenu from 'expo-dev-client';
 import { Redirect, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React from 'react';
-import { View } from 'react-native';
+import { DevSettings, View } from 'react-native';
 
 import { Container } from '@/components/Container';
 import { Loader } from '@/components/Loader';
 import { StackNoHeader } from '@/components/Navigation';
+import { RouteName } from '@/constants/route';
+import { useDatabaseRepo } from '@/db/context';
 import { ErrorCode, isErrorCode } from '@/error';
 import { useMountEffect } from '@/hooks';
 import { useTranslation } from '@/locale';
 import { createStyleSheet, useStyles } from '@/theme';
 import { mapValidationErrors } from '@/validation';
-import { RouteName } from '@/constants/route';
 
 import { useSetupAuthFlow } from './hooks';
 
@@ -21,10 +24,26 @@ function AppLayout() {
   const { mutate: setupAuthFlow, isPending, data, error } = useSetupAuthFlow();
   const { t } = useTranslation();
   const styles = useStyles(stylesheet);
+  const queryClient = useQueryClient();
+  const { queryRepository } = useDatabaseRepo();
 
   useMountEffect(() => {
     setupAuthFlow();
     mapValidationErrors(t);
+
+    if (__DEV__) {
+      void DevMenu.registerDevMenuItems([
+        {
+          name: 'Clear React Query cache & Reload',
+          callback: () => {
+            queryClient.clear();
+            void queryClient.resetQueries();
+            void queryRepository.removeQueryClient();
+            DevSettings.reload();
+          },
+        },
+      ]);
+    }
   });
 
   if (isPending) {
