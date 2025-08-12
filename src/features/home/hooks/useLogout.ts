@@ -1,6 +1,7 @@
 import { useRouter } from 'expo-router';
 
 import { useApi } from '@/api';
+import { RouteName } from '@/constants/route';
 import { useMutation } from '@/query';
 import { useService } from '@/services';
 
@@ -15,7 +16,7 @@ export const useLogout = () => {
     },
     onSettled() {
       void storageService.deleteSecureItem('AuthToken');
-      router.replace('/auth/login');
+      router.replace(RouteName.Auth.Login);
     },
   });
 };

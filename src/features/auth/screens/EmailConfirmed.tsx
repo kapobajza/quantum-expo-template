@@ -4,6 +4,7 @@ import React from 'react';
 import { Button, Container, Text } from '@/components';
 import { Icon } from '@/components/Icon';
 import { Header } from '@/components/Navigation';
+import { RouteName } from '@/constants/route';
 import { useTranslation } from '@/locale';
 import { createStyleSheet, useStyles } from '@/theme';
 
@@ -29,7 +30,7 @@ const EmailConfirmed = () => {
         <Button
           title={t('emailConfirmed.backToLogin')}
           onPress={() => {
-            router.replace('/auth/login');
+            router.replace(RouteName.Auth.Login);
           }}
         />
       </Container>

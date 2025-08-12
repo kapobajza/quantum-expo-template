@@ -4,6 +4,7 @@ import { Button, Container, ControlInput } from '@/components';
 import { ChangeLanguageButton } from '@/components/ChangeLanguage';
 import ParsedText from '@/components/Text/ParsedText';
 import { buildHtmlTagPattern } from '@/components/Text/util';
+import { RouteName } from '@/constants/route';
 import { useSignIn } from '@/features/auth/hooks/useSignIn';
 import { useForm } from '@/hooks';
 import { useTranslation } from '@/locale';
@@ -51,7 +52,7 @@ const Login = () => {
           parse={[
             {
               pattern: buildHtmlTagPattern('a'),
-              href: '/auth/sign-up',
+              href: RouteName.Auth.SignUp,
               removeMatchingTags: true,
             },
           ]}

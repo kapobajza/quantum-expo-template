@@ -11,6 +11,7 @@ import { useMountEffect } from '@/hooks';
 import { useTranslation } from '@/locale';
 import { createStyleSheet, useStyles } from '@/theme';
 import { mapValidationErrors } from '@/validation';
+import { RouteName } from '@/constants/route';
 
 import { useSetupAuthFlow } from './hooks';
 
@@ -37,14 +38,14 @@ function AppLayout() {
   if (isErrorCode(error, ErrorCode.Unauthorized) || data === 'no_token') {
     return (
       <View style={styles.background}>
-        <Redirect href="/auth/login" />
+        <Redirect href={RouteName.Auth.Login} />
       </View>
     );
   }
 
   return (
     <StackNoHeader>
-      <Stack.Screen name="index" />
+      <Stack.Screen name="(tabs)" />
     </StackNoHeader>
   );
 }

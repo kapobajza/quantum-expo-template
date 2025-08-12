@@ -8,6 +8,7 @@ import {
   sessionSchema,
   userResponseSchema,
 } from '@/types';
+import { RouteName } from '@/constants/route';
 
 import { createApiBuilder, createHttpClient } from './factory';
 
@@ -37,7 +38,7 @@ export const createAuthApi = createApiBuilder((options) => {
         });
       }
 
-      const redirect: Href = '/auth/email-confirmed';
+      const redirect: Href = RouteName.Auth.EmailConfirmed;
 
       return authHttpClient.post({
         path: 'signup',

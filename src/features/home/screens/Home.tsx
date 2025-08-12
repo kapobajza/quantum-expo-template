@@ -4,6 +4,7 @@ import React from 'react';
 import { useApi } from '@/api';
 import { Button, Container } from '@/components';
 import { ChangeLanguageButton } from '@/components/ChangeLanguage';
+import { RouteName } from '@/constants/route';
 import { useTranslation } from '@/locale';
 import { useMutation } from '@/query';
 import { useService } from '@/services';
@@ -20,7 +21,7 @@ const Home = () => {
     },
     onSettled() {
       void storageService.deleteSecureItem('AuthToken');
-      router.replace('/auth/login');
+      router.replace(RouteName.Auth.Login);
     },
   });
 

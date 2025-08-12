@@ -44,6 +44,8 @@ export interface TranslationKeyParam {
   'changeLanguage.alertMessage': {
     language: string | number | undefined;
   };
+  'bottomTabBar.index': undefined;
+  'bottomTabBar.message': undefined;
 }
 
 export type TranslationKey = keyof TranslationKeyParam;

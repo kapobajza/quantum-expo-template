@@ -63,6 +63,7 @@ interface ThemeExtensibleColors {
     text: {
       main: string;
       dimmed: string;
+      out: string;
     };
   };
   surface: {
@@ -80,6 +81,7 @@ const lightExtensibleColors: ThemeExtensibleColors = {
     text: {
       main: generalColors.greyscale[900],
       dimmed: generalColors.greyscale[500],
+      out: generalColors.greyscale[300],
     },
   },
   surface: {
@@ -102,6 +104,7 @@ const darkExtensibleColors: ThemeExtensibleColors = {
     text: {
       main: generalColors.greyscale[0],
       dimmed: generalColors.greyscale[300],
+      out: generalColors.greyscale[500],
     },
   },
   surface: {

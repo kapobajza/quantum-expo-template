@@ -10,7 +10,8 @@
     "login",
     "emailConfirmed",
     "home",
-    "changeLanguage"
+    "changeLanguage",
+    "bottomTabBar"
   ],
   "properties": {
     "validation": {
@@ -128,6 +129,14 @@
         "title": { "type": "string" },
         "languageName": { "type": "string" },
         "alertMessage": { "type": "string" }
+      }
+    },
+    "bottomTabBar": {
+      "type": "object",
+      "required": ["index", "message"],
+      "properties": {
+        "index": { "type": "string" },
+        "message": { "type": "string" }
       }
     }
   },

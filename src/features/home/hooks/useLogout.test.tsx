@@ -4,6 +4,7 @@ import { mockDeep } from 'vitest-mock-extended';
 
 import { AllApiRouters } from '@/api';
 import { buildRenderHook, expectToBeOnScreen } from '@/util';
+import { RouteName } from '@/constants/route';
 
 import { useLogout } from './useLogout';
 
@@ -27,6 +28,6 @@ describe('useLogout hook', () => {
     await waitFor(() => result.current.isSuccess);
 
     expect(result.current.isSuccess).toBe(true);
-    expectToBeOnScreen('/auth/login');
+    expectToBeOnScreen(RouteName.Auth.Login);
   });
 });

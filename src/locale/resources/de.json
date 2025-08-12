@@ -53,5 +53,9 @@
     "title": "Sprache ändern",
     "languageName": "{code, select, en {Englisch} de {Deutsch} other {Unbekannt}}",
     "alertMessage": "Sind Sie sicher, dass Sie die Sprache auf {language} ändern möchten?"
+  },
+  "bottomTabBar": {
+    "index": "Home",
+    "message": "Chat"
   }
 }
