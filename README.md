@@ -23,6 +23,7 @@ This template contains a lot of prebuilt stuff, including:
 ## Table of Contents <!-- omit in toc -->
 
 - [Demo](#demo)
+- [Chat demo](#chat-demo)
 - [Getting started](#getting-started)
   - [(Optional) Getting started with Supabase](#optional-getting-started-with-supabase)
 - [Git rules and hooks](#git-rules-and-hooks)
@@ -41,6 +42,10 @@ This template contains a lot of prebuilt stuff, including:
 Here is a demo of the template in action:
 
 https://github.com/user-attachments/assets/828a515a-20bb-4700-b453-59669fc4086e
+
+## Chat demo
+
+Here is a demo of the chat feature in action:
 
 ## Getting started
 
