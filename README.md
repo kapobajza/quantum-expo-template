@@ -47,6 +47,9 @@ https://github.com/user-attachments/assets/828a515a-20bb-4700-b453-59669fc4086e
 
 Here is a demo of the chat feature in action:
 
+https://github.com/user-attachments/assets/587e9a62-f901-40d2-a3de-421402cd9bc6
+
+
 ## Getting started
 
 To get started, you should create an expo app using this template:
