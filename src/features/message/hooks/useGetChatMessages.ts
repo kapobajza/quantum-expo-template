@@ -7,5 +7,5 @@ export const useGetChatMessages = () => {
   const queryOptions = useQueryOptionsFactory();
   const { id } = useLocalSearchParams<typeof RouteName.Chat.ById>();
 
-  return useInfiniteQuery(queryOptions.chats.messages(id));
+  return useInfiniteQuery({ ...queryOptions.chats.messages(id), limit: 30 });
 };

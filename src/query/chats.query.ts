@@ -24,8 +24,11 @@ export const createChatsQueryOptions = createQueryOptionsFactory(
       }),
       messages: (conversationId: string) => ({
         queryKey: ['messages', conversationId],
-        queryFn: async () => {
-          const { data } = await chatApi.getMessages(conversationId);
+        queryFn: async (params: { limit: number }) => {
+          const { data } = await chatApi.getMessages(
+            conversationId,
+            params.limit,
+          );
           return {
             results: data,
           };

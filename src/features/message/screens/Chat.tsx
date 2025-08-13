@@ -66,7 +66,7 @@ const Chat = () => {
   const { height: keyboardHeight, progress: keyboardAnimationProgress } =
     useKeyboardAnimation();
 
-  const scrollViewStyle = useAnimatedStyle(
+  const listStyle = useAnimatedStyle(
     () => ({
       transform: [
         {
@@ -74,6 +74,17 @@ const Chat = () => {
         },
         {
           rotate: '180deg',
+        },
+      ],
+    }),
+    [],
+  );
+
+  const emptyScrollViewStyle = useAnimatedStyle(
+    () => ({
+      transform: [
+        {
+          translateY: -keyboardHeight.value,
         },
       ],
     }),
@@ -103,39 +114,34 @@ const Chat = () => {
     [],
   );
 
-  const containerStyle = useAnimatedStyle(() => ({
-    flex: interpolate(keyboardAnimationProgress.value, [0, 1], [1, 0]),
-    justifyContent: 'center',
-    alignItems: 'center',
-  }));
-
   return (
     <>
       <KeyboardGestureArea style={styles.fill} offset={50} interpolator="ios">
         <AnimatedFlashList
           {...listProps}
           refreshControl={undefined}
+          onEndReached={undefined}
           data={results}
           renderItem={({ item }) => {
             return (
-              <ListItem style={styles.listItem}>
+              <ListItem style={styles.rotate}>
                 <ChatBubble item={item} />
               </ListItem>
             );
           }}
           ListEmptyComponent={
             <Animated.ScrollView
-              style={scrollViewStyle}
+              style={emptyScrollViewStyle}
               contentContainerStyle={styles.scrollable}
               showsVerticalScrollIndicator={false}
             >
               <Animated.View style={itemSpacerStyle} />
-              <Animated.View style={containerStyle}>
-                <Text style={styles.listItem}>{t('general.noResults')}</Text>
-              </Animated.View>
+              <Box fill center>
+                <Text>{t('general.noResults')}</Text>
+              </Box>
             </Animated.ScrollView>
           }
-          style={scrollViewStyle}
+          style={listStyle}
           ListFooterComponent={<Animated.View style={itemSpacerStyle} />}
         />
       </KeyboardGestureArea>
@@ -187,7 +193,7 @@ const stylesheet = createStyleSheet((theme) => {
     fill: {
       flex: 1,
     },
-    listItem: {
+    rotate: {
       transform: [{ rotate: '180deg' }],
     },
     inputRoot: {

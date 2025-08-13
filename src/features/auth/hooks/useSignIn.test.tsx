@@ -3,6 +3,7 @@ import { describe, expect, test, vi } from 'vitest';
 import { mockDeep } from 'vitest-mock-extended';
 
 import { AllApiRouters } from '@/api';
+import { RouteName } from '@/constants/route';
 import { buildRenderHook, expectToBeOnScreen } from '@/util';
 
 import { useSignIn } from './useSignIn';
@@ -30,6 +31,6 @@ describe('useSignIn hook', () => {
     await waitFor(() => result.current.isSuccess);
 
     expect(result.current.isSuccess).toBe(true);
-    expectToBeOnScreen('/(app)');
+    expectToBeOnScreen(RouteName.App.Initial);
   });
 });

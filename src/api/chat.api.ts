@@ -28,28 +28,28 @@ export const createChatApi = createApiBuilder((options) => {
       return usersConversationsHttpClient.get({
         queryParams: {
           select:
-            'user:org_users(id,email),message:conversations(id,lastMessage:last_message_id(id,content)),conversationId:conversation_id',
+            '...conversations!inner(conversationId:id,...messages!conversations_last_message_id_fkey(message:content,messageId:id,...org_users(userId:id,email))),fallbackUser:org_users!inner(email,id)',
           user_id: `eq.${userId}`,
+          order: 'created_at.desc',
         },
         schema: z.array(userConversationSchema),
       });
     },
-    getMessages(conversationId: string) {
+    getMessages(conversationId: string, limit: number) {
       return messagesHttpClient.get({
         queryParams: {
-          select:
-            'id,content,created_at,...conversations!fk_conversation!inner(users_conversations!inner(...org_users!inner(email,id)))',
-          'conversations.id': `eq.${conversationId}`,
+          select: 'id,content,created_at,user:org_users(email,id)',
+          conversation_id: `eq.${conversationId}`,
           order: 'created_at.desc',
+          limit,
         },
         schema: z.array(chatMessageSchema),
       });
     },
-    startConversation(data: { user_id: string; other_user_id: string }) {
+    startConversation(data: { other_user_id: string }) {
       return rpcHttpClient.post({
         path: 'start_conversation',
         body: {
-          p_user_id: data.user_id,
           p_other_user_id: data.other_user_id,
         },
         schema: z.object({

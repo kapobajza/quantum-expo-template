@@ -5,6 +5,7 @@ import { mock, mockDeep } from 'vitest-mock-extended';
 import { createAuthApi } from '@/api/auth.api';
 import { AppEnv } from '@/env';
 import { LoggingService, StorageService } from '@/services';
+import { DatabaseService } from '@/services/databaseService';
 import { buildRenderHook } from '@/util/test';
 
 import { useApi, useApiRouter } from './ApiProvider';
@@ -53,7 +54,8 @@ describe('ApiProvider hooks', () => {
               baseURL,
             });
           },
-          loggingService: mock<LoggingService>(),
+          loggerService: mock<LoggingService>(),
+          databaseService: mock<DatabaseService>(),
         }),
       })
       .render();

@@ -26,7 +26,7 @@ const Conversations = () => {
             return <ConversationItem item={item} />;
           }}
           ListEmptyComponent={
-            <Box gap="4" alignSelf="stretch">
+            <Box gap="4" alignSelf="stretch" justifyContent="center" fill>
               <Text center>{t('conversations.noResults.message')}</Text>
               <Button
                 title={t('conversations.noResults.action')}

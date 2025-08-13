@@ -1,19 +1,18 @@
 import { createContext, use } from 'react';
 
+import { useAppEnv } from '@/env';
+
+import { createDatabaseService, DatabaseService } from './databaseService';
 import { createLoggingService, LoggingService } from './loggingService';
 import { createStorageService, StorageService } from './storageService';
 
 export interface AllServices {
   storageService: StorageService;
   loggingService: LoggingService;
+  databaseService: DatabaseService;
 }
 
 const ServicesContext = createContext<AllServices | undefined>(undefined);
-
-export const defaultServices: AllServices = {
-  storageService: createStorageService(),
-  loggingService: createLoggingService(),
-};
 
 export const ServicesProvider = ({
   children,
@@ -22,6 +21,14 @@ export const ServicesProvider = ({
   children: React.ReactNode;
   services?: AllServices;
 }) => {
+  const appEnv = useAppEnv();
+
+  const defaultServices: AllServices = {
+    storageService: createStorageService(),
+    loggingService: createLoggingService(),
+    databaseService: createDatabaseService(appEnv),
+  };
+
   return (
     <ServicesContext value={services ?? defaultServices}>
       {children}

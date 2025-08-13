@@ -34,13 +34,15 @@ export const ConversationItem = ({ item }: { item: UserConversationDto }) => {
         <Icon name="User" color="primary.300" size="7" />
       </Box>
       <Box gap="1" fill>
-        <Text variant="body.medium">{item.user.email}</Text>
+        <Text variant="small.medium">
+          {item.email ?? item.fallbackUser.email}
+        </Text>
         <Text
           variant="xSmall.regular"
           color="surface.text.main"
           numberOfLines={2}
         >
-          {item.message.lastMessage?.content ?? t('conversations.noMessages')}
+          {item.message ?? t('conversations.noMessages')}
         </Text>
       </Box>
     </Pressable>

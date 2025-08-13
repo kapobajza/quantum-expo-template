@@ -13,6 +13,7 @@ export const errorCodeSchema = z.union([
   z.literal('email_not_confirmed'),
   z.literal('invalid_credentials'),
   z.literal('over_email_send_rate_limit'),
+  z.number(),
 ]);
 
 export type ErrorCode = z.infer<typeof errorCodeSchema>;
@@ -34,5 +35,6 @@ export const ErrorCode = {
 
 export const errorDataSchema = z.object({
   code: errorCodeSchema,
+  error_code: z.literal('bad_jwt').optional(),
   data: z.unknown().optional(),
 });

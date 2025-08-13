@@ -4,9 +4,12 @@ import { useTranslation } from '@/locale/hooks';
 
 import { TabBar } from './components/TabBar';
 import { AppTabBarName, TabBarOptions } from './components/types';
+import { useSubscribeToNewMessages } from './hooks/useSubscribeToNewMessages';
 
 const AppTabsLayout = () => {
   const { t } = useTranslation();
+
+  useSubscribeToNewMessages();
 
   const tabBarOptions: Record<AppTabBarName, TabBarOptions> = {
     [AppTabBarName.Home]: {
