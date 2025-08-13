@@ -70,6 +70,7 @@ export const useSubscribeToNewMessages = () => {
     });
 
     return () => {
+      clearTimeout(timeoutId.current);
       void unsubscribe();
     };
   }, [
