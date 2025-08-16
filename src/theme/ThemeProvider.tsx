@@ -4,29 +4,51 @@ import {
 } from '@react-navigation/native';
 import * as SystemUI from 'expo-system-ui';
 import { ReactNode, useEffect, useMemo } from 'react';
+import { useColorScheme } from 'react-native';
 
 import { ThemeApperance, ThemeContext } from './context';
 import { defaultTheme } from './default';
 import { useThemeApperance } from './hooks/useThemeApperance';
 import { darkThemeColors, lightThemeColors } from './tokens/colors';
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const { themeAppearance, isLoading, updateThemeAppearance } =
-    useThemeApperance();
+export const ThemeProvider = ({
+  children,
+  shouldLoadInitially = true,
+}: {
+  children: ReactNode;
+  shouldLoadInitially?: boolean;
+}) => {
+  const {
+    // Appearance
+    themeAppearance,
+    isLoading,
+    isInitialLoading,
+    updateThemeAppearance,
+  } = useThemeApperance();
+  const colorScheme = useColorScheme();
 
-  const value = useMemo<ThemeContext>(
-    () => ({
+  const value = useMemo<ThemeContext>(() => {
+    let colors: typeof lightThemeColors = lightThemeColors;
+
+    if (themeAppearance === ThemeApperance.System) {
+      colors = colorScheme === 'dark' ? darkThemeColors : lightThemeColors;
+    } else {
+      colors =
+        themeAppearance === ThemeApperance.Dark
+          ? darkThemeColors
+          : lightThemeColors;
+    }
+
+    return {
       theme: {
         ...defaultTheme,
-        colors:
-          themeAppearance === 'light' ? lightThemeColors : darkThemeColors,
+        colors,
       },
-      appearance: themeAppearance as ThemeApperance,
+      appearance: themeAppearance,
       updateTheme: updateThemeAppearance,
       isLoading,
-    }),
-    [isLoading, themeAppearance, updateThemeAppearance],
-  );
+    };
+  }, [colorScheme, isLoading, themeAppearance, updateThemeAppearance]);
 
   useEffect(() => {
     void (async () => {
@@ -46,7 +68,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [value.theme.colors.background.main]);
 
-  if (isLoading) {
+  if (isInitialLoading && shouldLoadInitially) {
     return null;
   }
 

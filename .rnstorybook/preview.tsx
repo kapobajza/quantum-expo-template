@@ -1,21 +1,15 @@
 import type { Preview } from '@storybook/react';
 
-import { ApiProvider } from '@/api/provider';
-import { MigrationsRunner } from '@/components/App';
-import { BottomSheetProvider } from '@/components/BottomSheet';
-import { ToastProvider } from '@/components/Toast';
-import { DatabaseProvider } from '@/db/DatabaseProvider';
-import { databaseRepository, drizzleDb } from '@/db/instance';
-import { AppEnvProvider } from '@/env';
-import { I18nProvider } from '@/locale';
-import { QueryFactoryProvider } from '@/query';
-import { QueryProvider } from '@/query/QueryProvider';
-import { ServicesProvider } from '@/services';
-import { ThemeApperance, ThemeProvider } from '@/theme';
-import { ModalProvider } from '@/components/Modal';
+import { AppProviders } from '@/components/App/AppProviders';
+import { getAppEnv } from '@/env';
+import { getDefaulServices } from '@/services/instance';
+import { ThemeApperance } from '@/theme';
 
 import { Background } from './components/Background';
 import { withThemeSwitcher } from './theme/ThemeSwitcher';
+
+const appEnv = getAppEnv();
+const services = getDefaulServices(appEnv);
 
 const preview: Preview = {
   parameters: {
@@ -30,33 +24,11 @@ const preview: Preview = {
     withThemeSwitcher,
     (Story) => {
       return (
-        <AppEnvProvider>
-          <ServicesProvider>
-            <MigrationsRunner database={drizzleDb}>
-              <DatabaseProvider repository={databaseRepository}>
-                <I18nProvider>
-                  <ThemeProvider>
-                    <ToastProvider>
-                      <QueryProvider>
-                        <ApiProvider>
-                          <QueryFactoryProvider>
-                            <ModalProvider>
-                              <BottomSheetProvider>
-                                <Background>
-                                  <Story />
-                                </Background>
-                              </BottomSheetProvider>
-                            </ModalProvider>
-                          </QueryFactoryProvider>
-                        </ApiProvider>
-                      </QueryProvider>
-                    </ToastProvider>
-                  </ThemeProvider>
-                </I18nProvider>
-              </DatabaseProvider>
-            </MigrationsRunner>
-          </ServicesProvider>
-        </AppEnvProvider>
+        <AppProviders services={services} appEnv={appEnv}>
+          <Background>
+            <Story />
+          </Background>
+        </AppProviders>
       );
     },
   ],

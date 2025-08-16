@@ -17,8 +17,8 @@ describe('request factory', () => {
       urlPrefix: 'users',
     });
 
-    expect(req.route).toBe('users/');
-    expect(req.url).toBe(`${baseURL}/users/`);
+    expect(req.route).toBe('users');
+    expect(req.url).toBe(`${baseURL}/users`);
   });
 
   test('should build request with path and query params', async () => {

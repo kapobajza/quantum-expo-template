@@ -15,6 +15,18 @@ describe('useSetupAuthFlow', () => {
           route: '',
           url: '',
         });
+        apiProvider.userApi.getOrgUser.mockReturnValue({
+          path: 'org-user',
+          request: vi.fn().mockResolvedValue({
+            data: [
+              {
+                id: 'org-user-id',
+              },
+            ],
+          }),
+          route: '',
+          url: '',
+        });
         return apiProvider;
       })
       .withServices({

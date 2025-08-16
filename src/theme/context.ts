@@ -1,8 +1,17 @@
 import { createContext, use } from 'react';
+import { ColorSchemeName } from 'react-native';
+
+import { ObjectValues } from '@/types';
 
 import { AppTheme } from './default';
 
-export type ThemeApperance = 'light' | 'dark';
+export const ThemeApperance = {
+  Light: 'light',
+  Dark: 'dark',
+  System: 'system',
+} satisfies Record<string, ColorSchemeName | 'system'>;
+
+export type ThemeApperance = ObjectValues<typeof ThemeApperance>;
 
 export interface ThemeContext {
   theme: AppTheme;
@@ -11,7 +20,7 @@ export interface ThemeContext {
       | ThemeApperance
       | ((prev: ThemeApperance | undefined) => ThemeApperance),
   ) => void;
-  appearance: ThemeApperance | undefined;
+  appearance: ThemeApperance;
   isLoading: boolean;
 }
 

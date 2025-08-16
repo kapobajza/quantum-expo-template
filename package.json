@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "prebuild": "expo prebuild --clean",
+    "prebuild": "cross-env EXPO_NO_GIT_STATUS=1 expo prebuild --clean",
     "android": "expo run:android",
     "ios": "expo run ios",
     "android:clean": "pnpm run prebuild && pnpm run android",

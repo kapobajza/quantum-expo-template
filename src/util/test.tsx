@@ -11,9 +11,10 @@ import { DatabaseProvider } from '@/db';
 import { ConfigRepo, LocaleRepo, QueryRepo } from '@/db/repo';
 import { AppEnv, AppEnvProvider } from '@/env';
 import { QueryFactoryProvider } from '@/query';
-import { AllServices, ServicesProvider } from '@/services/ServiceProvider';
+import { ServicesProvider } from '@/services/ServiceProvider';
 import { StorageService } from '@/services/storageService';
 import { ThemeProvider } from '@/theme';
+import { AllServices } from '@/services/instance';
 
 export const buildRenderHook = <Result, Props>(
   fn: (initialProps: Props) => Result,
@@ -26,6 +27,7 @@ export const buildRenderHook = <Result, Props>(
   let services: AllServices = {
     storageService: mockStorageService,
     loggingService: mockDeep(),
+    databaseService: mockDeep(),
   };
   let apiProvider = mockApiProvider;
   const toastMessages: ToastItemMinimal[] = [];
@@ -80,7 +82,7 @@ export const buildRenderHook = <Result, Props>(
                   <AppEnvProvider config={mockEnv}>
                     <ApiProvider value={apiProvider}>
                       <QueryFactoryProvider>
-                        <ThemeProvider>
+                        <ThemeProvider shouldLoadInitially={false}>
                           <ToastProvider showToastFn={mockShowToast}>
                             {children}
                           </ToastProvider>
