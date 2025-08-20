@@ -52,6 +52,6 @@ export type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete';
 export interface CreateHttpClientParams {
   env: AppEnv;
   storageService: StorageService;
-  loggerService: LoggingService;
+  loggingService: LoggingService;
   createHttpInstance?: (baseURL: string) => AxiosInstance;
 }

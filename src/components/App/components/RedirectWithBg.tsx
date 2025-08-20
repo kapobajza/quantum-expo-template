@@ -1,7 +1,7 @@
 import { Redirect } from 'expo-router';
 import React, { ComponentProps } from 'react';
 
-import { Box } from '@/components/Container';
+import { Box } from '@/components/Container/Box';
 
 const RedirectWithBg = (props: ComponentProps<typeof Redirect>) => {
   return (

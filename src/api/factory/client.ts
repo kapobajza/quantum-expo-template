@@ -13,7 +13,7 @@ export const createHttpClient = ({
   urlPrefix,
   createHttpInstance,
   baseURL = env.API_REST_URL,
-  loggerService,
+  loggingService: loggerService,
 }: CreateHttpClientParams & {
   urlPrefix: string;
   baseURL?: string;

@@ -9,14 +9,14 @@ import {
 import { userResponseSchema } from './user.dto';
 
 export const authSignInSchema = createValidationSchema({
-  email: z.string().min(1).email(),
+  email: z.email().min(1),
   password: z.string().min(6),
 });
 
 export type AuthSignInRequestBody = z.infer<typeof authSignInSchema>;
 
 export const authSignUpSchema = createValidationSchema({
-  email: z.string().min(1).email(),
+  email: z.email().min(1),
   password: z.string().min(6),
   repeatPassword: z.string().min(6),
 }).superRefine((data, ctx) => {

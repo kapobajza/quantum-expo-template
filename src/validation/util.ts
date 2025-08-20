@@ -5,7 +5,7 @@ import { ValidationFieldTKey } from '@/types/translation';
 import { CustomValidationCode } from './types';
 
 export const createValidationSchema = <
-  T extends Partial<Record<ValidationFieldTKey, z.ZodTypeAny>>,
+  T extends Partial<Record<ValidationFieldTKey, z.ZodType>>,
 >(
   obj: T & Record<Exclude<keyof T, ValidationFieldTKey>, never>,
 ) => {

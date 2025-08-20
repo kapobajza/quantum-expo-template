@@ -53,7 +53,7 @@ describe('ApiProvider hooks', () => {
               baseURL,
             });
           },
-          loggerService: mock<LoggingService>(),
+          loggingService: mock<LoggingService>(),
         }),
       })
       .render();

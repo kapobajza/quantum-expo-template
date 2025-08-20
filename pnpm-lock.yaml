@@ -23,6 +23,9 @@ importers:
       '@react-navigation/native':
         specifier: 7.1.14
         version: 7.1.14(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
+      '@shopify/flash-list':
+        specifier: 2.0.2
+        version: 2.0.2(@babel/runtime@7.27.6)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
       '@tanstack/react-query':
         specifier: 5.81.5
         version: 5.81.5(react@19.0.0)
@@ -35,6 +38,9 @@ importers:
       babel-plugin-react-compiler:
         specifier: 19.1.0-rc.2
         version: 19.1.0-rc.2
+      dayjs:
+        specifier: 1.11.13
+        version: 1.11.13
       drizzle-orm:
         specifier: 0.44.2
         version: 0.44.2(expo-sqlite@15.2.13(expo@53.0.17(@babel/core@7.25.2)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))
@@ -116,6 +122,9 @@ importers:
       react-native-gesture-handler:
         specifier: 2.24.0
         version: 2.24.0(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
+      react-native-keyboard-controller:
+        specifier: 1.18.4
+        version: 1.18.4(react-native-reanimated@3.17.4(@babel/core@7.25.2)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
       react-native-reanimated:
         specifier: 3.17.4
         version: 3.17.4(@babel/core@7.25.2)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
@@ -135,8 +144,8 @@ importers:
         specifier: 13.13.5
         version: 13.13.5(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
       zod:
-        specifier: 3.25.73
-        version: 3.25.73
+        specifier: 4.0.17
+        version: 4.0.17
     devDependencies:
       '@babel/core':
         specifier: 7.25.2
@@ -1804,6 +1813,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@shopify/flash-list@2.0.2':
+    resolution: {integrity: sha512-zhlrhA9eiuEzja4wxVvotgXHtqd3qsYbXkQ3rsBfOgbFA9BVeErpDE/yEwtlIviRGEqpuFj/oU5owD6ByaNX+w==}
+    peerDependencies:
+      '@babel/runtime': '*'
+      react: '*'
+      react-native: '*'
+
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
@@ -3036,6 +3052,9 @@ packages:
   data-urls@5.0.0:
     resolution: {integrity: sha512-ZYP5VBHshaDAiVZxjbRVcFJpc+4xGgT0bK3vzy1HLN8jTO975HEbuYzZJcHoQEY5K1a0z8YayJkyVETa08eNTg==}
     engines: {node: '>=18'}
+
+  dayjs@1.11.13:
+    resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
 
   debug@2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
@@ -5235,6 +5254,13 @@ packages:
       react: '*'
       react-native: '*'
 
+  react-native-keyboard-controller@1.18.4:
+    resolution: {integrity: sha512-s5mY3kymUVQ1LGISW4h9Sd9JU7arKQuEvWJVfcA7ZNKJI3ao5JXhHlnCBjuydh1l7vzFppYNSo0s0cixtcDP2Q==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-reanimated: '>=3.0.0'
+
   react-native-modal-datetime-picker@18.0.0:
     resolution: {integrity: sha512-0jdvhhraZQlRACwr7pM6vmZ2kxgzJ4CpnmV6J3TVA6MrXMXK6Zo/upRBKkRp0+fTOiKuNblzesA2U59rYo6SGA==}
     peerDependencies:
@@ -6331,6 +6357,9 @@ packages:
 
   zod@3.25.73:
     resolution: {integrity: sha512-fuIKbQAWQl22Ba5d1quwEETQYjqnpKVyZIWAhbnnHgnDd3a+z4YgEfkI5SZ2xMELnLAXo/Flk2uXgysZNf0uaA==}
+
+  zod@4.0.17:
+    resolution: {integrity: sha512-1PHjlYRevNxxdy2JZ8JcNAw7rX8V9P1AKkP+x/xZfxB0K5FYfuV+Ug6P/6NVSR2jHQ+FzDDoDHS04nYUsOIyLQ==}
 
 snapshots:
 
@@ -8211,6 +8240,13 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.45.0':
     optional: true
 
+  '@shopify/flash-list@2.0.2(@babel/runtime@7.27.6)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@babel/runtime': 7.27.6
+      react: 19.0.0
+      react-native: 0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)
+      tslib: 2.8.1
+
   '@sinclair/typebox@0.27.8': {}
 
   '@sinonjs/commons@3.0.1':
@@ -9649,6 +9685,8 @@ snapshots:
     dependencies:
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.2.0
+
+  dayjs@1.11.13: {}
 
   debug@2.6.9:
     dependencies:
@@ -11947,6 +11985,13 @@ snapshots:
       react: 19.0.0
       react-native: 0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)
 
+  react-native-keyboard-controller@1.18.4(react-native-reanimated@3.17.4(@babel/core@7.25.2)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-native: 0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)
+      react-native-is-edge-to-edge: 1.2.1(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
+      react-native-reanimated: 3.17.4(@babel/core@7.25.2)(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
+
   react-native-modal-datetime-picker@18.0.0(@react-native-community/datetimepicker@8.4.3(expo@53.0.17(@babel/core@7.25.2)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)):
     dependencies:
       '@react-native-community/datetimepicker': 8.4.3(expo@53.0.17(@babel/core@7.25.2)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0)))(babel-plugin-react-compiler@19.1.0-rc.2)(react-native-webview@13.13.5(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.25.2)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
@@ -13099,3 +13144,5 @@ snapshots:
       zod: 3.25.73
 
   zod@3.25.73: {}
+
+  zod@4.0.17: {}
