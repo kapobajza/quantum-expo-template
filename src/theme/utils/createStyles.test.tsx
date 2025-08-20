@@ -1,6 +1,8 @@
 import { renderHook } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { mockDeep } from 'vitest-mock-extended';
 
+import { DatabaseProvider } from '@/db';
 import { AppTheme, defaultTheme } from '@/theme';
 import { ThemeProvider } from '@/theme/ThemeProvider';
 
@@ -14,7 +16,17 @@ describe('createStyles', () => {
   ) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     return renderHook(() => useStyles(stylesheet), {
-      wrapper: ({ children }) => <ThemeProvider>{children}</ThemeProvider>,
+      wrapper: ({ children }) => (
+        <DatabaseProvider
+          repository={{
+            configRepository: mockDeep(),
+            localeRepository: mockDeep(),
+            queryRepository: mockDeep(),
+          }}
+        >
+          <ThemeProvider shouldLoadInitially={false}>{children}</ThemeProvider>
+        </DatabaseProvider>
+      ),
     }).result.current;
   };
 

@@ -6,7 +6,6 @@ export type AlertType = 'prompt' | 'info';
 export type HideAlertFn = () => void;
 
 export interface ModalStackParams {
-  ChangeLanguage: undefined;
   Alert: {
     message: string;
     title: string;

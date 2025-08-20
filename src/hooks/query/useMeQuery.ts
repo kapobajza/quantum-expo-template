@@ -1,8 +1,6 @@
-import {
-  useQuery,
-  UseQueryMinimalOptions,
-  useQueryOptionsFactory,
-} from '@/query';
+import { useQueryOptionsFactory } from '@/query/context';
+import { UseQueryMinimalOptions } from '@/query/hooks/types';
+import useQuery from '@/query/hooks/useQuery';
 import { UserDto } from '@/types';
 
 export const useMeQuery = (options?: UseQueryMinimalOptions<UserDto>) => {

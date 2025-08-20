@@ -35,12 +35,15 @@ export type FactoryOptionsExtended<
 export function createQueryOptionsFactory<
   TFactoryQueryKeyName extends string,
   const TOptions extends FactoryOptions,
+  TQueryArgs extends unknown[] = [],
 >(
   name: TFactoryQueryKeyName,
-  options: () => TOptions,
-): () => FactoryOptionsExtended<TOptions, TFactoryQueryKeyName> {
-  return () => {
-    const queryOptions = options();
+  options: (...args: TQueryArgs) => TOptions,
+): (
+  ...args: TQueryArgs
+) => FactoryOptionsExtended<TOptions, TFactoryQueryKeyName> {
+  return (...args: TQueryArgs) => {
+    const queryOptions = options(...args);
 
     const obj = Object.entries(queryOptions).reduce<FactoryOptions>(
       (acc, [key, value]) => {
@@ -92,14 +95,15 @@ export function createQueryOptionsFactory<
   };
 }
 
-type StoreFromMergedQueryKeys<TMergeArgs extends FactoryOptionsExtended[]> =
-  TMergeArgs extends [
-    infer TFirst extends FactoryOptionsExtended,
-    ...infer TRest extends FactoryOptionsExtended[],
-  ]
-    ? Record<TFirst['__name'], Prettify<Omit<TFirst, '__name'>>> &
-        StoreFromMergedQueryKeys<TRest>
-    : unknown;
+export type StoreFromMergedQueryKeys<
+  TMergeArgs extends FactoryOptionsExtended[],
+> = TMergeArgs extends [
+  infer TFirst extends FactoryOptionsExtended,
+  ...infer TRest extends FactoryOptionsExtended[],
+]
+  ? Record<TFirst['__name'], Prettify<Omit<TFirst, '__name'>>> &
+      StoreFromMergedQueryKeys<TRest>
+  : unknown;
 
 export function mergeQueryOptions<const TArgs extends FactoryOptionsExtended[]>(
   ...args: TArgs

@@ -1,5 +1,7 @@
+import { router } from 'expo-router';
+
 import { useApi } from '@/api';
-import { useNavigation } from '@/hooks';
+import { RouteName } from '@/constants/route';
 import { useMutation } from '@/query';
 import { useService } from '@/services';
 import { AuthSignInRequestBody } from '@/types';
@@ -7,7 +9,6 @@ import { AuthSignInRequestBody } from '@/types';
 export function useSignIn() {
   const { authApi } = useApi();
   const { storageService } = useService();
-  const navigation = useNavigation();
 
   return useMutation({
     async mutationFn(data: AuthSignInRequestBody) {
@@ -19,10 +20,7 @@ export function useSignIn() {
       });
     },
     onSuccess() {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: '(app)' }],
-      });
+      router.replace(RouteName.App.Initial);
     },
   });
 }

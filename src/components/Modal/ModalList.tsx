@@ -23,18 +23,14 @@ export const ModalList = ({ setContext, stack }: ModalListProps) => {
       },
       showModal: (...args) => {
         const [name, opts] = args;
-        const {
-          // @ts-expect-error - args do exist
-          args: params,
-          options,
-        } = opts ?? {};
+        const { args: params, options } = opts ?? {};
 
         dispatch({
           type: ModalActionType.Show,
           modal: {
             name,
             Component: stack[name],
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
             params,
             options,
           },

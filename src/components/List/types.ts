@@ -1,3 +1,4 @@
+import { FlashListProps as ShopifyFlashListProps } from '@shopify/flash-list';
 import { ComponentType, ReactElement, Ref } from 'react';
 import { FlatListProps as RNFlatListProps } from 'react-native';
 
@@ -37,3 +38,6 @@ export type FlatListProps<TItem> = Omit<
   GenericListProps<TItem>,
   'FlatListComponent'
 >;
+
+export type FlashListProps<TItem> = CommonListProps &
+  ShopifyFlashListProps<TItem>;

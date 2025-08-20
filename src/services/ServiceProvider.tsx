@@ -1,32 +1,17 @@
 import { createContext, use } from 'react';
 
-import { createLoggingService, LoggingService } from './loggingService';
-import { createStorageService, StorageService } from './storageService';
-
-export interface AllServices {
-  storageService: StorageService;
-  loggingService: LoggingService;
-}
+import { AllServices } from './instance';
 
 const ServicesContext = createContext<AllServices | undefined>(undefined);
-
-export const defaultServices: AllServices = {
-  storageService: createStorageService(),
-  loggingService: createLoggingService(),
-};
 
 export const ServicesProvider = ({
   children,
   services,
 }: {
   children: React.ReactNode;
-  services?: AllServices;
+  services: AllServices;
 }) => {
-  return (
-    <ServicesContext value={services ?? defaultServices}>
-      {children}
-    </ServicesContext>
-  );
+  return <ServicesContext value={services}>{children}</ServicesContext>;
 };
 
 export const useService = () => {

@@ -1,14 +1,12 @@
 import { useState } from 'react';
 
-import { AlertModal } from '@/components/Alert';
-import { ChangeLanguageModal } from '@/components/ChangeLanguage';
+import { AlertModal } from '@/components/Alert/AlertModal';
 
 import { ModalContext } from './context';
 import { ModalList } from './ModalList';
 import { ModalStack } from './types';
 
 const stack: ModalStack = {
-  ChangeLanguage: ChangeLanguageModal,
   Alert: AlertModal,
 };
 

@@ -1,10 +1,4 @@
-import {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  isAxiosError,
-} from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { stringify } from 'qs';
 import { z } from 'zod';
 
@@ -72,7 +66,7 @@ const buildFullRoute = <
     );
   }
 
-  return `${urlPrefix}/${parameterizedRoute}`;
+  return [urlPrefix, parameterizedRoute].filter(Boolean).join('/');
 };
 
 const buildFullUrl = (
@@ -118,63 +112,35 @@ export const buildRequest = <
     route,
     url: buildFullUrl(instance.defaults.baseURL ?? '', route, queryParams),
     async request() {
-      try {
-        const doRequest = instance as <
-          T = unknown,
-          R = AxiosResponse<T>,
-          D = unknown,
-        >(
-          config: AxiosRequestConfig<D>,
-        ) => Promise<R>;
+      const doRequest = instance as <
+        T = unknown,
+        R = AxiosResponse<T>,
+        D = unknown,
+      >(
+        config: AxiosRequestConfig<D>,
+      ) => Promise<R>;
 
-        const res = await doRequest({
-          ...(options ?? {}),
-          method,
-          url: `${route}${stringify(queryParams, {
-            addQueryPrefix: true,
-          })}`,
-          data: body,
-        });
+      const res = await doRequest({
+        ...(options ?? {}),
+        method,
+        url: `${route}${stringify(queryParams, {
+          addQueryPrefix: true,
+        })}`,
+        data: body,
+      });
 
-        let data: unknown = res.data;
+      let data: unknown = res.data;
 
-        if (schema) {
-          data = schema.safeParse(res.data).data ?? res.data;
-        }
-
-        return {
-          ...res,
-          data,
-        } as ClientRequestParams<
-          RequestBody,
-          Schema
-        >['schema'] extends undefined
-          ? AxiosResponse<unknown>
-          : AxiosResponse<Schema extends z.ZodType ? z.infer<Schema> : unknown>;
-      } catch (error) {
-        if (!isAxiosError(error)) {
-          throw error;
-        }
-
-        const parsed = z
-          .object({
-            error_code: z.string(),
-          })
-          .safeParse(error.response?.data);
-
-        throw new AxiosError(
-          error.message,
-          error.code,
-          error.config,
-          error.request,
-          {
-            ...error.response,
-            data: {
-              code: parsed.success ? parsed.data.error_code : undefined,
-            },
-          } as AxiosResponse,
-        );
+      if (schema) {
+        data = schema.safeParse(res.data).data ?? res.data;
       }
+
+      return {
+        ...res,
+        data,
+      } as ClientRequestParams<RequestBody, Schema>['schema'] extends undefined
+        ? AxiosResponse<unknown>
+        : AxiosResponse<Schema extends z.ZodType ? z.infer<Schema> : unknown>;
     },
   };
 };

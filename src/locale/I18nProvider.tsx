@@ -2,7 +2,10 @@ import { I18nextProvider } from 'react-i18next';
 
 import useMountEffect from '@/hooks/useMountEffect';
 
+import { setupDateTimeLocale } from './date';
 import useSetupLocale from './hooks/useSetupLocale';
+
+setupDateTimeLocale();
 
 export const I18nProvider = ({ children }: { children: React.ReactNode }) => {
   const { mutate: setupLocale, isPending, data: i18n } = useSetupLocale();

@@ -11,7 +11,8 @@ import { DatabaseProvider } from '@/db';
 import { ConfigRepo, LocaleRepo, QueryRepo } from '@/db/repo';
 import { AppEnv, AppEnvProvider } from '@/env';
 import { QueryFactoryProvider } from '@/query';
-import { AllServices, ServicesProvider } from '@/services/ServiceProvider';
+import { AllServices } from '@/services/instance';
+import { ServicesProvider } from '@/services/ServiceProvider';
 import { StorageService } from '@/services/storageService';
 import { ThemeProvider } from '@/theme';
 
@@ -80,7 +81,7 @@ export const buildRenderHook = <Result, Props>(
                   <AppEnvProvider config={mockEnv}>
                     <ApiProvider value={apiProvider}>
                       <QueryFactoryProvider>
-                        <ThemeProvider>
+                        <ThemeProvider shouldLoadInitially={false}>
                           <ToastProvider showToastFn={mockShowToast}>
                             {children}
                           </ToastProvider>

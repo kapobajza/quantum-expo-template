@@ -32,6 +32,8 @@ const NonListContent = ({
     <ScrollView
       contentContainerStyle={styles.scrollable}
       refreshControl={refreshControl}
+      showsVerticalScrollIndicator={false}
+      showsHorizontalScrollIndicator={false}
     >
       {ListHeader}
       <Container center fill>
@@ -125,44 +127,32 @@ export const GenericList = <TItem,>({
   ]);
 
   if (error && isError && isEmpty && !isLoading) {
-    if (ErrorComponent) {
-      return (
+    return (
+      ErrorComponent ?? (
         <NonListContent
           ListHeader={ListHeader}
           refreshControl={RefreshComponent}
         >
-          {ErrorComponent}
+          <Text center variant="large.semibold">
+            {mapError(error)}
+          </Text>
         </NonListContent>
-      );
-    }
-
-    return (
-      <NonListContent ListHeader={ListHeader} refreshControl={RefreshComponent}>
-        <Text center variant="large.semibold">
-          {mapError(error)}
-        </Text>
-      </NonListContent>
+      )
     );
   }
 
   if (isEmpty && !isLoading) {
-    if (ListEmptyComponent) {
-      return (
+    return (
+      ListEmptyComponent ?? (
         <NonListContent
           ListHeader={ListHeader}
           refreshControl={RefreshComponent}
         >
-          {ListEmptyComponent}
+          <Text center variant="large.semibold">
+            {emptyText ?? t('general.noResults')}
+          </Text>
         </NonListContent>
-      );
-    }
-
-    return (
-      <NonListContent ListHeader={ListHeader} refreshControl={RefreshComponent}>
-        <Text center variant="large.semibold">
-          {emptyText ?? t('general.noResults')}
-        </Text>
-      </NonListContent>
+      )
     );
   }
 

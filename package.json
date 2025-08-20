@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "prebuild": "expo prebuild --clean",
+    "prebuild": "cross-env EXPO_NO_GIT_STATUS=1 expo prebuild --clean",
     "android": "expo run:android",
     "ios": "expo run ios",
     "android:clean": "pnpm run prebuild && pnpm run android",
@@ -30,10 +30,12 @@
     "@react-navigation/bottom-tabs": "7.3.10",
     "@react-navigation/elements": "2.3.8",
     "@react-navigation/native": "7.1.14",
+    "@shopify/flash-list": "2.0.2",
     "@tanstack/react-query": "5.81.5",
     "@tanstack/react-query-persist-client": "5.81.5",
     "axios": "1.10.0",
     "babel-plugin-react-compiler": "19.1.0-rc.2",
+    "dayjs": "1.11.13",
     "drizzle-orm": "0.44.2",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "expo": "53.0.17",
@@ -61,13 +63,14 @@
     "react-i18next": "15.6.0",
     "react-native": "0.79.5",
     "react-native-gesture-handler": "2.24.0",
+    "react-native-keyboard-controller": "1.18.4",
     "react-native-reanimated": "3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "4.11.1",
     "react-native-svg": "15.11.2",
     "react-native-web": "0.20.0",
     "react-native-webview": "13.13.5",
-    "zod": "3.25.73"
+    "zod": "4.0.17"
   },
   "devDependencies": {
     "@babel/core": "7.25.2",

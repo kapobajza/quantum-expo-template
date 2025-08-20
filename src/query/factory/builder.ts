@@ -1,4 +1,3 @@
-import { createConfigQueryOptions } from '@/query/config.query';
 import {
   FactoryField,
   FactoryQueryKey,
@@ -61,11 +60,7 @@ export const constructQueryKeys = <TOptions extends object>(
 
 export const createQueryBuilder = () => {
   const usersQueryOptions = createUsersQueryOptions();
-  const configsQueryOptions = createConfigQueryOptions();
-  const queryOptions = mergeQueryOptions(
-    usersQueryOptions,
-    configsQueryOptions,
-  );
+  const queryOptions = mergeQueryOptions(usersQueryOptions);
   const queryKeys = constructQueryKeys(queryOptions);
 
   return {

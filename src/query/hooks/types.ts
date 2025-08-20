@@ -9,7 +9,7 @@ import {
   UseQueryResult as UseTSQueryResult,
 } from '@tanstack/react-query';
 
-import { CommonListProps, FlatListProps } from '@/components/List/types';
+import { CommonListProps } from '@/components/List/types';
 import { ToastContext } from '@/components/Toast';
 import { MapErrorFn } from '@/error/hooks';
 import { QueryFnParams } from '@/types/api/pagination';
@@ -42,8 +42,9 @@ export interface UseManualRefetchResult {
   isRefetchingManually: boolean;
 }
 
-export type QueryListPropsResult = CommonListProps &
-  Pick<FlatListProps<unknown>, 'onEndReached'>;
+export type QueryListPropsResult = CommonListProps & {
+  onEndReached?: (info?: { distanceFromEnd: number }) => void;
+};
 
 export type UseQueryResult<
   TData = unknown,
