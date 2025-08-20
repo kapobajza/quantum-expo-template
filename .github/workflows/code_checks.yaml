@@ -39,7 +39,9 @@ jobs:
         uses: ./.github/actions/dependencies_install
 
       - name: Run ESLint
-        run: pnpm run lint
+        run: |
+          npx expo customize tsconfig.json
+          pnpm run lint
 
   tsc:
     name: Run TSC
