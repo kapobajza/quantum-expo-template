@@ -8,8 +8,8 @@ export const userResponseSchema = z.object({
   created_at: z.string(),
   updated_at: z.string(),
   last_sign_in_at: z.string().nullable(),
-  user_metadata: z.record(z.unknown()).optional(),
-  app_metadata: z.record(z.unknown()).optional(),
+  user_metadata: z.record(z.string(), z.unknown()).optional(),
+  app_metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 export type UserDto = z.infer<typeof userResponseSchema>;

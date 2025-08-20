@@ -123,7 +123,7 @@ export const createHttpClient = ({
           return instance(originalRequest);
         } catch (refreshError) {
           processQueue(refreshError as Error, null);
-          // await storageService.deleteSecureItem('AuthToken');
+          await storageService.deleteSecureItem('AuthToken');
           throw refreshError;
         } finally {
           isRefreshing = false;
