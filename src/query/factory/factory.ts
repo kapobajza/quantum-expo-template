@@ -95,15 +95,11 @@ export function createQueryOptionsFactory<
   };
 }
 
-export type StoreFromMergedQueryKeys<
-  TMergeArgs extends FactoryOptionsExtended[],
-> = TMergeArgs extends [
-  infer TFirst extends FactoryOptionsExtended,
-  ...infer TRest extends FactoryOptionsExtended[],
-]
-  ? Record<TFirst['__name'], Prettify<Omit<TFirst, '__name'>>> &
-      StoreFromMergedQueryKeys<TRest>
-  : unknown;
+type StoreFromMergedQueryKeys<
+  TMergeArgs extends readonly FactoryOptionsExtended[],
+> = {
+  [K in TMergeArgs[number] as K['__name']]: Prettify<Omit<K, '__name'>>;
+};
 
 export function mergeQueryOptions<const TArgs extends FactoryOptionsExtended[]>(
   ...args: TArgs
