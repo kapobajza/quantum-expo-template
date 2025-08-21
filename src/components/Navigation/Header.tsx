@@ -1,9 +1,10 @@
 import { Header as RNHeader } from '@react-navigation/elements';
 import { ComponentProps, ReactNode } from 'react';
 import { Platform, View } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { useTranslation } from '@/locale';
-import { createStyleSheet, useStyles, useTheme } from '@/theme';
+import { useTheme } from '@/theme';
 
 import { HeaderBackButton } from './HeaderBackButton';
 import { HeaderTitle } from './HeaderTitle';
@@ -27,7 +28,6 @@ export const Header = ({
   ...props
 }: HeaderProps) => {
   const { t } = useTranslation();
-  const styles = useStyles(stylesheet);
   const theme = useTheme();
 
   return (
@@ -72,10 +72,10 @@ export const Header = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme) => {
+const styles = StyleSheet.create((theme) => {
   return {
     headerRight: {
-      marginEnd: theme.spacing.md,
+      marginEnd: theme.spacing('md'),
     },
     headerBackgroundContainer: {
       backgroundColor: theme.colors.background.main,

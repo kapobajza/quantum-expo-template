@@ -1,10 +1,10 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Icon } from '@/components/Icon';
 import { Pressable } from '@/components/Pressable';
 import { Text } from '@/components/Text';
-import { createStyleSheet, useStyles } from '@/theme';
 import { ThemeColor } from '@/theme/tokens/colors';
 
 import { TabBarOptionsMap } from './types';
@@ -18,8 +18,6 @@ export const TabBar = ({
   navigation,
   options: tabBarOptions,
 }: TabBarProps) => {
-  const styles = useStyles(stylesheet);
-
   return (
     <View style={styles.container}>
       {state.routes.map((route, index) => {
@@ -58,22 +56,22 @@ export const TabBar = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme, { insets }) => ({
+const styles = StyleSheet.create((theme, { insets }) => ({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingHorizontal: theme.spacing['2'],
-    paddingTop: theme.spacing['2'],
+    paddingHorizontal: theme.spacing(2),
+    paddingTop: theme.spacing(2),
     alignItems: 'center',
-    paddingBottom: insets.bottom + theme.spacing['2'],
+    paddingBottom: insets.bottom + theme.spacing(2),
     backgroundColor: theme.colors.background.main,
     ...theme.shadows.xLarge,
   },
   item: {
-    padding: theme.spacing['2'],
+    padding: theme.spacing(2),
     justifyContent: 'center',
     alignItems: 'center',
-    gap: theme.spacing['1'],
+    gap: theme.spacing(1),
     borderRadius: theme.radii.full,
   },
 }));

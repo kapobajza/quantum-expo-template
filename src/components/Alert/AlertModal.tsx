@@ -1,11 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Button } from '@/components/Button';
 import { ModalComponentProps } from '@/components/Modal';
 import { Text } from '@/components/Text';
 import { useTranslation } from '@/locale';
-import { createStyleSheet, useStyles } from '@/theme';
 
 export const AlertModal = ({
   params,
@@ -14,7 +14,6 @@ export const AlertModal = ({
 }: ModalComponentProps<'Alert'>) => {
   const { title, message, type = 'info', onConfirm, onCancel } = params;
   const { t } = useTranslation();
-  const styles = useStyles(stylesheet);
 
   return (
     <View style={styles.container}>
@@ -55,14 +54,14 @@ export const AlertModal = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   button: {
-    padding: theme.spacing['2'],
+    padding: theme.spacing(2),
   },
   message: {
-    marginBottom: theme.spacing['4'],
+    marginBottom: theme.spacing(4),
   },
   container: {
-    gap: theme.spacing['2'],
+    gap: theme.spacing(2),
   },
 }));

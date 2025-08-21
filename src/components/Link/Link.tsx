@@ -1,16 +1,14 @@
 import { Link as ExpoLink, LinkProps as ExpoLinkProps } from 'expo-router';
 import React from 'react';
-
-import { createStyleSheet, useStyles } from '@/theme';
+import { StyleSheet } from 'react-native-unistyles';
 
 export type LinkProps = ExpoLinkProps;
 
 export const Link = ({ style, ...props }: LinkProps) => {
-  const styles = useStyles(stylesheet);
   return <ExpoLink style={[styles.link, style]} {...props} />;
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   link: {
     color: theme.colors.primary[300],
     textDecorationLine: 'underline',

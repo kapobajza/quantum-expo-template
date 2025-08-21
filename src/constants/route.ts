@@ -7,7 +7,7 @@ type ExpoRouteName = Exclude<
 
 export const RouteName = {
   App: {
-    Initial: '/(app)/(tabs)',
+    Initial: '/(app)',
   },
   Auth: {
     Login: '/auth/login',

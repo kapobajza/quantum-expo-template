@@ -1,12 +1,13 @@
+import { CSSProperties } from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 
-import { AppTheme } from '@/theme';
 import { TypographyOptions } from '@/theme/tokens/typography';
+import { AppTheme } from '@/theme/types';
 
 interface ButtonVariantOptions {
   button: {
-    main: ViewStyle;
-    disabled?: ViewStyle;
+    main: CSSProperties;
+    disabled?: CSSProperties;
   };
   text: {
     main: TextStyle;
@@ -107,25 +108,25 @@ export const buildButtonSizes = (theme: AppTheme) => {
   return {
     xSmall: {
       button: {
-        height: theme.spacing[6],
+        height: theme.spacing(6),
       },
       text: theme.typography.xSmall.semibold,
     },
     small: {
       button: {
-        height: theme.spacing[8],
+        height: theme.spacing(8),
       },
       text: theme.typography.small.semibold,
     },
     medium: {
       button: {
-        height: theme.spacing[10],
+        height: theme.spacing(10),
       },
       text: theme.typography.body.semibold,
     },
     large: {
       button: {
-        height: theme.spacing[12],
+        height: theme.spacing(12),
       },
       text: theme.typography.body.medium,
     },

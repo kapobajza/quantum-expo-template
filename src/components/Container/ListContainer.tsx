@@ -1,14 +1,12 @@
-import { createStyleSheet, useStyles } from '@/theme';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Container, ContainerProps } from './Container';
 
 export const ListContainer = ({ style, ...props }: ContainerProps) => {
-  const styles = useStyles(stylesheet);
-
   return <Container {...props} style={[styles.root, style]} />;
 };
 
-const stylesheet = createStyleSheet({
+const styles = StyleSheet.create({
   root: {
     marginTop: 0,
   },

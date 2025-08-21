@@ -1,17 +1,16 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Button, Container, Text } from '@/components';
 import { Icon } from '@/components/Icon';
 import { Header } from '@/components/Navigation';
 import { RouteName } from '@/constants/route';
 import { useTranslation } from '@/locale';
-import { createStyleSheet, useStyles } from '@/theme';
 
 const EmailConfirmed = () => {
   const { t } = useTranslation();
   const router = useRouter();
-  const styles = useStyles(stylesheet);
 
   return (
     <>
@@ -38,14 +37,14 @@ const EmailConfirmed = () => {
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   container: {
-    gap: theme.spacing['6'],
+    gap: theme.spacing('6'),
     justifyContent: 'center',
   },
   icon: {
     alignSelf: 'center',
-    marginBottom: theme.spacing['4'],
+    marginBottom: theme.spacing('4'),
   },
 }));
 

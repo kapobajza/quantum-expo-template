@@ -6,9 +6,9 @@ import {
   View,
   ViewProps,
 } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Text } from '@/components/Text';
-import { createStyleSheet, useStyles } from '@/theme';
 
 export interface LoaderProps {
   size?: ActivityIndicatorProps['size'];
@@ -27,8 +27,6 @@ export const Loader = ({
   color,
   center,
 }: LoaderProps) => {
-  const styles = useStyles(stylesheet);
-
   return (
     <View style={[styles.container({ fill, center }), style]}>
       {title ? (
@@ -41,12 +39,12 @@ export const Loader = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   container: (props: Pick<LoaderProps, 'fill' | 'center'>) => ({
     flex: props.fill ? 1 : undefined,
     justifyContent: 'center',
     alignItems: props.center ? 'center' : undefined,
-    gap: theme.spacing['4'],
-    margin: theme.spacing['4'],
+    gap: theme.spacing(4),
+    margin: theme.spacing(4),
   }),
 }));

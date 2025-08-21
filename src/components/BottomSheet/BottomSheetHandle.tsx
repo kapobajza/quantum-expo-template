@@ -1,15 +1,12 @@
 import { BottomSheetHandle as GHBottomSheetHandle } from '@gorhom/bottom-sheet';
 import React, { ComponentProps } from 'react';
-
-import { createStyleSheet, useStyles } from '@/theme';
+import { StyleSheet } from 'react-native-unistyles';
 
 export const BottomSheetHandle = ({
   indicatorStyle,
   style,
   ...props
 }: ComponentProps<typeof GHBottomSheetHandle>) => {
-  const styles = useStyles(stylesheet);
-
   return (
     <GHBottomSheetHandle
       indicatorStyle={[indicatorStyle, styles.indicator]}
@@ -19,7 +16,7 @@ export const BottomSheetHandle = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   indicator: {
     backgroundColor: theme.colors.surface.background,
     width: 80,

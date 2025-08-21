@@ -1,16 +1,10 @@
 import { get } from 'lodash';
 import React from 'react';
-import {
-  Platform,
-  SafeAreaView,
-  StyleSheet,
-  View,
-  ViewProps,
-} from 'react-native';
+import { Platform, SafeAreaView, View, ViewProps } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Loader } from '@/components/Loader';
 import { Text } from '@/components/Text';
-import { createStyleSheet, useStyles } from '@/theme';
 import { ThemeSpacing } from '@/theme/tokens/spacing';
 
 export interface ContainerProps extends ViewProps {
@@ -39,7 +33,6 @@ export const Container = ({
   bottomSpacing,
   ...props
 }: ContainerProps) => {
-  const styles = useStyles(stylesheet);
   let Component = children;
   const RootComponent = useSafeAreas ? SafeAreaView : View;
 
@@ -70,14 +63,14 @@ export const Container = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme, { insets }) => ({
+const styles = StyleSheet.create((theme, { insets }) => ({
   root: (props: Pick<ContainerProps, 'center' | 'fill'>) => {
     const centerHorizontal =
       props.center === 'horizontal' || props.center === true;
     const centerVertical = props.center === 'vertical' || props.center === true;
 
     return {
-      margin: theme.spacing.md,
+      margin: theme.spacing('md'),
       alignItems: centerHorizontal ? 'center' : undefined,
       justifyContent: centerVertical ? 'center' : undefined,
       flex: props.fill ? 1 : undefined,

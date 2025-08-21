@@ -1,4 +1,3 @@
-import { get } from 'lodash';
 import React, { ReactElement, useMemo } from 'react';
 import {
   RefreshControl,
@@ -6,13 +5,14 @@ import {
   ScrollView,
   View,
 } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Container } from '@/components/Container';
 import { Loader } from '@/components/Loader';
 import { Text } from '@/components/Text';
 import { useMapError } from '@/error/hooks';
 import { useTranslation } from '@/locale';
-import { createStyleSheet, useStyles, useTheme } from '@/theme';
+import { useTheme } from '@/theme';
 import { ThemeSpacing } from '@/theme/tokens/spacing';
 
 import { CommonListProps, GenericListProps } from './types';
@@ -26,8 +26,6 @@ const NonListContent = ({
   children: React.ReactNode;
   refreshControl: ReactElement<RefreshControlProps> | undefined;
 }) => {
-  const styles = useStyles(stylesheet);
-
   return (
     <ScrollView
       contentContainerStyle={styles.scrollable}
@@ -66,7 +64,6 @@ export const GenericList = <TItem,>({
   ...rest
 }: GenericListProps<TItem>) => {
   const { t } = useTranslation();
-  const styles = useStyles(stylesheet);
   const mapError = useMapError();
   const theme = useTheme();
 
@@ -98,7 +95,6 @@ export const GenericList = <TItem,>({
     bottomSpacing,
     isLoading,
     isLoadingMore,
-    styles,
   ]);
 
   const ListHeader = useMemo(() => {
@@ -117,14 +113,7 @@ export const GenericList = <TItem,>({
         {LoaderComponent}
       </View>
     );
-  }, [
-    ListHeaderComponent,
-    isEmpty,
-    isLoading,
-    shouldRenderHeader,
-    styles,
-    topSpacing,
-  ]);
+  }, [ListHeaderComponent, isEmpty, isLoading, shouldRenderHeader, topSpacing]);
 
   if (error && isError && isEmpty && !isLoading) {
     return (
@@ -173,11 +162,9 @@ export const GenericList = <TItem,>({
   );
 };
 
-const stylesheet = createStyleSheet((theme, { insets }) => ({
+const styles = StyleSheet.create((theme, { insets }) => ({
   bottomSpacer: (bottomSpacing: ThemeSpacing | undefined) => {
-    const spacing = bottomSpacing
-      ? (get(theme.spacing, bottomSpacing) as number)
-      : 0;
+    const spacing = bottomSpacing ? theme.spacing(bottomSpacing) : 0;
     return {
       height: spacing + insets.bottom,
     };
@@ -187,11 +174,11 @@ const stylesheet = createStyleSheet((theme, { insets }) => ({
   }: Required<Pick<CommonListProps, 'topSpacing'>>) => ({
     height:
       typeof topSpacing === 'boolean'
-        ? theme.spacing['6']
-        : get(theme.spacing, topSpacing),
+        ? theme.spacing(6)
+        : theme.spacing(topSpacing),
   }),
   loader: {
-    marginTop: theme.spacing['4'],
+    marginTop: theme.spacing('4'),
   },
   listHeader: (isLoading: boolean | undefined) => ({
     flex: isLoading ? 1 : undefined,

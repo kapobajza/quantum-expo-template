@@ -1,8 +1,9 @@
 import { get } from 'lodash';
 import React from 'react';
 import { View, ViewProps, ViewStyle } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
-import { AppTheme, createStyleSheet, useStyles } from '@/theme';
+import { AppTheme } from '@/theme';
 import { ThemeColor } from '@/theme/tokens/colors';
 import { ThemeRadius } from '@/theme/tokens/radii';
 import { ThemeSpacing } from '@/theme/tokens/spacing';
@@ -49,8 +50,6 @@ export interface BoxProps extends BoxStylingProps {
 }
 
 export const Box = ({ style, children, ...styleProps }: BoxProps) => {
-  const styles = useStyles(stylesheet);
-
   return <View style={[styles.container(styleProps), style]}>{children}</View>;
 };
 
@@ -89,7 +88,7 @@ const generateStyledProps = (theme: AppTheme, styleObj: BoxStylingProps) => {
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   container: ({
     center,
     fill,

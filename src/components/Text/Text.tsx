@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
-import { Text as RNText, StyleSheet } from 'react-native';
-
-import { createStyleSheet, useStyles } from '@/theme/utils/createStyles';
+import { Text as RNText } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { TextProps } from './types';
 
@@ -14,8 +13,6 @@ export const Text = ({
   fontWeight,
   ...props
 }: TextProps) => {
-  const styles = useStyles(stylesheet);
-
   return (
     <RNText
       style={StyleSheet.flatten([
@@ -27,7 +24,7 @@ export const Text = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme) => {
+const styles = StyleSheet.create((theme) => {
   return {
     text: ({
       variant,

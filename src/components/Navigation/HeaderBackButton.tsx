@@ -1,9 +1,9 @@
 import { router } from 'expo-router';
 import React from 'react';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Icon } from '@/components/Icon';
 import { Pressable } from '@/components/Pressable';
-import { createStyleSheet, useStyles } from '@/theme';
 
 interface Props {
   onPress?: () => void;
@@ -11,8 +11,6 @@ interface Props {
 }
 
 export const HeaderBackButton = ({ onPress, modal }: Props) => {
-  const styles = useStyles(stylesheet);
-
   return (
     <Pressable
       style={styles.headerLeft}
@@ -34,17 +32,17 @@ export const HeaderBackButton = ({ onPress, modal }: Props) => {
   );
 };
 
-const stylesheet = createStyleSheet((theme) => {
+const styles = StyleSheet.create((theme) => {
   return {
     headerLeft: {
-      width: theme.spacing['10'],
-      height: theme.spacing['10'],
+      width: theme.spacing('10'),
+      height: theme.spacing('10'),
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: theme.radii.full,
       backgroundColor: theme.colors.surface.background,
-      marginStart: theme.spacing.md,
-      marginEnd: theme.spacing['2'],
+      marginStart: theme.spacing('md'),
+      marginEnd: theme.spacing('2'),
     },
   };
 });

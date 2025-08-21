@@ -8,9 +8,9 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Text } from '@/components/Text';
-import { createStyleSheet, useStyles } from '@/theme';
 
 import { useToastStore } from './store';
 import { ToastActionType, ToastItem, ToastType } from './types';
@@ -25,7 +25,6 @@ export interface ToastProps {
 }
 
 export const Toast = ({ item, offset }: ToastProps) => {
-  const styles = useStyles(stylesheet);
   const insets = useSafeAreaInsets();
   const context = useSharedValue({ y: 0 });
   const { dispatch } = useToastStore();
@@ -103,7 +102,7 @@ export const Toast = ({ item, offset }: ToastProps) => {
   );
 };
 
-const stylesheet = createStyleSheet((theme) => {
+const styles = StyleSheet.create((theme) => {
   const containerVariants = buildToastContainerVariants(theme);
 
   return {
@@ -116,12 +115,12 @@ const stylesheet = createStyleSheet((theme) => {
     item: (type: ToastType) => ({
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: theme.spacing['4'],
-      marginHorizontal: theme.spacing['4'],
-      paddingVertical: theme.spacing['2'],
+      paddingHorizontal: theme.spacing('4'),
+      marginHorizontal: theme.spacing('4'),
+      paddingVertical: theme.spacing('2'),
       borderRadius: theme.radii[4],
       borderWidth: 1,
-      marginTop: theme.spacing['2'],
+      marginTop: theme.spacing('2'),
       ...containerVariants[type],
     }),
     message: {

@@ -1,16 +1,15 @@
 import { View } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { useAlert } from '@/components/Alert/hooks';
 import { useModal } from '@/components/Modal';
 import { Pressable } from '@/components/Pressable';
 import { Text } from '@/components/Text';
 import { useChangeLanguage, UserLocale, useTranslation } from '@/locale';
-import { createStyleSheet, useStyles } from '@/theme';
 
 export const ChangeLanguageModal = () => {
   const { t, i18n } = useTranslation();
   const { changeLanguage, isLoading } = useChangeLanguage();
-  const styles = useStyles(stylesheet);
   const { showAlert } = useAlert();
   const { closeAllModals } = useModal();
 
@@ -59,10 +58,10 @@ export const ChangeLanguageModal = () => {
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   button: (isSelected: boolean) => {
     return {
-      padding: theme.spacing['4'],
+      padding: theme.spacing(4),
       borderRadius: theme.radii['4'],
       borderWidth: 1,
       borderColor: theme.colors.primary[100],
@@ -72,10 +71,10 @@ const stylesheet = createStyleSheet((theme) => ({
     };
   },
   container: {
-    gap: theme.spacing['2'],
+    gap: theme.spacing(2),
   },
   title: {
-    marginBottom: theme.spacing['4'],
+    marginBottom: theme.spacing(4),
   },
   buttonText: (isSelected: boolean) => ({
     color: isSelected ? theme.colors.greyscale[0] : theme.colors.primary[100],

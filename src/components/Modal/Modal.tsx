@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
 import Animated, {
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-
-import { createStyleSheet, useStyles } from '@/theme';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { ModalItem } from './types';
 
@@ -19,7 +18,6 @@ interface ModalProps {
 
 export const Modal = ({ item, isPendingClose, removeModal }: ModalProps) => {
   const scaleAnimation = useSharedValue(0);
-  const styles = useStyles(stylesheet);
 
   useEffect(() => {
     scaleAnimation.value = withTiming(1, {
@@ -80,7 +78,7 @@ export const Modal = ({ item, isPendingClose, removeModal }: ModalProps) => {
   );
 };
 
-const stylesheet = createStyleSheet((theme, { dimensions }) => ({
+const styles = StyleSheet.create((theme, { screen }) => ({
   overlay: {
     ...StyleSheet.absoluteFillObject,
     alignItems: 'center',
@@ -92,18 +90,18 @@ const stylesheet = createStyleSheet((theme, { dimensions }) => ({
     ),
   },
   container: {
-    padding: theme.spacing.md,
-    marginHorizontal: theme.spacing.md,
+    padding: theme.spacing('md'),
+    marginHorizontal: theme.spacing('md'),
     backgroundColor: theme.colors.background.main,
     borderRadius: theme.radii['8'],
     justifyContent: 'center',
-    width: dimensions.width - theme.spacing.md * 2,
+    width: screen.width - theme.spacing('md') * 2,
     ...theme.shadows.large,
   },
   button: {
-    padding: theme.spacing['2'],
+    padding: theme.spacing(2),
   },
   message: {
-    marginBottom: theme.spacing['4'],
+    marginBottom: theme.spacing(4),
   },
 }));

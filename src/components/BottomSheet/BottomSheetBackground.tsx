@@ -1,15 +1,12 @@
 import React from 'react';
 import Animated from 'react-native-reanimated';
-
-import { createStyleSheet, useStyles } from '@/theme';
+import { StyleSheet } from 'react-native-unistyles';
 
 export const BottomSheetBackground = () => {
-  const styles = useStyles(stylesheet);
-
   return <Animated.View pointerEvents="none" style={styles.container} />;
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   container: {
     backgroundColor: theme.colors.background.main,
   },

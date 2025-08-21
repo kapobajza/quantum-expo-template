@@ -1,7 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { useEffect, useRef } from 'react';
-
-import { createStyleSheet, useStyles } from '@/theme';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { BottomSheetBackdrop } from './BottomSheetBackdrop';
 import { BottomSheetBackground } from './BottomSheetBackground';
@@ -20,7 +19,6 @@ export const BottomSheetContainer = ({
   options: BottomSheetOptions | undefined;
 }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const styles = useStyles(stylesheet);
   const { snapPoints } = options ?? {};
 
   useEffect(() => {
@@ -47,7 +45,7 @@ export const BottomSheetContainer = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   container: {
     backgroundColor: theme.colors.background.main,
     borderTopLeftRadius: theme.radii[12],

@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Button, Container, ControlInput } from '@/components';
 import { ChangeLanguageButton } from '@/components/ChangeLanguage';
@@ -8,7 +9,6 @@ import { RouteName } from '@/constants/route';
 import { useSignIn } from '@/features/auth/hooks/useSignIn';
 import { useForm } from '@/hooks';
 import { useTranslation } from '@/locale';
-import { createStyleSheet, useStyles } from '@/theme';
 import { authSignInSchema } from '@/types';
 
 const Login = () => {
@@ -17,7 +17,6 @@ const Login = () => {
   const { control, handleSubmit } = useForm({
     schema: authSignInSchema,
   });
-  const styles = useStyles(stylesheet);
 
   const handleSignIn = handleSubmit((data) => {
     signIn(data);
@@ -64,13 +63,13 @@ const Login = () => {
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   container: {
     justifyContent: 'center',
-    gap: theme.spacing['4'],
+    gap: theme.spacing('4'),
   },
   button: {
-    marginTop: theme.spacing['4'],
+    marginTop: theme.spacing('4'),
   },
 }));
 

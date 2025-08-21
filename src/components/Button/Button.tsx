@@ -1,19 +1,13 @@
 import React, { ReactNode } from 'react';
 import { View, ViewStyle } from 'react-native';
 import { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 import { Loader } from '@/components/Loader';
 import { Pressable, PressableProps } from '@/components/Pressable/Pressable';
 import { Text } from '@/components/Text';
-import { createStyleSheet, useStyles, useTheme } from '@/theme';
 
-import {
-  buildButtonSizes,
-  buildButtonVariants,
-  ButtonSize,
-  ButtonVariant,
-  ButtonVariants,
-} from './variants';
+import { buildButtonVariants, ButtonSize, ButtonVariant } from './variants';
 
 export interface ButtonProps extends PressableProps {
   title: string;
@@ -36,9 +30,9 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const pressableAnimation = useSharedValue(1);
-  const styles = useStyles(stylesheet);
-  const theme = useTheme();
+  const { theme } = useUnistyles();
   const buttonVariants = buildButtonVariants(theme);
+  styles.useVariants({});
 
   const animatedStyle = useAnimatedStyle<ViewStyle>(() => {
     return {
@@ -92,52 +86,55 @@ export const Button = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme) => {
-  const buttonSizes = buildButtonSizes(theme);
-
+const styles = StyleSheet.create((theme) => {
   return {
-    container: ({
-      disabled,
-      variant,
-      size,
-      buttonVariants,
-    }: Required<Pick<ButtonProps, 'disabled' | 'variant' | 'size'>> & {
-      buttonVariants: ButtonVariants;
-    }) => {
+    container: (disabled: boolean | undefined) => {
       return {
-        ...buttonVariants[variant].button.main,
-        ...(disabled ? buttonVariants[variant].button.disabled : {}),
-        ...buttonSizes[size].button,
-        paddingHorizontal: theme.spacing['4'],
+        // ...buttonVariants[variant].button.main,
+        // ...(disabled ? buttonVariants[variant].button.disabled : {}),
+        // ...buttonSizes[size].button,
+        paddingHorizontal: theme.spacing(4),
         borderRadius: theme.radii['4'],
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: theme.spacing['2'],
+        gap: theme.spacing(2),
+        variants: {
+          primary: {
+            backgroundColor: theme.colors.primary[300],
+            borderColor: undefined,
+            borderWidth: undefined,
+          },
+          secondary: {
+            backgroundColor: theme.colors.background.main,
+            borderWidth: 1,
+            borderColor: theme.colors.primary[300],
+          },
+        },
       };
     },
-    text: ({
-      variant = 'primary',
-      disabled,
-      size,
-      buttonVariants,
-    }: Required<Pick<ButtonProps, 'variant' | 'disabled' | 'size'>> & {
-      buttonVariants: ButtonVariants;
-    }) => {
-      return {
-        ...buttonVariants[variant].text.main,
-        ...(disabled ? buttonVariants[variant].text.disabled : {}),
-        ...buttonSizes[size].text,
-        fontWeight: theme.fontWeight[600],
-      };
-    },
+    // text: ({
+    //   variant = 'primary',
+    //   disabled,
+    //   size,
+    //   buttonVariants,
+    // }: Required<Pick<ButtonProps, 'variant' | 'disabled' | 'size'>> & {
+    //   buttonVariants: ButtonVariants;
+    // }) => {
+    //   return {
+    //     ...buttonVariants[variant].text.main,
+    //     ...(disabled ? buttonVariants[variant].text.disabled : {}),
+    //     ...buttonSizes[size].text,
+    //     fontWeight: theme.fontWeight[600],
+    //   };
+    // },
     loader: {
       margin: 0,
     },
     contentWrapper: {
       flexDirection: 'row',
       alignItems: 'center',
-      gap: theme.spacing[3],
+      gap: theme.spacing(3),
     },
   };
 });

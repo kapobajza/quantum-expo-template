@@ -6,10 +6,11 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Text, TextError } from '@/components/Text';
 import { useTranslation } from '@/locale';
-import { createStyleSheet, useStyles, useTheme } from '@/theme';
+import { useTheme } from '@/theme';
 
 import { buildTextInputVariants, TextInputVariants } from './variants';
 
@@ -37,7 +38,6 @@ export const TextInput = ({
   containerStyle,
   ...props
 }: TextInputProps) => {
-  const styles = useStyles(stylesheet);
   const { i18n } = useTranslation();
   const theme = useTheme();
   const [isFocused, setIsFocused] = useState(false);
@@ -78,7 +78,7 @@ export const TextInput = ({
   );
 };
 
-const stylesheet = createStyleSheet((theme) => {
+const styles = StyleSheet.create((theme) => {
   const variants = buildTextInputVariants(theme);
 
   return {
@@ -105,9 +105,9 @@ const stylesheet = createStyleSheet((theme) => {
       return {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: theme.spacing['3'],
+        gap: theme.spacing('3'),
         borderWidth: 1,
-        paddingHorizontal: theme.spacing['4'],
+        paddingHorizontal: theme.spacing('4'),
         borderRadius: theme.radii['4'],
         ...variantStyle.container,
         ...focusStyle,
@@ -120,13 +120,13 @@ const stylesheet = createStyleSheet((theme) => {
       dir: ReturnType<typeof i18next.dir>;
     }) => ({
       ...variants[variant].input,
-      paddingVertical: theme.spacing['3'],
+      paddingVertical: theme.spacing('3'),
       fontSize: theme.fontSize['16'],
       flex: 1,
       fontFamily: theme.fontFamily.spaceMono,
     }),
     root: {
-      gap: theme.spacing['1'],
+      gap: theme.spacing('1'),
     },
   };
 });

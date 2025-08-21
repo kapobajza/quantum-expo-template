@@ -1,6 +1,7 @@
 import get from 'lodash/get';
+import { StyleSheet } from 'react-native-unistyles';
 
-import { createStyleSheet, useStyles, useTheme } from '@/theme';
+import { useTheme } from '@/theme';
 
 import * as iconName from './raw';
 import { IconProps } from './types';
@@ -17,7 +18,6 @@ export const Icon = (props: IconProps) => {
   } = props;
   // eslint-disable-next-line import-x/namespace
   const Component = iconName[name];
-  const styles = useStyles(stylesheet);
   const theme = useTheme();
   const iconColor = get(theme.colors, color);
 
@@ -30,7 +30,7 @@ export const Icon = (props: IconProps) => {
   );
 };
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   icon: ({
     width,
     height,
@@ -38,8 +38,8 @@ const stylesheet = createStyleSheet((theme) => ({
     size,
   }: Required<Pick<IconProps, 'width' | 'height' | 'color'>> &
     Pick<IconProps, 'size'>) => ({
-    width: theme.spacing[size ?? width],
-    height: theme.spacing[size ?? height],
+    width: theme.spacing(size ?? width),
+    height: theme.spacing(size ?? height),
     fill: get(theme.colors, color),
   }),
 }));

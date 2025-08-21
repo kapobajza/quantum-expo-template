@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-
-import { createStyleSheet, useStyles } from '@/theme';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { ToastContext } from './context';
 import { ToastList } from './ToastList';
@@ -27,7 +26,6 @@ export const ToastProvider = ({
       // no-op, will be overridden by Toast
     },
   });
-  const styles = useStyles(stylesheet);
 
   return (
     <GestureHandlerRootView style={styles.root}>
@@ -43,7 +41,7 @@ export const ToastProvider = ({
   );
 };
 
-const stylesheet = createStyleSheet({
+const styles = StyleSheet.create({
   root: {
     flex: 1,
   },

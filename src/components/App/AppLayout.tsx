@@ -4,6 +4,7 @@ import { Redirect, Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React from 'react';
 import { DevSettings, View } from 'react-native';
+import { StyleSheet } from 'react-native-unistyles';
 
 import { Container } from '@/components/Container';
 import { Loader } from '@/components/Loader';
@@ -13,7 +14,6 @@ import { useDatabaseRepo } from '@/db/context';
 import { ErrorCode, isErrorCode } from '@/error';
 import { useMountEffect } from '@/hooks';
 import { useTranslation } from '@/locale';
-import { createStyleSheet, useStyles } from '@/theme';
 import { mapValidationErrors } from '@/validation';
 
 import { useSetupAuthFlow } from './hooks';
@@ -23,7 +23,6 @@ void SplashScreen.preventAutoHideAsync();
 function AppLayout() {
   const { mutate: setupAuthFlow, isPending, data, error } = useSetupAuthFlow();
   const { t } = useTranslation();
-  const styles = useStyles(stylesheet);
   const queryClient = useQueryClient();
   const { queryRepository } = useDatabaseRepo();
 
@@ -69,7 +68,7 @@ function AppLayout() {
   );
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
   background: {
     flex: 1,
     backgroundColor: theme.colors.background.main,
