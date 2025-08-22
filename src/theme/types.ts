@@ -1,3 +1,7 @@
+import { UnistylesThemes } from 'react-native-unistyles';
+
+import { ObjectValues } from '@/types';
+
 import { shadows } from './tokens/ahdows';
 import { darkThemeColors, lightThemeColors } from './tokens/colors';
 import { radii } from './tokens/radii';
@@ -25,3 +29,15 @@ export interface AppTheme {
   fontFamily: typeof fontFamily;
   addColorTransparency: typeof addColorTransparency;
 }
+
+export const ThemeAppearance = {
+  Light: 'light',
+  Dark: 'dark',
+  System: 'system',
+} satisfies Record<string, keyof UnistylesThemes | 'system'>;
+
+export type ThemeAppearance = ObjectValues<typeof ThemeAppearance>;
+
+export type UpdateThemeParam =
+  | ThemeAppearance
+  | ((prev: ThemeAppearance | undefined) => ThemeAppearance);

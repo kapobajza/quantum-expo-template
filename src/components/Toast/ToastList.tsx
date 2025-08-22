@@ -1,10 +1,9 @@
 import * as Crypto from 'expo-crypto';
 import { useEffect } from 'react';
 import { View } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 import { useMountEffect } from '@/hooks';
-import { useTheme } from '@/theme';
 
 import { ToastContext } from './context';
 import { useToastStore } from './store';
@@ -38,7 +37,7 @@ export const ToastList = ({
   showToastFn,
 }: ToastListProps) => {
   const { toasts, dispatch } = useToastStore();
-  const theme = useTheme();
+  const { theme } = useUnistyles();
 
   useEffect(() => {
     const now = Date.now();
@@ -117,7 +116,7 @@ export const ToastList = ({
           item={item}
           index={index}
           key={item.id}
-          offset={calculateOffset(toasts, item.id, theme.spacing['1'])}
+          offset={calculateOffset(toasts, item.id, theme.spacing(1))}
         />
       ))}
     </View>

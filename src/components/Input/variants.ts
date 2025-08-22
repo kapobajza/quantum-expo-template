@@ -1,11 +1,14 @@
 import { TextStyle, ViewStyle } from 'react-native';
 
-import { AppTheme } from '@/theme';
+import { AppTheme } from '@/theme/types';
 
 interface TextInputVariantOptions {
-  container: ViewStyle;
-  focus: ViewStyle;
-  input: TextStyle;
+  container: Pick<
+    ViewStyle,
+    'borderColor' | 'backgroundColor' | 'borderRadius'
+  >;
+  focus: Pick<ViewStyle, 'backgroundColor' | 'borderColor' | 'borderWidth'>;
+  input: Pick<TextStyle, 'color'>;
 }
 
 export interface TextInputVariants {

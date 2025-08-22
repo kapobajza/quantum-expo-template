@@ -7,7 +7,13 @@ import { Loader } from '@/components/Loader';
 import { Pressable, PressableProps } from '@/components/Pressable/Pressable';
 import { Text } from '@/components/Text';
 
-import { buildButtonVariants, ButtonSize, ButtonVariant } from './variants';
+import {
+  buildButtonSizes,
+  buildButtonVariants,
+  ButtonSize,
+  ButtonVariant,
+  ButtonVariants,
+} from './variants';
 
 export interface ButtonProps extends PressableProps {
   title: string;
@@ -32,7 +38,6 @@ export const Button = ({
   const pressableAnimation = useSharedValue(1);
   const { theme } = useUnistyles();
   const buttonVariants = buildButtonVariants(theme);
-  styles.useVariants({});
 
   const animatedStyle = useAnimatedStyle<ViewStyle>(() => {
     return {
@@ -87,47 +92,44 @@ export const Button = ({
 };
 
 const styles = StyleSheet.create((theme) => {
+  const buttonSizes = buildButtonSizes(theme);
+
   return {
-    container: (disabled: boolean | undefined) => {
+    container: ({
+      disabled,
+      variant,
+      size,
+      buttonVariants,
+    }: Required<Pick<ButtonProps, 'disabled' | 'variant' | 'size'>> & {
+      buttonVariants: ButtonVariants;
+    }) => {
       return {
-        // ...buttonVariants[variant].button.main,
-        // ...(disabled ? buttonVariants[variant].button.disabled : {}),
-        // ...buttonSizes[size].button,
+        ...buttonVariants[variant].button.main,
+        ...(disabled ? buttonVariants[variant].button.disabled : {}),
+        ...buttonSizes[size].button,
         paddingHorizontal: theme.spacing(4),
         borderRadius: theme.radii['4'],
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         gap: theme.spacing(2),
-        variants: {
-          primary: {
-            backgroundColor: theme.colors.primary[300],
-            borderColor: undefined,
-            borderWidth: undefined,
-          },
-          secondary: {
-            backgroundColor: theme.colors.background.main,
-            borderWidth: 1,
-            borderColor: theme.colors.primary[300],
-          },
-        },
       };
     },
-    // text: ({
-    //   variant = 'primary',
-    //   disabled,
-    //   size,
-    //   buttonVariants,
-    // }: Required<Pick<ButtonProps, 'variant' | 'disabled' | 'size'>> & {
-    //   buttonVariants: ButtonVariants;
-    // }) => {
-    //   return {
-    //     ...buttonVariants[variant].text.main,
-    //     ...(disabled ? buttonVariants[variant].text.disabled : {}),
-    //     ...buttonSizes[size].text,
-    //     fontWeight: theme.fontWeight[600],
-    //   };
-    // },
+    text: ({
+      variant = 'primary',
+      disabled,
+      size,
+      buttonVariants,
+    }: Required<Pick<ButtonProps, 'variant' | 'disabled' | 'size'>> & {
+      buttonVariants: ButtonVariants;
+    }) => {
+      return {
+        ...buttonVariants[variant].text.main,
+        ...(disabled ? buttonVariants[variant].text.disabled : {}),
+        ...buttonSizes[size].text,
+        fontWeight: theme.fontWeight[600],
+      };
+    },
     loader: {
       margin: 0,
     },

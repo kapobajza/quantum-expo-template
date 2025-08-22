@@ -1,7 +1,5 @@
 import get from 'lodash/get';
-import { StyleSheet } from 'react-native-unistyles';
-
-import { useTheme } from '@/theme';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 import * as iconName from './raw';
 import { IconProps } from './types';
@@ -18,7 +16,7 @@ export const Icon = (props: IconProps) => {
   } = props;
   // eslint-disable-next-line import-x/namespace
   const Component = iconName[name];
-  const theme = useTheme();
+  const { theme } = useUnistyles();
   const iconColor = get(theme.colors, color);
 
   return (

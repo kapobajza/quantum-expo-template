@@ -1,4 +1,3 @@
-import { CSSProperties } from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 
 import { TypographyOptions } from '@/theme/tokens/typography';
@@ -6,12 +5,12 @@ import { AppTheme } from '@/theme/types';
 
 interface ButtonVariantOptions {
   button: {
-    main: CSSProperties;
-    disabled?: CSSProperties;
+    main: Pick<ViewStyle, 'backgroundColor' | 'borderColor' | 'borderWidth'>;
+    disabled?: Pick<ViewStyle, 'backgroundColor' | 'borderColor' | 'opacity'>;
   };
   text: {
-    main: TextStyle;
-    disabled?: TextStyle;
+    main: Pick<TextStyle, 'color'>;
+    disabled?: Pick<TextStyle, 'color' | 'opacity'>;
   };
 }
 

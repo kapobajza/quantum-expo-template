@@ -20,7 +20,7 @@ const spacing: AppTheme['spacing'] = (v) => {
     return spacingTokens[v];
   }
 
-  return v;
+  return v * 4;
 };
 
 const themeDefaults: Omit<AppTheme, 'colors'> = {

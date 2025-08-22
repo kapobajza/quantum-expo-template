@@ -5,14 +5,13 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 import { Container } from '@/components/Container';
 import { Loader } from '@/components/Loader';
 import { Text } from '@/components/Text';
 import { useMapError } from '@/error/hooks';
 import { useTranslation } from '@/locale';
-import { useTheme } from '@/theme';
 import { ThemeSpacing } from '@/theme/tokens/spacing';
 
 import { CommonListProps, GenericListProps } from './types';
@@ -65,7 +64,7 @@ export const GenericList = <TItem,>({
 }: GenericListProps<TItem>) => {
   const { t } = useTranslation();
   const mapError = useMapError();
-  const theme = useTheme();
+  const { theme } = useUnistyles();
 
   const RefreshComponent = useMemo(() => {
     return onRefresh ? (

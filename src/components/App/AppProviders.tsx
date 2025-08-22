@@ -13,7 +13,7 @@ import { QueryFactoryProvider } from '@/query';
 import { QueryProvider } from '@/query/QueryProvider';
 import { ServicesProvider } from '@/services';
 import { AllServices } from '@/services/instance';
-import { ThemeProvider } from '@/theme';
+import { ThemeProvider } from '@/theme/ThemeProvider';
 
 import { MigrationsRunner } from './MigrationsRunner';
 

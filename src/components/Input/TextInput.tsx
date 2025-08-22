@@ -6,11 +6,10 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 import { Text, TextError } from '@/components/Text';
 import { useTranslation } from '@/locale';
-import { useTheme } from '@/theme';
 
 import { buildTextInputVariants, TextInputVariants } from './variants';
 
@@ -39,7 +38,7 @@ export const TextInput = ({
   ...props
 }: TextInputProps) => {
   const { i18n } = useTranslation();
-  const theme = useTheme();
+  const { theme } = useUnistyles();
   const [isFocused, setIsFocused] = useState(false);
 
   return (

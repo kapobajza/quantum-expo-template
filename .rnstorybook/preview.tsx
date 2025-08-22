@@ -1,9 +1,10 @@
 import type { Preview } from '@storybook/react';
+import { UnistylesRuntime } from 'react-native-unistyles';
 
 import { AppProviders } from '@/components/App/AppProviders';
 import { getAppEnv } from '@/env';
 import { getDefaulServices } from '@/services/instance';
-import { ThemeApperance } from '@/theme';
+import { ThemeAppearance } from '@/theme/types';
 
 import { Background } from './components/Background';
 import { withThemeSwitcher } from './theme/ThemeSwitcher';
@@ -33,11 +34,11 @@ const preview: Preview = {
     },
   ],
   args: {
-    theme: 'light' satisfies ThemeApperance,
+    theme: UnistylesRuntime.themeName,
   },
   argTypes: {
     theme: {
-      options: ['light', 'dark'] satisfies ThemeApperance[],
+      options: ['light', 'dark'] satisfies ThemeAppearance[],
       control: {
         type: 'select',
       },

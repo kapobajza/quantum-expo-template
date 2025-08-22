@@ -3,14 +3,14 @@ import React from 'react';
 import { View, ViewProps, ViewStyle } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { AppTheme } from '@/theme';
 import { ThemeColor } from '@/theme/tokens/colors';
 import { ThemeRadius } from '@/theme/tokens/radii';
 import { ThemeSpacing } from '@/theme/tokens/spacing';
+import { AppTheme } from '@/theme/types';
 
 interface BoxStylingProps
   extends Pick<ViewStyle, 'justifyContent' | 'alignItems'> {
-  center?: boolean;
+  center?: boolean | 'vertical' | 'horizontal';
   fill?: boolean;
   margin?: ThemeSpacing;
   padding?: ThemeSpacing;
@@ -37,7 +37,7 @@ interface BoxStylingProps
   gap?: ThemeSpacing;
   flexDirection?: ViewStyle['flexDirection'];
   alignSelf?: ViewStyle['alignSelf'];
-  position?: ViewStyle['position'];
+  position?: Extract<ViewStyle['position'], 'absolute' | 'relative' | 'static'>;
   top?: ThemeSpacing;
   bottom?: ThemeSpacing;
   left?: ThemeSpacing;
@@ -77,7 +77,7 @@ const generateStyledProps = (theme: AppTheme, styleObj: BoxStylingProps) => {
       }
 
       if (/margin|padding|gap|top|left|right|bottom/i.exec(key)) {
-        acc[key] = get(theme.spacing, value);
+        acc[key] = theme.spacing(value as ThemeSpacing);
         return acc;
       }
 
@@ -98,15 +98,13 @@ const styles = StyleSheet.create((theme) => ({
     position,
     ...stylingProps
   }: BoxStylingProps) => {
-    const centerJustify: ViewStyle['justifyContent'] = center
-      ? 'center'
-      : undefined;
-    const centerAlign: ViewStyle['alignItems'] = center ? 'center' : undefined;
+    const centerHorizontal = center === 'horizontal' || center === true;
+    const centerVertical = center === 'vertical' || center === true;
 
     return {
       flex: fill ? 1 : undefined,
-      justifyContent: centerJustify ?? justifyContent,
-      alignItems: centerAlign ?? alignItems,
+      alignItems: alignItems ?? (centerHorizontal ? 'center' : undefined),
+      justifyContent: justifyContent ?? (centerVertical ? 'center' : undefined),
       alignSelf,
       position,
       ...generateStyledProps(theme, stylingProps),

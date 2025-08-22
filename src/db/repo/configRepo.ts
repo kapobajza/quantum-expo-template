@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm';
 
 import * as schema from '@/db/schema';
 import { SqliteDatabase } from '@/db/types';
-import { ThemeApperance } from '@/theme';
+import { ThemeAppearance } from '@/theme/types';
 
 const CONFIG_ID = 1;
 
@@ -15,7 +15,7 @@ export const createConfigRepo = (db: SqliteDatabase) => {
 
       return config?.theme ?? undefined;
     },
-    setThemeApperance(theme: ThemeApperance) {
+    setThemeApperance(theme: ThemeAppearance) {
       return db
         .insert(schema.configs)
         .values({ id: CONFIG_ID, theme })

@@ -52,7 +52,7 @@ export const Container = ({
 
   return (
     <RootComponent
-      style={StyleSheet.flatten([styles.root({ center, fill }), style])}
+      style={StyleSheet.compose(styles.root({ center, fill }), style)}
       {...props}
     >
       {Component}

@@ -1,10 +1,9 @@
 import { Header as RNHeader } from '@react-navigation/elements';
 import { ComponentProps, ReactNode } from 'react';
 import { Platform, View } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
 import { useTranslation } from '@/locale';
-import { useTheme } from '@/theme';
 
 import { HeaderBackButton } from './HeaderBackButton';
 import { HeaderTitle } from './HeaderTitle';
@@ -28,7 +27,7 @@ export const Header = ({
   ...props
 }: HeaderProps) => {
   const { t } = useTranslation();
-  const theme = useTheme();
+  const { theme } = useUnistyles();
 
   return (
     <RNHeader
@@ -63,7 +62,7 @@ export const Header = ({
           : undefined
       }
       headerStatusBarHeight={
-        modal && Platform.OS === 'ios' ? theme.spacing['2'] : undefined
+        modal && Platform.OS === 'ios' ? theme.spacing('2') : undefined
       }
       modal={modal}
       headerStyle={[styles.headerBackgroundContainer, headerStyle]}

@@ -1,6 +1,6 @@
 import { ViewStyle } from 'react-native';
 
-import { AppTheme } from '@/theme';
+import { AppTheme } from '@/theme/types';
 
 import { ToastType } from './types';
 
