@@ -2,7 +2,12 @@ import { QueryOptions } from '@tanstack/react-query';
 
 import { Prettify } from '@/types';
 
-type FactoryQueryKeyArrayType = string | number | object | boolean | undefined;
+export type FactoryQueryKeyArrayType =
+  | string
+  | number
+  | object
+  | boolean
+  | undefined;
 
 type NonEmptyArray<T> = [T, ...T[]];
 
