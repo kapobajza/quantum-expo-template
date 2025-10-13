@@ -3,12 +3,8 @@ import { ComponentType } from 'react';
 
 export interface BottomSheetStackParams {
   ChangeLanguage: undefined;
-}
-
-export interface BottomSheetComponentProps<
-  TName extends BottomSheetName = BottomSheetName,
-> {
-  params: BottomSheetStackParams[TName];
+  Testing: { testId: string };
+  TestingList: { itemCount: number };
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

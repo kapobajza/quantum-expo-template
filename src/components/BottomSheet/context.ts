@@ -1,6 +1,11 @@
 import { createContext, use } from 'react';
 
-import { BottomSheetName, ShowBottomSheetFn } from './types';
+import { useBottomSheetStore } from './store';
+import {
+  BottomSheetName,
+  BottomSheetStackParams,
+  ShowBottomSheetFn,
+} from './types';
 
 export interface BottomSheetContext {
   showBottomSheet: ShowBottomSheetFn;
@@ -20,4 +25,14 @@ export const useBottomSheet = () => {
   }
 
   return context;
+};
+
+export const useBottomSheetParams = <
+  TBottomSheetName extends BottomSheetName = BottomSheetName,
+>(
+  name: TBottomSheetName,
+): BottomSheetStackParams[TBottomSheetName] => {
+  const { sheets } = useBottomSheetStore();
+  return sheets.find((s) => s.name === name)
+    ?.params as BottomSheetStackParams[TBottomSheetName];
 };

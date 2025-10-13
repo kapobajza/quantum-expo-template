@@ -1,4 +1,4 @@
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetProps } from '@gorhom/bottom-sheet';
 import { useEffect, useRef } from 'react';
 
 import { createStyleSheet, useStyles } from '@/theme';
@@ -6,43 +6,42 @@ import { createStyleSheet, useStyles } from '@/theme';
 import { BottomSheetBackdrop } from './BottomSheetBackdrop';
 import { BottomSheetBackground } from './BottomSheetBackground';
 import { BottomSheetHandle } from './BottomSheetHandle';
-import { BottomSheetItem, BottomSheetOptions } from './types';
+import { useBottomSheetStore } from './store';
+import { BottomSheetActionType } from './types';
 
 export const BottomSheetContainer = ({
-  item,
-  isPendingClose,
-  removeBottomSheet,
-  options,
+  children,
+  ...rest
 }: {
-  item: BottomSheetItem;
-  isPendingClose: boolean;
-  removeBottomSheet: (id: string) => void;
-  options: BottomSheetOptions | undefined;
-}) => {
+  children: React.ReactNode;
+} & BottomSheetProps) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const styles = useStyles(stylesheet);
-  const { snapPoints } = options ?? {};
+  const { dispatch, pendingCloseQueue, activeSheet } = useBottomSheetStore();
 
   useEffect(() => {
-    if (isPendingClose) {
+    if (pendingCloseQueue.has(activeSheet?.id ?? '')) {
       bottomSheetRef.current?.close();
     }
-  }, [isPendingClose]);
+  }, [activeSheet?.id, pendingCloseQueue]);
 
   return (
     <BottomSheet
       ref={bottomSheetRef}
       onClose={() => {
-        removeBottomSheet(item.id);
+        dispatch({
+          type: BottomSheetActionType.Remove,
+          id: activeSheet?.id ?? '',
+        });
       }}
       backdropComponent={BottomSheetBackdrop}
       enablePanDownToClose
       style={styles.container}
       backgroundComponent={BottomSheetBackground}
       handleComponent={BottomSheetHandle}
-      snapPoints={snapPoints}
+      {...rest}
     >
-      <item.Component params={item.params} />
+      {children}
     </BottomSheet>
   );
 };

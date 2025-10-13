@@ -1,4 +1,5 @@
 import { useAlert } from '@/components/Alert/hooks';
+import { BottomSheetContainer } from '@/components/BottomSheet';
 import { BottomSheetView } from '@/components/BottomSheet/BottomSheetView';
 import { useBottomSheet } from '@/components/BottomSheet/context';
 import { Container } from '@/components/Container';
@@ -15,50 +16,52 @@ export const ChangeLanguageBottomSheet = () => {
   const { hideBottomSheet } = useBottomSheet();
 
   return (
-    <BottomSheetView>
-      <Container style={styles.container}>
-        <Text variant="h5" style={styles.title} center>
-          {t('changeLanguage.title')}
-        </Text>
-        {Object.entries(UserLocale).map(([key, value]) => {
-          const isSelected = i18n.language === value.code;
-          const languageName = t('changeLanguage.languageName', {
-            code: value.code,
-          });
+    <BottomSheetContainer>
+      <BottomSheetView>
+        <Container style={styles.container}>
+          <Text variant="h5" style={styles.title} center>
+            {t('changeLanguage.title')}
+          </Text>
+          {Object.entries(UserLocale).map(([key, value]) => {
+            const isSelected = i18n.language === value.code;
+            const languageName = t('changeLanguage.languageName', {
+              code: value.code,
+            });
 
-          return (
-            <Pressable
-              key={key}
-              style={styles.button(isSelected)}
-              scaleOutputRange={[0.98, 1]}
-              onPress={() => {
-                if (isSelected) {
-                  return;
-                }
+            return (
+              <Pressable
+                key={key}
+                style={styles.button(isSelected)}
+                scaleOutputRange={[0.98, 1]}
+                onPress={() => {
+                  if (isSelected) {
+                    return;
+                  }
 
-                showAlert({
-                  title: t('general.areYouSure'),
-                  message: t('changeLanguage.alertMessage', {
-                    language: languageName,
-                  }),
-                  onConfirm: (closeModal) => {
-                    changeLanguage(value);
-                    closeModal();
-                    hideBottomSheet();
-                  },
-                  type: 'prompt',
-                });
-              }}
-              disabled={isLoading}
-            >
-              <Text style={styles.buttonText(isSelected)}>
-                {languageName} ({value.tag})
-              </Text>
-            </Pressable>
-          );
-        })}
-      </Container>
-    </BottomSheetView>
+                  showAlert({
+                    title: t('general.areYouSure'),
+                    message: t('changeLanguage.alertMessage', {
+                      language: languageName,
+                    }),
+                    onConfirm: (closeModal) => {
+                      changeLanguage(value);
+                      closeModal();
+                      hideBottomSheet();
+                    },
+                    type: 'prompt',
+                  });
+                }}
+                disabled={isLoading}
+              >
+                <Text style={styles.buttonText(isSelected)}>
+                  {languageName} ({value.tag})
+                </Text>
+              </Pressable>
+            );
+          })}
+        </Container>
+      </BottomSheetView>
+    </BottomSheetContainer>
   );
 };
 

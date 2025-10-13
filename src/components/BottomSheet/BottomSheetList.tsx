@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import { BottomSheetContainer } from './BottomSheetContainer';
 import { BottomSheetContext } from './context';
 import { useBottomSheetStore } from './store';
 import {
@@ -18,7 +17,7 @@ export const BottomSheetList = ({
   setContext,
   stack,
 }: BottomSheetListProps) => {
-  const { sheets, dispatch, pendingCloseQueue } = useBottomSheetStore();
+  const { sheets, dispatch } = useBottomSheetStore();
 
   useEffect(() => {
     setContext({
@@ -52,19 +51,6 @@ export const BottomSheetList = ({
   }, [dispatch, sheets, setContext, stack]);
 
   return sheets.map((item) => {
-    return (
-      <BottomSheetContainer
-        item={item}
-        key={item.id}
-        options={item.options}
-        isPendingClose={pendingCloseQueue.has(item.id)}
-        removeBottomSheet={(id) => {
-          dispatch({
-            type: BottomSheetActionType.Remove,
-            id,
-          });
-        }}
-      />
-    );
+    return <item.Component key={item.id} />;
   });
 };
