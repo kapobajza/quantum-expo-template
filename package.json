@@ -25,7 +25,7 @@
     "storybook:android": "cross-env EXPO_PUBLIC_STORYBOOK_ENABLED='true' pnpm run android"
   },
   "dependencies": {
-    "@gorhom/bottom-sheet": "5.1.8",
+    "@gorhom/bottom-sheet": "5.2.6",
     "@hookform/resolvers": "5.0.1",
     "@react-navigation/bottom-tabs": "7.3.10",
     "@react-navigation/elements": "2.3.8",

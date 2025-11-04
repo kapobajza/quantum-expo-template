@@ -46,6 +46,12 @@ export type QueryListPropsResult = CommonListProps & {
   onEndReached?: (info?: { distanceFromEnd: number }) => void;
 };
 
+export type QueryContainerProps = Partial<
+  Pick<UseTSQueryResult, 'isLoading' | 'isError'>
+> & {
+  error?: unknown;
+};
+
 export type UseQueryResult<
   TData = unknown,
   TError = DefaultError,
@@ -53,6 +59,7 @@ export type UseQueryResult<
   UseManualRefetchResult & {
     isEmpty: boolean;
     listProps: QueryListPropsResult;
+    queryContainerProps: QueryContainerProps;
   };
 
 export type UseQueryOptions<

@@ -10,14 +10,13 @@ import {
 
 import { Loader } from '@/components/Loader';
 import { Text } from '@/components/Text';
+import { useTranslation } from '@/locale';
+import { QueryContainerProps } from '@/query';
 import { createStyleSheet, useStyles } from '@/theme';
 import { ThemeSpacing } from '@/theme/tokens/spacing';
 
-export interface ContainerProps extends ViewProps {
+export interface ContainerProps extends ViewProps, QueryContainerProps {
   center?: boolean | 'horizontal' | 'vertical';
-  isLoading?: boolean;
-  isError?: boolean;
-  error?: Error | null;
   ErrorComponent?: React.ReactNode;
   LoaderComponent?: React.ReactNode;
   useSafeAreas?: boolean;
@@ -42,12 +41,13 @@ export const Container = ({
   const styles = useStyles(stylesheet);
   let Component = children;
   const RootComponent = useSafeAreas ? SafeAreaView : View;
+  const { t } = useTranslation();
 
   if (error && isError && !isLoading) {
     Component = ErrorComponent ?? (
       <View style={styles.errorContainer}>
         <Text variant="h5" style={styles.errorText}>
-          {error.message}
+          {error instanceof Error ? error.message : t('error.general')}
         </Text>
       </View>
     );

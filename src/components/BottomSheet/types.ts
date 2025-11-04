@@ -21,7 +21,6 @@ export interface BottomSheetOptions {
 }
 
 export interface BottomSheetArguments<TArgs = unknown> {
-  options?: BottomSheetOptions;
   payload?: TArgs;
 }
 

@@ -1,4 +1,7 @@
-import { BottomSheetFlatList as BSFlatList } from '@gorhom/bottom-sheet';
+import {
+  BottomSheetFlashList as BSFlashList,
+  BottomSheetFlatList as BSFlatList,
+} from '@gorhom/bottom-sheet';
 import { FlashListProps as ShopifyFlashListProps } from '@shopify/flash-list';
 import { ComponentProps, ComponentType, ReactElement, Ref } from 'react';
 import { FlatListProps as RNFlatListProps } from 'react-native';
@@ -45,3 +48,6 @@ export type FlashListProps<TItem> = CommonListProps &
 
 export type BottomSheetFlatListProps<TItem> = CommonListProps &
   ComponentProps<typeof BSFlatList<TItem>>;
+
+export type BottomSheetFlashListProps<TItem> = CommonListProps &
+  ComponentProps<typeof BSFlashList<TItem>>;

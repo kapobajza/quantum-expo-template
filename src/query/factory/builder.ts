@@ -1,8 +1,4 @@
-import {
-  FactoryField,
-  FactoryQueryKey,
-  mergeQueryOptions,
-} from '@/query/factory';
+import { FactoryField, FactoryQueryKey } from '@/query/factory';
 import { createUsersQueryOptions } from '@/query/users.query';
 import { Prettify } from '@/types';
 
@@ -59,8 +55,10 @@ export const constructQueryKeys = <TOptions extends object>(
 };
 
 export const createQueryBuilder = () => {
-  const usersQueryOptions = createUsersQueryOptions();
-  const queryOptions = mergeQueryOptions(usersQueryOptions);
+  const users = createUsersQueryOptions();
+  const queryOptions = {
+    users,
+  };
   const queryKeys = constructQueryKeys(queryOptions);
 
   return {

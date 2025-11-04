@@ -22,7 +22,7 @@ export const BottomSheetLab = () => {
         onPress={() => {
           showBottomSheet('TestingList', {
             payload: {
-              itemCount: 20,
+              itemCount: 80,
             },
           });
         }}

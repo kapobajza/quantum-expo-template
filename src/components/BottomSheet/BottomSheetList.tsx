@@ -29,7 +29,7 @@ export const BottomSheetList = ({
       },
       showBottomSheet: (...args) => {
         const [name, opts] = args;
-        const { payload: params, options } = (opts ??
+        const { payload: params } = (opts ??
           {}) as BottomSheetArguments<object>;
 
         dispatch({
@@ -38,7 +38,6 @@ export const BottomSheetList = ({
             name,
             Component: stack[name],
             params: params as never,
-            options,
           },
         });
       },

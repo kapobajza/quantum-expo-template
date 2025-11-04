@@ -1,5 +1,4 @@
 import { BottomSheetFlatList as BSFlatList } from '@gorhom/bottom-sheet';
-import React from 'react';
 
 import { GenericList } from './GenericList';
 import { BottomSheetFlatListProps } from './types';

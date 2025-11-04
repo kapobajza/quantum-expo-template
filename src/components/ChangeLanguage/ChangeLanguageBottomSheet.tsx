@@ -1,5 +1,5 @@
 import { useAlert } from '@/components/Alert/hooks';
-import { BottomSheetContainer } from '@/components/BottomSheet';
+import { BottomSheetContainer } from '@/components/BottomSheet/BottomSheetContainer';
 import { BottomSheetView } from '@/components/BottomSheet/BottomSheetView';
 import { useBottomSheet } from '@/components/BottomSheet/context';
 import { Container } from '@/components/Container';
