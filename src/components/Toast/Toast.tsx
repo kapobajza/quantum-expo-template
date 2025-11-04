@@ -52,16 +52,13 @@ export const Toast = ({ item, offset, position }: ToastProps) => {
       context.value = { y: positionY.value };
     })
     .onUpdate((event) => {
-      if (position === 'bottom') {
-        // For bottom, allow dragging down
-        if (event.translationY > -MAX_Y_TRANSLATE) {
-          positionY.value = event.translationY + context.value.y;
-        }
-      } else {
-        // For top, allow dragging up
-        if (event.translationY < MAX_Y_TRANSLATE) {
-          positionY.value = event.translationY + context.value.y;
-        }
+      const canMove =
+        position === 'bottom'
+          ? event.translationY > -MAX_Y_TRANSLATE
+          : event.translationY < MAX_Y_TRANSLATE;
+
+      if (canMove) {
+        positionY.value = event.translationY + context.value.y;
       }
     })
     .onEnd(() => {
