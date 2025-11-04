@@ -25,3 +25,5 @@ type Join<K, P> = K extends string | number
 export type Leaves<T> = T extends object
   ? { [K in keyof T]-?: Join<K, Leaves<T[K]>> }[keyof T]
   : '';
+
+export type NonEmptyArray<T> = [T, ...T[]];

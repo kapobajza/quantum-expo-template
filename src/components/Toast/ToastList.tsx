@@ -1,9 +1,10 @@
 import * as Crypto from 'expo-crypto';
 import { useEffect } from 'react';
 import { View } from 'react-native';
+import { FullWindowOverlay } from 'react-native-screens';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
-import { useMountEffect } from '@/hooks';
+import useMountEffect from '@/hooks/useMountEffect';
 
 import { ToastContext } from './context';
 import { useToastStore } from './store';
@@ -52,6 +53,7 @@ export const ToastList = ({
             id: item.id,
           });
         }
+
         return undefined;
       }
 
@@ -109,17 +111,23 @@ export const ToastList = ({
     });
   });
 
+  if (toasts.length === 0) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      {toasts.map((item, index) => (
-        <Toast
-          item={item}
-          index={index}
-          key={item.id}
-          offset={calculateOffset(toasts, item.id, theme.spacing(1))}
-        />
-      ))}
-    </View>
+    <FullWindowOverlay>
+      <View style={styles.container}>
+        {toasts.map((item, index) => (
+          <Toast
+            item={item}
+            index={index}
+            key={item.id}
+            offset={calculateOffset(toasts, item.id, theme.spacing('1'))}
+          />
+        ))}
+      </View>
+    </FullWindowOverlay>
   );
 };
 

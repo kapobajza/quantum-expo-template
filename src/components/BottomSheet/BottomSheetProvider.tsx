@@ -4,10 +4,14 @@ import { ChangeLanguageBottomSheet } from '@/components/ChangeLanguage/ChangeLan
 
 import { BottomSheetList } from './BottomSheetList';
 import { BottomSheetContext } from './context';
+import { TestingBottomSheet } from './lab/TestingBottomSheet';
+import { TestListBottomSheet } from './lab/TestListBottomSheet';
 import { BottomSheetStack } from './types';
 
 const stack: BottomSheetStack = {
   ChangeLanguage: ChangeLanguageBottomSheet,
+  Testing: TestingBottomSheet,
+  TestingList: TestListBottomSheet,
 };
 
 export const BottomSheetProvider = ({

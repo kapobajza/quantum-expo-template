@@ -108,5 +108,6 @@ export const useBottomSheetStore = () => {
   return {
     ...state,
     dispatch,
+    activeSheet: state.sheets.at(-1),
   };
 };

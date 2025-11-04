@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 
 import { constructQueryKeys } from './builder';
-import { createQueryOptionsFactory, mergeQueryOptions } from './factory';
+import { createQueryOptionsFactory } from './factory';
 
 describe('query factory builder', () => {
   test('should construct correct query keys with object notation', () => {
@@ -22,7 +22,10 @@ describe('query factory builder', () => {
       },
     }))();
 
-    const mergedOptions = mergeQueryOptions(usersOptions, postsOptions);
+    const mergedOptions = {
+      users: usersOptions,
+      posts: postsOptions,
+    };
     const queryKeys = constructQueryKeys(mergedOptions);
 
     expect(queryKeys.posts.all).toEqual(['posts', 'all']);
@@ -47,7 +50,10 @@ describe('query factory builder', () => {
       }),
     }))();
 
-    const mergedOptions = mergeQueryOptions(usersOptions, postsOptions);
+    const mergedOptions = {
+      users: usersOptions,
+      posts: postsOptions,
+    };
     const queryKeys = constructQueryKeys(mergedOptions);
 
     expect(queryKeys.users.byId(1)).toEqual(['users', 'byId', 1]);
@@ -88,7 +94,10 @@ describe('query factory builder', () => {
       }),
     }))();
 
-    const mergedOptions = mergeQueryOptions(usersOptions, postsOptions);
+    const mergedOptions = {
+      users: usersOptions,
+      posts: postsOptions,
+    };
     const queryKeys = constructQueryKeys(mergedOptions);
 
     expect(queryKeys.users.me).toEqual(['users', 'me']);

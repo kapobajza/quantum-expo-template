@@ -6,7 +6,7 @@ import {
   useQuery as useTSQuery,
 } from '@tanstack/react-query';
 
-import { UseQueryResult } from './types';
+import { QueryContainerProps, UseQueryResult } from './types';
 import useManualRefetch from './useManualRefetch';
 import { constructQueryListProps, isEmptyQueryResult } from './util';
 
@@ -27,10 +27,16 @@ function useQuery<
     ...manualRefetchResult,
     isEmpty,
   };
+  const queryContainerProps: QueryContainerProps = {
+    error: res.error,
+    isError: res.isError,
+    isLoading: res.isLoading,
+  };
 
   return {
     ...queryResult,
     listProps: constructQueryListProps(queryResult),
+    queryContainerProps,
   };
 }
 
