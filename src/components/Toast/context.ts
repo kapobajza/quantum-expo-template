@@ -1,9 +1,16 @@
 import { createContext, use } from 'react';
 
+import { ToastItem } from './types';
+
+type ShowToastFn = (
+  message: string,
+  options?: Partial<Pick<ToastItem, 'position'>>,
+) => void;
+
 export interface ToastContext {
-  showError: (message: string) => void;
-  showSuccess: (message: string) => void;
-  showInfo: (message: string) => void;
+  showError: ShowToastFn;
+  showSuccess: ShowToastFn;
+  showInfo: ShowToastFn;
 }
 
 export const ToastContext = createContext<ToastContext | undefined>(undefined);

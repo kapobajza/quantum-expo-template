@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { View } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
@@ -13,7 +13,7 @@ import { StyleSheet } from 'react-native-unistyles';
 import { Text } from '@/components/Text';
 
 import { useToastStore } from './store';
-import { ToastActionType, ToastItem, ToastType } from './types';
+import { ToastActionType, ToastItem, ToastPosition, ToastType } from './types';
 import { buildToastContainerVariants } from './variants';
 
 const MAX_Y_TRANSLATE = 30;
@@ -22,44 +22,46 @@ export interface ToastProps {
   item: ToastItem;
   index: number;
   offset: number;
+  position: ToastPosition;
 }
 
-export const Toast = ({ item, offset }: ToastProps) => {
+export const Toast = ({ item, offset, position }: ToastProps) => {
   const insets = useSafeAreaInsets();
   const context = useSharedValue({ y: 0 });
   const { dispatch } = useToastStore();
-  const startY = useMemo(
-    () => -(item.height ?? 50) - insets.top,
-    [item.height, insets.top],
-  );
+  const { id, visible, message, type, height } = item;
+  const startY =
+    (position === 'bottom' ? -offset : -(height ?? 50)) - insets[position];
   const positionY = useSharedValue(startY);
 
-  const slideOut = useCallback(() => {
+  const slideOut = () => {
     const handleAnimationEnd = () => {
       dispatch({
         type: ToastActionType.Dismiss,
-        id: item.id,
+        id: id,
       });
     };
 
     positionY.value = withTiming(startY, { duration: 500 }, () => {
       runOnJS(handleAnimationEnd)();
     });
-  }, [dispatch, item.id, positionY, startY]);
-
-  const updatePosition = useCallback(() => {
-    positionY.value = withTiming(item.visible ? offset : startY, {
-      duration: 500,
-    });
-  }, [item.visible, offset, positionY, startY]);
+  };
 
   const gesture = Gesture.Pan()
     .onStart(() => {
       context.value = { y: positionY.value };
     })
     .onUpdate((event) => {
-      if (event.translationY < MAX_Y_TRANSLATE) {
-        positionY.value = event.translationY + context.value.y;
+      if (position === 'bottom') {
+        // For bottom, allow dragging down
+        if (event.translationY > -MAX_Y_TRANSLATE) {
+          positionY.value = event.translationY + context.value.y;
+        }
+      } else {
+        // For top, allow dragging up
+        if (event.translationY < MAX_Y_TRANSLATE) {
+          positionY.value = event.translationY + context.value.y;
+        }
       }
     })
     .onEnd(() => {
@@ -67,8 +69,12 @@ export const Toast = ({ item, offset }: ToastProps) => {
     });
 
   useEffect(() => {
-    updatePosition();
-  }, [updatePosition, offset, item.visible]);
+    const endingPos = position === 'bottom' ? startY : offset;
+    const startingPos = position === 'bottom' ? offset : startY;
+    positionY.value = withTiming(visible ? endingPos : startingPos, {
+      duration: 500,
+    });
+  }, [offset, position, positionY, startY, visible]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -86,15 +92,15 @@ export const Toast = ({ item, offset }: ToastProps) => {
           dispatch({
             type: ToastActionType.Update,
             toast: {
-              id: item.id,
+              id,
               height: itemHeight,
             },
           });
         }}
       >
-        <View style={styles.item(item.type)}>
+        <View style={styles.item(type)}>
           <Text style={styles.message} numberOfLines={4}>
-            {item.message}
+            {message}
           </Text>
         </View>
       </Animated.View>

@@ -9,23 +9,34 @@ import useMountEffect from '@/hooks/useMountEffect';
 import { ToastContext } from './context';
 import { useToastStore } from './store';
 import { Toast } from './Toast';
-import { ShowToastFn, ToastActionType, ToastItem, ToastType } from './types';
+import {
+  ShowToastFn,
+  ToastActionType,
+  ToastItem,
+  ToastPosition,
+  ToastType,
+} from './types';
 
 interface ToastListProps {
   setContext: (context: ToastContext) => void;
   timeout: number;
   showToastFn: ShowToastFn | undefined;
+  position: ToastPosition;
 }
 
 const calculateOffset = (
   toasts: ToastItem[],
   toastId: string,
   gutter: number,
+  position: ToastPosition,
 ) => {
   const index = toasts.findIndex((t) => t.id === toastId);
 
+  const sliceArgs: Parameters<typeof Array.prototype.slice> =
+    position === 'bottom' ? [index + 1] : [0, Math.max(0, index)];
+
   return toasts
-    .slice(0, Math.max(0, index))
+    .slice(...sliceArgs)
     .reduce(
       (acc, t) => acc + (t.visible && t.height ? t.height + gutter : 0),
       0,
@@ -36,6 +47,7 @@ export const ToastList = ({
   setContext,
   timeout,
   showToastFn,
+  position,
 }: ToastListProps) => {
   const { toasts, dispatch } = useToastStore();
   const { theme } = useUnistyles();
@@ -90,22 +102,25 @@ export const ToastList = ({
 
   useMountEffect(() => {
     setContext({
-      showError(message) {
+      showError(message, options) {
         showToast({
           message,
           type: ToastType.Error,
+          ...options,
         });
       },
-      showSuccess(message) {
+      showSuccess(message, options) {
         showToast({
           message,
           type: ToastType.Success,
+          ...options,
         });
       },
-      showInfo(message) {
+      showInfo(message, options) {
         showToast({
           message,
           type: ToastType.Info,
+          ...options,
         });
       },
     });
@@ -117,13 +132,19 @@ export const ToastList = ({
 
   return (
     <FullWindowOverlay>
-      <View style={styles.container}>
+      <View style={styles.container(position)}>
         {toasts.map((item, index) => (
           <Toast
             item={item}
             index={index}
             key={item.id}
-            offset={calculateOffset(toasts, item.id, theme.spacing('1'))}
+            position={position}
+            offset={calculateOffset(
+              toasts,
+              item.id,
+              theme.spacing('1'),
+              position,
+            )}
           />
         ))}
       </View>
@@ -132,11 +153,13 @@ export const ToastList = ({
 };
 
 const styles = StyleSheet.create((theme, { insets }) => ({
-  container: {
+  container: (position: ToastPosition) => ({
     position: 'absolute',
     zIndex: theme.zIndex.highest,
     left: 0,
     right: 0,
-    top: insets.top,
-  },
+    bottom: position === 'bottom' ? insets.bottom : undefined,
+    top: position === 'top' ? insets.top : undefined,
+    pointerEvents: 'box-none',
+  }),
 }));

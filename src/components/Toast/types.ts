@@ -20,6 +20,8 @@ export const ToastType = {
 
 export type ToastType = ObjectValues<typeof ToastType>;
 
+export type ToastPosition = 'top' | 'bottom';
+
 export interface ToastItem {
   message: string;
   type: ToastType;

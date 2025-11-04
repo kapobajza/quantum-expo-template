@@ -4,16 +4,18 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { ToastContext } from './context';
 import { ToastList } from './ToastList';
-import { ShowToastFn } from './types';
+import { ShowToastFn, ToastPosition } from './types';
 
 export const ToastProvider = ({
   children,
   timeout = 5000, // 5 seconds
   showToastFn,
+  position = 'top',
 }: {
   children: React.ReactNode;
   timeout?: number;
   showToastFn?: ShowToastFn;
+  position?: ToastPosition;
 }) => {
   const [context, setContext] = useState<ToastContext>({
     showError() {
@@ -30,12 +32,13 @@ export const ToastProvider = ({
   return (
     <GestureHandlerRootView style={styles.root}>
       <ToastContext value={context}>
-        {children}
         <ToastList
           timeout={timeout}
           setContext={setContext}
           showToastFn={showToastFn}
+          position={position}
         />
+        {children}
       </ToastContext>
     </GestureHandlerRootView>
   );
