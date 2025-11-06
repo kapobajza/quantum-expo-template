@@ -1,24 +1,45 @@
-import { ViewStyle } from 'react-native';
+import { TextStyle, ViewStyle } from 'react-native';
 
 import { AppTheme } from '@/theme/types';
 
 import { ToastType } from './types';
 
-export const buildToastContainerVariants = (
-  theme: AppTheme,
-): Record<ToastType, Pick<ViewStyle, 'backgroundColor' | 'borderColor'>> => {
+type ToastMap = Record<
+  ToastType,
+  {
+    container: Pick<ViewStyle, 'backgroundColor' | 'borderColor'>;
+    text: Pick<TextStyle, 'color'>;
+  }
+>;
+
+export const buildToastContainerVariants = (theme: AppTheme): ToastMap => {
   return {
     error: {
-      backgroundColor: theme.colors.error['50'],
-      borderColor: theme.colors.error['300'],
+      container: {
+        backgroundColor: theme.colors.error['50'],
+        borderColor: theme.colors.error['300'],
+      },
+      text: {
+        color: theme.colors.error['300'],
+      },
     },
     info: {
-      backgroundColor: theme.colors.sky['25'],
-      borderColor: theme.colors.sky['300'],
+      container: {
+        backgroundColor: theme.colors.sky['25'],
+        borderColor: theme.colors.sky['300'],
+      },
+      text: {
+        color: theme.colors.sky['300'],
+      },
     },
     success: {
-      backgroundColor: theme.colors.success['300'],
-      borderColor: theme.colors.success['50'],
+      container: {
+        backgroundColor: theme.colors.success['300'],
+        borderColor: theme.colors.success['50'],
+      },
+      text: {
+        color: theme.colors.success['50'],
+      },
     },
   };
 };

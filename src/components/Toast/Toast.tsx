@@ -1,22 +1,21 @@
 import { useEffect } from 'react';
 import { View } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
+  interpolate,
   runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native-unistyles';
 
+import { Icon } from '@/components/Icon';
+import { Pressable } from '@/components/Pressable';
 import { Text } from '@/components/Text';
 
 import { useToastStore } from './store';
 import { ToastActionType, ToastItem, ToastPosition, ToastType } from './types';
 import { buildToastContainerVariants } from './variants';
-
-const MAX_Y_TRANSLATE = 30;
 
 export interface ToastProps {
   item: ToastItem;
@@ -26,13 +25,9 @@ export interface ToastProps {
 }
 
 export const Toast = ({ item, offset, position }: ToastProps) => {
-  const insets = useSafeAreaInsets();
-  const context = useSharedValue({ y: 0 });
   const { dispatch } = useToastStore();
-  const { id, visible, message, type, height } = item;
-  const startY =
-    (position === 'bottom' ? -offset : -(height ?? 50)) - insets[position];
-  const positionY = useSharedValue(startY);
+  const { id, visible, message, type } = item;
+  const positionY = useSharedValue(0);
 
   const slideOut = () => {
     const handleAnimationEnd = () => {
@@ -42,72 +37,66 @@ export const Toast = ({ item, offset, position }: ToastProps) => {
       });
     };
 
-    positionY.value = withTiming(startY, { duration: 500 }, () => {
+    positionY.value = withTiming(0, { duration: 500 }, () => {
       runOnJS(handleAnimationEnd)();
     });
   };
 
-  const gesture = Gesture.Pan()
-    .onStart(() => {
-      context.value = { y: positionY.value };
-    })
-    .onUpdate((event) => {
-      const canMove =
-        position === 'bottom'
-          ? event.translationY > -MAX_Y_TRANSLATE
-          : event.translationY < MAX_Y_TRANSLATE;
-
-      if (canMove) {
-        positionY.value = event.translationY + context.value.y;
-      }
-    })
-    .onEnd(() => {
-      runOnJS(slideOut)();
-    });
-
   useEffect(() => {
-    const endingPos = position === 'bottom' ? startY : offset;
-    const startingPos = position === 'bottom' ? offset : startY;
-    positionY.value = withTiming(visible ? endingPos : startingPos, {
+    positionY.value = withTiming(visible ? 1 : 0, {
       duration: 500,
     });
-  }, [offset, position, positionY, startY, visible]);
+  }, [positionY, visible]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ translateY: positionY.value }],
+      transform: [
+        {
+          translateY: interpolate(
+            positionY.value,
+            [0, 1],
+            [
+              50 * (position === 'top' ? -1 : 1),
+              offset * (position === 'top' ? 1 : -1),
+            ],
+          ),
+        },
+      ],
+      opacity: positionY.value,
     };
   });
 
   return (
-    <GestureDetector gesture={gesture}>
-      <Animated.View
-        style={[styles.container, animatedStyle]}
-        onLayout={(e) => {
-          const { height: itemHeight } = e.nativeEvent.layout;
+    <Animated.View
+      style={[styles.container, animatedStyle]}
+      onLayout={(e) => {
+        const { height: itemHeight } = e.nativeEvent.layout;
 
-          dispatch({
-            type: ToastActionType.Update,
-            toast: {
-              id,
-              height: itemHeight,
-            },
-          });
-        }}
-      >
-        <View style={styles.item(type)}>
-          <Text style={styles.message} numberOfLines={4}>
-            {message}
-          </Text>
-          {item.RightElement}
-        </View>
-      </Animated.View>
-    </GestureDetector>
+        dispatch({
+          type: ToastActionType.Update,
+          toast: {
+            id,
+            height: itemHeight,
+          },
+        });
+      }}
+    >
+      <View style={styles.item(type)}>
+        <Text style={styles.message(type)} numberOfLines={4}>
+          {message}
+        </Text>
+        {item.RightElement ?? (
+          <Pressable onPress={slideOut}>
+            <Icon name="X" style={styles.icon(type)} />
+          </Pressable>
+        )}
+      </View>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create((theme) => {
-  const containerVariants = buildToastContainerVariants(theme);
+  const mappedVariants = buildToastContainerVariants(theme);
 
   return {
     container: {
@@ -126,11 +115,13 @@ const styles = StyleSheet.create((theme) => {
       borderRadius: theme.radii[4],
       borderWidth: 1,
       marginTop: theme.spacing('2'),
-      ...containerVariants[type],
+      ...mappedVariants[type].container,
     }),
-    message: {
-      color: theme.colors.greyscale['50'],
-      fontWeight: theme.fontWeight.bold,
-    },
+    icon: (type: ToastType) => ({
+      color: mappedVariants[type].container.borderColor,
+      width: 16,
+      height: 16,
+    }),
+    message: (type: ToastType) => mappedVariants[type].text,
   };
 });

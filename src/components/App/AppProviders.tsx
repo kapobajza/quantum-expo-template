@@ -33,7 +33,7 @@ export const AppProviders = ({
           <DatabaseProvider repository={databaseRepository}>
             <I18nProvider>
               <ThemeProvider>
-                <ToastProvider position="top">
+                <ToastProvider position="bottom">
                   <QueryProvider>
                     <ApiProvider>
                       <QueryFactoryProvider>
