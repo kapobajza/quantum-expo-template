@@ -1,26 +1,17 @@
-import * as Crypto from 'expo-crypto';
-import { useEffect } from 'react';
-import { View } from 'react-native';
+import { Fragment, useEffect } from 'react';
+import { Platform, View } from 'react-native';
 import { FullWindowOverlay } from 'react-native-screens';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 
-import useMountEffect from '@/hooks/useMountEffect';
-
-import { ToastContext } from './context';
 import { useToastStore } from './store';
 import { Toast } from './Toast';
-import {
-  ShowToastFn,
-  ToastActionType,
-  ToastItem,
-  ToastPosition,
-  ToastType,
-} from './types';
+import { ToastActionType, ToastItem, ToastPosition } from './types';
+
+const RNScreensFullWindowOverlay =
+  Platform.OS === 'ios' ? FullWindowOverlay : Fragment;
 
 interface ToastListProps {
-  setContext: (context: ToastContext) => void;
   timeout: number;
-  showToastFn: ShowToastFn | undefined;
   position: ToastPosition;
 }
 
@@ -43,12 +34,7 @@ const calculateOffset = (
     );
 };
 
-export const ToastList = ({
-  setContext,
-  timeout,
-  showToastFn,
-  position,
-}: ToastListProps) => {
+export const ToastList = ({ timeout, position }: ToastListProps) => {
   const { toasts, dispatch } = useToastStore();
   const { theme } = useUnistyles();
 
@@ -56,7 +42,11 @@ export const ToastList = ({
     const now = Date.now();
 
     const timeouts = toasts.map((item) => {
-      const durationLeft = timeout - (now - item.createdAt);
+      if (typeof item.duration === 'string') {
+        return undefined;
+      }
+
+      const durationLeft = (item.duration ?? timeout) - (now - item.createdAt);
 
       if (durationLeft <= 0) {
         if (item.visible) {
@@ -81,57 +71,19 @@ export const ToastList = ({
 
     return () => {
       timeouts.forEach((timeoutId) => {
-        clearTimeout(timeoutId);
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
       });
     };
   }, [dispatch, timeout, toasts]);
-
-  const defaultShowToast: ShowToastFn = (item) => {
-    dispatch({
-      type: ToastActionType.Add,
-      toast: {
-        ...item,
-        id: Crypto.randomUUID(),
-        visible: true,
-        createdAt: Date.now(),
-      },
-    });
-  };
-
-  const showToast = showToastFn ?? defaultShowToast;
-
-  useMountEffect(() => {
-    setContext({
-      showError(message, options) {
-        showToast({
-          message,
-          type: ToastType.Error,
-          ...options,
-        });
-      },
-      showSuccess(message, options) {
-        showToast({
-          message,
-          type: ToastType.Success,
-          ...options,
-        });
-      },
-      showInfo(message, options) {
-        showToast({
-          message,
-          type: ToastType.Info,
-          ...options,
-        });
-      },
-    });
-  });
 
   if (toasts.length === 0) {
     return null;
   }
 
   return (
-    <FullWindowOverlay>
+    <RNScreensFullWindowOverlay>
       <View style={styles.container(position)}>
         {toasts.map((item, index) => (
           <Toast
@@ -148,7 +100,7 @@ export const ToastList = ({
           />
         ))}
       </View>
-    </FullWindowOverlay>
+    </RNScreensFullWindowOverlay>
   );
 };
 

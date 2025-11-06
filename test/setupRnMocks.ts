@@ -1,7 +1,10 @@
 /* eslint-disable @eslint-react/hooks-extra/no-unnecessary-use-prefix */
 import { Router } from 'expo-router';
 import i18next from 'i18next';
+import 'react-native-unistyles/mocks';
 import { afterEach, vi } from 'vitest';
+
+import '@/theme/unistyles';
 
 const createComponentMock = () => {
   return vi
@@ -217,6 +220,10 @@ vi.mock('react-i18next', () => ({
 vi.mock('react-native-svg', () => ({
   default: createComponentMock(),
   Path: createComponentMock(),
+}));
+
+vi.mock('react-native-screens', () => ({
+  FullWindowOverlay: createComponentMock(),
 }));
 
 vi.stubGlobal('__DEV__', true);

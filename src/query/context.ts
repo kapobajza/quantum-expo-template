@@ -1,8 +1,8 @@
 import { createContext, use } from 'react';
 
-import { createQueryBuilder } from './factory/builder';
+import { useQueryBuilder } from './factory/builder';
 
-export type QueryFactoryContext = ReturnType<typeof createQueryBuilder>;
+export type QueryFactoryContext = ReturnType<typeof useQueryBuilder>;
 
 export const QueryFactoryContext = createContext<QueryFactoryContext | null>(
   null,

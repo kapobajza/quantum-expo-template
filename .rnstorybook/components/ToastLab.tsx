@@ -5,7 +5,7 @@ import { Box } from '@/components/Container/Box';
 import { useToast } from '@/components/Toast';
 
 export const ToastLab = () => {
-  const { showError } = useToast();
+  const { showError, showSuccess } = useToast();
 
   return (
     <Box padding="md" gap="md">
@@ -14,6 +14,12 @@ export const ToastLab = () => {
           showError('This is an error toast');
         }}
         title="Show error toast"
+      />
+      <Button
+        onPress={() => {
+          showSuccess('Hello! I will not go away!', { duration: 'forever' });
+        }}
+        title="Show success toast (forever)"
       />
     </Box>
   );

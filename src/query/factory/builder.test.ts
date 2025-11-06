@@ -5,22 +5,22 @@ import { createQueryOptionsFactory } from './factory';
 
 describe('query factory builder', () => {
   test('should construct correct query keys with object notation', () => {
-    const usersOptions = createQueryOptionsFactory('users', () => ({
+    const usersOptions = createQueryOptionsFactory('users', {
       me: {
         queryFn() {
           return null;
         },
         queryKey: ['me'],
       },
-    }))();
-    const postsOptions = createQueryOptionsFactory('posts', () => ({
+    });
+    const postsOptions = createQueryOptionsFactory('posts', {
       all: {
         queryFn() {
           return null;
         },
         queryKey: ['all'],
       },
-    }))();
+    });
 
     const mergedOptions = {
       users: usersOptions,
@@ -33,22 +33,22 @@ describe('query factory builder', () => {
   });
 
   test('should construct correct query keys with function notation', () => {
-    const usersOptions = createQueryOptionsFactory('users', () => ({
+    const usersOptions = createQueryOptionsFactory('users', {
       byId: (id: number) => ({
         queryFn() {
           return null;
         },
         queryKey: ['byId', id],
       }),
-    }))();
-    const postsOptions = createQueryOptionsFactory('posts', () => ({
+    });
+    const postsOptions = createQueryOptionsFactory('posts', {
       details: (args: { foo: string; bar: string }) => ({
         queryFn() {
           return null;
         },
         queryKey: ['details', args],
       }),
-    }))();
+    });
 
     const mergedOptions = {
       users: usersOptions,
@@ -65,7 +65,7 @@ describe('query factory builder', () => {
   });
 
   test('should construct query keys with mixed notations', () => {
-    const usersOptions = createQueryOptionsFactory('users', () => ({
+    const usersOptions = createQueryOptionsFactory('users', {
       me: {
         queryFn() {
           return null;
@@ -78,8 +78,8 @@ describe('query factory builder', () => {
         },
         queryKey: ['byId', id],
       }),
-    }))();
-    const postsOptions = createQueryOptionsFactory('posts', () => ({
+    });
+    const postsOptions = createQueryOptionsFactory('posts', {
       all: {
         queryFn() {
           return null;
@@ -92,7 +92,7 @@ describe('query factory builder', () => {
         },
         queryKey: ['details', args],
       }),
-    }))();
+    });
 
     const mergedOptions = {
       users: usersOptions,

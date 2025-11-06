@@ -101,6 +101,7 @@ export default defineConfig([
       'no-else-return': ['error', { allowElseIf: false }],
       '@eslint-react/no-leaked-conditional-rendering': 'error',
       'react-compiler/react-compiler': 'error',
+      '@eslint-react/no-unstable-context-value': 'off',
     },
     plugins: {
       'unused-imports': unusedImports,

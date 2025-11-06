@@ -1,16 +1,18 @@
 import { createContext, use } from 'react';
 
-import { ToastItem } from './types';
+import { ToastItemMinimal } from './types';
 
-type ShowToastFn = (
+type ShowToastContextFn = (
   message: string,
-  options?: Partial<Pick<ToastItem, 'position'>>,
-) => void;
+  options?: Partial<Omit<ToastItemMinimal, 'message' | 'type'>>,
+) => string;
 
 export interface ToastContext {
-  showError: ShowToastFn;
-  showSuccess: ShowToastFn;
-  showInfo: ShowToastFn;
+  showError: ShowToastContextFn;
+  showSuccess: ShowToastContextFn;
+  showInfo: ShowToastContextFn;
+  hideToast: (id?: string) => void;
+  hideAllToasts: () => void;
 }
 
 export const ToastContext = createContext<ToastContext | undefined>(undefined);

@@ -45,6 +45,7 @@ const reducer = (state: ToastState, action: ToastAction): ToastState => {
       };
     case ToastActionType.Update:
       clearFromRemoveQueue(action.toast.id);
+
       return {
         ...state,
         toasts: state.toasts.map((toast) =>
@@ -52,13 +53,29 @@ const reducer = (state: ToastState, action: ToastAction): ToastState => {
         ),
       };
     case ToastActionType.Dismiss:
-      addToRemoveQueue(action.id);
+      const lastToast = state.toasts.at(-1);
+      const taostDissmissId = action.id ?? lastToast?.id;
+
+      if (!taostDissmissId) {
+        return state;
+      }
+
+      addToRemoveQueue(taostDissmissId);
 
       return {
         ...state,
         toasts: state.toasts.map((toast) =>
-          toast.id === action.id ? { ...toast, visible: false } : toast,
+          toast.id === taostDissmissId ? { ...toast, visible: false } : toast,
         ),
+      };
+    case ToastActionType.DismissAll:
+      state.toasts.forEach((toast) => {
+        addToRemoveQueue(toast.id);
+      });
+
+      return {
+        ...state,
+        toasts: state.toasts.map((toast) => ({ ...toast, visible: false })),
       };
     default:
       return state;

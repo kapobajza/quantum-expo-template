@@ -99,6 +99,7 @@ export const Toast = ({ item, offset, position }: ToastProps) => {
           <Text style={styles.message} numberOfLines={4}>
             {message}
           </Text>
+          {item.RightElement}
         </View>
       </Animated.View>
     </GestureDetector>
@@ -118,6 +119,7 @@ const styles = StyleSheet.create((theme) => {
     item: (type: ToastType) => ({
       flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'space-between',
       paddingHorizontal: theme.spacing('4'),
       marginHorizontal: theme.spacing('4'),
       paddingVertical: theme.spacing('2'),

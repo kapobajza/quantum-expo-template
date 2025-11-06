@@ -1,5 +1,5 @@
 import { FactoryField, FactoryQueryKey } from '@/query/factory';
-import { createUsersQueryOptions } from '@/query/users.query';
+import { useUsersQueryOptions } from '@/query/users.query';
 import { Prettify } from '@/types';
 
 type ConvertOptionsToQueryKeys<T> = {
@@ -54,8 +54,8 @@ export const constructQueryKeys = <TOptions extends object>(
   );
 };
 
-export const createQueryBuilder = () => {
-  const users = createUsersQueryOptions();
+export const useQueryBuilder = () => {
+  const users = useUsersQueryOptions();
   const queryOptions = {
     users,
   };

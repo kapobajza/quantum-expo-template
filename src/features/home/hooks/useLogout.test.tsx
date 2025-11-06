@@ -3,8 +3,8 @@ import { describe, expect, test, vi } from 'vitest';
 import { mockDeep } from 'vitest-mock-extended';
 
 import { AllApiRouters } from '@/api';
-import { buildRenderHook, expectToBeOnScreen } from '@/util';
 import { RouteName } from '@/constants/route';
+import { buildRenderHook, expectToBeOnScreen } from '@/util';
 
 import { useLogout } from './useLogout';
 
