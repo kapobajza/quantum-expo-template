@@ -35,7 +35,7 @@ const generalColors = {
   success: {
     300: '#184E44',
     200: '#28806F',
-    100: '#40C4AA',
+    100: '#01E17B',
     50: '#9EE1D4',
     25: '#DDF3EF',
     0: '#EFFEFA',
@@ -54,6 +54,9 @@ const generalColors = {
     100: '#33CFFF',
     25: '#D1F0FA',
     0: '#F0FBFF',
+  },
+  info: {
+    300: '#4B85F5',
   },
 } as const;
 

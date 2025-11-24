@@ -97,6 +97,7 @@ export const ToastList = ({ timeout, position }: ToastListProps) => {
               theme.spacing('1'),
               position,
             )}
+            defaultDuration={timeout}
           />
         ))}
       </View>

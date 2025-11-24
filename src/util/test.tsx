@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook } from '@testing-library/react';
+import * as Crypto from 'expo-crypto';
 import { Href, usePathname } from 'expo-router';
 import { expect, vi } from 'vitest';
 import { DeepMockProxy, mock, mockDeep } from 'vitest-mock-extended';
@@ -32,6 +33,7 @@ export const buildRenderHook = <Result, Props>(
   const toastMessages: ToastItemMinimal[] = [];
   const mockShowToast = vi.fn((item: ToastItemMinimal) => {
     toastMessages.push(item);
+    return Crypto.randomUUID();
   });
 
   return {

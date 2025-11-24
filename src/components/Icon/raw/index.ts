@@ -4,5 +4,7 @@ export { default as CheckMarkSquare } from './CheckMarkSquare';
 export { default as ChevronLeftIcon } from './ChevronLeftIcon';
 export { default as GlobeLine } from './GlobeLine';
 export { default as Home } from './Home';
+export { default as InfoCircle } from './InfoCircle';
 export { default as Message } from './Message';
+export { default as SuccessCircle } from './SuccessCircle';
 export { default as X } from './X';
