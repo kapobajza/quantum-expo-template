@@ -220,6 +220,7 @@ vi.mock('react-i18next', () => ({
 vi.mock('react-native-svg', () => ({
   default: createComponentMock(),
   Path: createComponentMock(),
+  Rect: createComponentMock(),
 }));
 
 vi.mock('react-native-screens', () => ({
