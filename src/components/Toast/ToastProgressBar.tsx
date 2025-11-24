@@ -82,7 +82,9 @@ export const RectProgressBar = ({
       pointerEvents="none"
     >
       <AnimatedRect
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         x={0}
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         y={0}
         height="100%"
         width="100%"

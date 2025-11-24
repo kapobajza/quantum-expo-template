@@ -30,6 +30,7 @@ export default defineConfig([
       'scripts/*.js',
       'src/types/strapi/*',
       './.rnstorybook/storybook.requires.ts',
+      'metro.config.js',
     ],
   },
   {

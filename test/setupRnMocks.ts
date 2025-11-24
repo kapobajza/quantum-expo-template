@@ -1,4 +1,3 @@
-/* eslint-disable @eslint-react/hooks-extra/no-unnecessary-use-prefix */
 import { Router } from 'expo-router';
 import i18next from 'i18next';
 import 'react-native-unistyles/mocks';

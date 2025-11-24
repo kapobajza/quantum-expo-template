@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import { Pressable } from 'react-native';
 import Animated, {
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet } from 'react-native-unistyles';
+import { scheduleOnRN } from 'react-native-worklets';
 
 import { ModalItem } from './types';
 
@@ -45,7 +45,7 @@ export const Modal = ({ item, isPendingClose, removeModal }: ModalProps) => {
         duration: 300,
       },
       () => {
-        runOnJS(handleAnimationEnd)();
+        scheduleOnRN(handleAnimationEnd);
       },
     );
   }, [item.id, removeModal, scaleAnimation]);

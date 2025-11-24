@@ -19,7 +19,6 @@
     "metro.config.js",
     "babel.config.js",
     "svgr.config.js",
-    "plugins/*.js",
-    "test/__mocks__/svg.mjs"
+    "plugins/*.js"
   ]
 }

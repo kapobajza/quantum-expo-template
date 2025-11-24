@@ -2,12 +2,12 @@ import { useEffect } from 'react';
 import { View } from 'react-native';
 import Animated, {
   interpolate,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
 import { StyleSheet } from 'react-native-unistyles';
+import { scheduleOnRN } from 'react-native-worklets';
 
 import { Box } from '@/components/Container/Box';
 import { Icon, IconName } from '@/components/Icon';
@@ -53,7 +53,7 @@ export const Toast = ({
     };
 
     positionXAnim.value = withTiming(0, { duration: 500 }, () => {
-      runOnJS(handleAnimationEnd)();
+      scheduleOnRN(handleAnimationEnd);
     });
   };
 

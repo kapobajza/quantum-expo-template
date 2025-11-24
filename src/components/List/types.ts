@@ -47,7 +47,10 @@ export type FlashListProps<TItem> = CommonListProps &
   ShopifyFlashListProps<TItem>;
 
 export type BottomSheetFlatListProps<TItem> = CommonListProps &
-  ComponentProps<typeof BSFlatList<TItem>>;
+  Omit<ComponentProps<typeof BSFlatList<TItem>>, 'renderItem' | 'data'> & {
+    renderItem: (info: { item: TItem }) => ReactElement;
+    data: TItem[];
+  };
 
 export type BottomSheetFlashListProps<TItem> = CommonListProps &
   ComponentProps<typeof BSFlashList<TItem>>;

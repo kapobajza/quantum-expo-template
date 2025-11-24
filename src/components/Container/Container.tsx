@@ -1,6 +1,7 @@
 import { get } from 'lodash';
 import React from 'react';
-import { Platform, SafeAreaView, View, ViewProps } from 'react-native';
+import { Platform, View, ViewProps } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { Loader } from '@/components/Loader';

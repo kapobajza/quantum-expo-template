@@ -5,7 +5,7 @@ interface FormatDateParams {
   formatString: string;
 }
 
-// eslint-disable-next-line @eslint-react/hooks-extra/no-unnecessary-use-prefix
+// eslint-disable-next-line @eslint-react/no-unnecessary-use-prefix
 export const useDateTime = () => {
   return {
     formatDate: (params?: Partial<FormatDateParams>) => {

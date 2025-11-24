@@ -24,6 +24,7 @@ export const QueryProvider = ({
   const mapError = useMapError();
   const { showError } = useToast();
 
+  // eslint-disable-next-line @eslint-react/naming-convention/use-state
   const [queryClient] = useState(() => {
     return new QueryClient({
       defaultOptions: {

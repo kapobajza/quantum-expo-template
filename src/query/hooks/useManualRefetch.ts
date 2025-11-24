@@ -8,15 +8,15 @@ const useManualRefetch = <TData, TError>(
     options?: RefetchOptions,
   ) => Promise<QueryObserverResult<TData, TError>>,
 ): UseManualRefetchResult => {
-  const [isRefetchingManually, setIsRefetching] = useState(false);
+  const [isRefetchingManually, setIsRefetchingManually] = useState(false);
 
   return {
     manualRefetch: async function manualRefetch(params) {
       try {
-        setIsRefetching(true);
+        setIsRefetchingManually(true);
         await refetch(params);
       } finally {
-        setIsRefetching(false);
+        setIsRefetchingManually(false);
       }
     },
     isRefetchingManually,
